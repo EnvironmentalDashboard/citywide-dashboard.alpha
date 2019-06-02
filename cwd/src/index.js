@@ -8,5 +8,5 @@ export {fx} from "./fx";
 export {frameChanger} from "./animation/frameChanger";
 export {pathMover} from "./animation/pathMover";
 
-export {svgDriver} from "./driver/svg/bridge";
+export {bridge as svgDriver} from "./driver/svg/bridge";
 export {engine} from "./mapEngine";

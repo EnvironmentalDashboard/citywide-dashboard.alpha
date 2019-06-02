@@ -6,7 +6,7 @@ export const glyph = (state) => {
             }
 
             driver.handleRender(state);
-            s
+
             /*if(!state.hasOwnProperty('$link')) {
                 state.$link = driver.register(state.graphic);
             }

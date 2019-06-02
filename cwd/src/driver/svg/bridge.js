@@ -25,12 +25,14 @@ export const bridge = ($svg) => {
         state.$link = strategyLookup(state.graphic.type).call().create(state.graphic);
 
         // event driver
-        state.events.forEach((event) => {
-            state.$link.addEventListener(
-                event.type,
-                event.listener
-            );
-        });
+        if (state.events !== undefined) {
+            state.events.forEach((event) => {
+                state.$link.addEventListener(
+                    event.type,
+                    event.listener
+                );
+            });
+        }
 
         return $svg.appendChild(state.$link);
     };
