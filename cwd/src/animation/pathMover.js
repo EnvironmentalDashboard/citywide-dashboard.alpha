@@ -15,6 +15,7 @@ export const pathMover = (state) => {
 
         path: function(shape) {
             path = shape;
+      state.path = shape;
 
             return this;
         },
@@ -24,12 +25,12 @@ export const pathMover = (state) => {
 
             let current = timestamp % duration;
 
-            let lengthOnPath = (current / duration) * path.$link.getTotalLength();
+      let lengthOnPath = (current / duration) * state.path.$link.getTotalLength();
     
             /**
              * @todo This may be leakly logic...
              */
-            let point = path.$link.getPointAtLength(lengthOnPath);
+      let point = state.path.$link.getPointAtLength(lengthOnPath);
     
             state.style = Object.assign(state.style, {
                 transform: 'translate(' + point.x + 'px, ' + point.y + 'px)'

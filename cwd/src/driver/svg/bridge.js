@@ -23,7 +23,9 @@ export const bridge = ($svg) => {
         }
 
         state.$link = strategyLookup(state.graphic.type).call().create(state.graphic);
-
+        if (state.path) {
+            state.path.$link = strategyLookup(state.path.graphic.type).call().create(state.path.graphic);
+        }
         // event driver
         if (state.events !== undefined) {
             state.events.forEach((event) => {
@@ -39,6 +41,9 @@ export const bridge = ($svg) => {
 
     let update = (state) => {
         strategyLookup(state.graphic.type).call().update(state);
+        if (state.path) {
+            strategyLookup(state.path.graphic.type).call().update(state.path)
+        }
     };
 
     return {

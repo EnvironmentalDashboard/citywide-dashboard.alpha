@@ -18,7 +18,6 @@
 
         return Object.assign(
             state,
-            cwd.glyph(state),
             cwd.graphic(state).shape(
                 cwd.pathShape().coords('M500,250 L400,240 L240,160 L160,40 L80,80 L-100,100')
             )
@@ -53,7 +52,6 @@
     let tweetPath = zigPath();
     let tweet = bird(tweetPath);
 
-    dash.addGlyph(tweetPath);
     dash.addGlyph(tweet);
     dash.render();
 })(window.cwd);
