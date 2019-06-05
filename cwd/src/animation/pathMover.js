@@ -1,45 +1,45 @@
-export const pathMover = (state) => {
-    let duration = 5000;
+export const pathMover = state => {
+  let duration = 5000;
 
-    let lastStepped = 0;
-    let stepEvery = 1;
+  let lastStepped = 0;
+  let stepEvery = 1;
 
-    let path = null;
+  let path = null;
 
-    return {
-        duration: function(dur) {
-            duration = dur;
+  return {
+    duration: function(dur) {
+      duration = dur;
 
-            return this;
-        },
+      return this;
+    },
 
-        path: function(shape) {
-            path = shape;
+    path: function(shape) {
+      path = shape;
       state.path = shape;
 
-            return this;
-        },
+      return this;
+    },
 
-        step: function(timestamp) {
-            lastStepped = timestamp;
+    step: function(timestamp) {
+      lastStepped = timestamp;
 
-            let current = timestamp % duration;
+      let current = timestamp % duration;
 
-      let lengthOnPath = (current / duration) * state.path.$link.getTotalLength();
-    
-            /**
-             * @todo This may be leakly logic...
-             */
+      let lengthOnPath =
+        (current / duration) * state.path.$link.getTotalLength();
+
+      /**
+       * @todo This may be leakly logic...
+       */
       let point = state.path.$link.getPointAtLength(lengthOnPath);
-    
-            state.style = Object.assign(state.style, {
-                transform: 'translate(' + point.x + 'px, ' + point.y + 'px)'
-            });
-        },
 
-        readyToStep: function(timestamp) {
-            return timestamp - lastStepped >= stepEvery;
-        }
-    };
+      state.style = Object.assign(state.style, {
+        transform: 'translate(' + point.x + 'px, ' + point.y + 'px)'
+      });
+    },
+
+    readyToStep: function(timestamp) {
+      return timestamp - lastStepped >= stepEvery;
+    }
+  };
 };
-

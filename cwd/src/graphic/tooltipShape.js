@@ -1,18 +1,18 @@
 export const tooltipShape = () => {
-    let graphic = {
-        type: 'tooltip',
-        url: null
-    };
+  let graphic = {
+    type: 'tooltip',
+    url: null
+  };
 
-    return {
-        text: function(text) {
-            graphic.text = text;
+  return {
+    text: function(text) {
+      graphic.text = text;
 
-            return this;
-        },
+      return this;
+    },
 
-        graphic: function() {
-            return graphic;
-        }
-    };
+    graphic: function() {
+      return graphic;
+    }
+  };
 };
