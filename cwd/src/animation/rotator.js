@@ -1,12 +1,16 @@
 import { getCompositeTransform } from './commonFunctions';
 
-export const pathMover = state => {
+export const rotator = state => {
   let duration = 5000;
+  let direction = 'clockwise';
 
   let lastStepped = 0;
   let stepEvery = 1;
 
-  let path = null;
+  const directionDictionary = {
+    clockwise: 1,
+    counterclockwise: -1
+  };
 
   return {
     duration: function(dur) {
@@ -15,28 +19,23 @@ export const pathMover = state => {
       return this;
     },
 
-    path: function(shape) {
-      path = shape;
-      state.path = shape;
+    direction: function(dir) {
+      if (dir != 'clockwise' && dir != 'counterclockwise') {
+        return this;
+      }
+      direction = dir;
 
       return this;
     },
 
     step: function(timestamp) {
       lastStepped = timestamp;
-
-      let current = timestamp % duration;
-
-      let lengthOnPath =
-        (current / duration) * state.path.$link.getTotalLength();
-
-      /**
-       * @todo This may be leakly logic...
-       */
-      let point = state.path.$link.getPointAtLength(lengthOnPath);
+      const current = timestamp % duration;
+      const turnsRotated =
+        (current / duration) * directionDictionary[direction];
       const transform = getCompositeTransform(
         state,
-        `translate(${point.x}px, ${point.y}px)`
+        `rotate(${turnsRotated}turn)`
       );
 
       state.style = Object.assign(state.style, { transform });
