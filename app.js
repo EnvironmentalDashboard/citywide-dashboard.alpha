@@ -1,7 +1,7 @@
 (function(cwd) {
   let svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  svg.setAttribute('width', '500px');
-  svg.setAttribute('height', '500px');
+  svg.setAttribute('width', '1920px');
+  svg.setAttribute('height', '1080px');
 
   document.getElementById('map').appendChild(svg);
 
