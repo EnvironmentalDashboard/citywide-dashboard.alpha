@@ -1,28 +1,33 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Citywide Dashboard</title>
+  <head>
+    <title>Citywide Dashboard</title>
 
-        <style type="text/css">
-            body, * {
-                padding: 0;
-                margin: 0;
-            }
+    <style type="text/css">
+      body,
+      * {
+        padding: 0;
+        margin: 0;
+      }
 
-            #map {
-                height: 80vh;
-                width: 80vw;
-            }
-        </style>
-    </head>
-    <body>
-        <div id="page-wrap">
-            <div id="dashboard-wrap">
-                <div id="map"></div>
-            </div>
-        </div>
+      #map {
+        height: 80vh;
+        width: 80vw;
+      }
 
-        <script src="./cwd/dist/cwd-bundle.js"></script>
-        <script src="./app.js"></script>
-    </body>
+      svg * {
+        transform-origin: 50% 50%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="page-wrap">
+      <div id="dashboard-wrap">
+        <div id="map"></div>
+      </div>
+    </div>
+
+    <script src="./cwd/dist/cwd-bundle.js"></script>
+    <script src="./app.js"></script>
+  </body>
 </html>
