@@ -1,4 +1,4 @@
 #!/bin/bash
 
 cd cwd
-rollup -c
+npm run build-prod
