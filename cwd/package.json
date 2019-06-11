@@ -21,9 +21,10 @@
   "homepage": "https://github.com/EnvironmentalDashboard/citywide-dashboard.alpha#readme",
   "devDependencies": {
     "webpack": "^4.33.0",
-    "webpack-cli": "^3.3.3"
+    "webpack-cli": "^3.3.4"
   },
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "mongodb": "^3.2.7"
   }
 }
