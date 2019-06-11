@@ -7,6 +7,7 @@
 
   let animationDriver = window.requestAnimationFrame.bind(window);
   let graphicsDriver = cwd.svgDriver(svg);
+  let editorDriver = cwd.editorDriver;
 
   let dash = cwd.engine(graphicsDriver, animationDriver);
   const EDIT_MODE = 0;
@@ -34,23 +35,19 @@
       cwd
         .svgImageShape()
         .url('./images/bird/1.svg')
-        .size('150px')
-        .preventDrag(),
+        .size('150px'),
       cwd
         .svgImageShape()
         .url('./images/bird/2.svg')
-        .size('150px')
-        .preventDrag(),
+        .size('150px'),
       cwd
         .svgImageShape()
         .url('./images/bird/3.svg')
-        .size('150px')
-        .preventDrag(),
+        .size('150px'),
       cwd
         .svgImageShape()
         .url('./images/bird/4.svg')
         .size('150px')
-        .preventDrag()
     ];
 
     let state = {
@@ -63,7 +60,7 @@
 
     return Object.assign(
       state,
-      cwd.glyph(state),
+      cwd.glyph(state).preventEdits(),
       cwd.graphic(state).shape(frames[0]),
       cwd.fx([
         cwd
@@ -82,8 +79,7 @@
     let content = cwd
       .svgImageShape()
       .url('./images/riverscwd.svg')
-      .size('1920px', '1080px')
-      .preventDrag();
+      .size('1920px', '1080px');
 
     let state = {
       graphic: {},
@@ -92,7 +88,7 @@
 
     return Object.assign(
       state,
-      cwd.glyph(state),
+      cwd.glyph(state).preventEdits(),
       cwd.graphic(state).shape(content)
     );
   };
@@ -352,9 +348,6 @@
   dash.render();
 
   if (EDIT_MODE) {
-    const draggables = Array.from(document.getElementsByClassName('draggable'));
-    draggables.forEach(draggable => {
-      draggable.addEventListener('load', cwd.makeDraggable);
-    });
+    dash.edit(editorDriver);
   }
 })(window.cwd);

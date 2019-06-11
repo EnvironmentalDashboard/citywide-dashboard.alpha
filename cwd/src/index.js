@@ -12,4 +12,4 @@ export { rotator } from './animation/rotator';
 export { bridge as svgDriver } from './driver/svg/bridge';
 export { engine } from './mapEngine';
 
-export { makeDraggable } from './editor';
+export { editorDriver } from './editor';

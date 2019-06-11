@@ -21,12 +21,6 @@ export const svgImageShape = () => {
 
     graphic: function() {
       return graphic;
-    },
-
-    preventDrag: function() {
-      graphic.draggable = false;
-
-      return this;
     }
   };
 };

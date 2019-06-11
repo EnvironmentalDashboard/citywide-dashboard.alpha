@@ -1,4 +1,4 @@
-export const makeDraggable = evt => {
+export const editorDriver = evt => {
   const svg = evt.target;
 
   let element = null,

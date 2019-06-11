@@ -58,6 +58,21 @@ export const engine = (gfxDriver, animationsDriver) => {
 
     addGlyph: glyph => {
       glyphs.push(glyph);
+    },
+
+    edit: function(driver) {
+      glyphs.forEach(glyph => {
+        if (!glyph.notMoveable) {
+          glyph.$link.classList.add('draggable');
+        }
+      });
+
+      const draggables = Array.from(
+        document.getElementsByClassName('draggable')
+      );
+      draggables.forEach(draggable => {
+        draggable.addEventListener('load', driver);
+      });
     }
   };
 };
