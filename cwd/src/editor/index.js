@@ -10,13 +10,12 @@ export const editorDriver = evt => {
   const startDrag = evt => {
     if (evt.target.classList.contains('draggable')) {
       element = evt.target;
+      element.parentNode.appendChild(element);
+      element.style.opacity = '0.75';
     }
     evt.preventDefault();
 
-    // console.log("you've got the element", element);
-
     let transform = element.style.transform;
-    // console.log('at the start, transform is:', transform);
     let translate = translateRe.exec(transform);
     dragX = evt.clientX;
     dragY = evt.clientY;
@@ -31,7 +30,6 @@ export const editorDriver = evt => {
         element.style.transform = translate + transform;
       } else {
         element.style.transform = 'translate(10px, 10px)';
-        // console.log('in else, the transform is ', element.style.transform);
       }
     }
   };
@@ -41,17 +39,17 @@ export const editorDriver = evt => {
       evt.preventDefault();
       let x = evt.clientX - dragX;
       let y = evt.clientY - dragY;
-      // console.log('x is', x, 'y is', y);
-      // console.log('element is', element);
       let transform = element.style.transform;
-      // console.log('current transform', transform);
       transform = transform.replace(translateRe, `translate(${x}px, ${y}px)`);
-      // console.log('new transform', transform);
+
       element.style.transform = transform;
     }
   };
 
   const endDrag = evt => {
+    if (element) {
+      element.style.opacity = '1.0';
+    }
     element = null;
   };
 

@@ -344,7 +344,6 @@
   bridgeCar.style.x = 560;
   bridgeCar.style.y = 365;
   dash.addGlyph(bridgeCar);
-
   dash.render();
 
   if (EDIT_MODE) {
