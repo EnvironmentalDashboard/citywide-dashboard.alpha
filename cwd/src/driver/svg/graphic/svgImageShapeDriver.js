@@ -28,6 +28,10 @@ export const svgImageShapeDriver = () => {
         state.$link.setAttribute('height', '400px');
       }
 
+      if (state.graphic.draggable) {
+        state.$link.classList.add('draggable');
+      }
+
       for (var key in state.style) {
         state.$link.style[key] = state.style[key];
       }

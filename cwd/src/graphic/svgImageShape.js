@@ -1,7 +1,8 @@
 export const svgImageShape = () => {
   let graphic = {
     type: 'svgImage',
-    url: null
+    url: null,
+    draggable: true
   };
 
   return {
@@ -20,6 +21,12 @@ export const svgImageShape = () => {
 
     graphic: function() {
       return graphic;
+    },
+
+    preventDrag: function() {
+      graphic.draggable = false;
+
+      return this;
     }
   };
 };

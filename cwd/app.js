@@ -9,6 +9,7 @@
   let graphicsDriver = cwd.svgDriver(svg);
 
   let dash = cwd.engine(graphicsDriver, animationDriver);
+  const EDIT_MODE = 0;
 
   const zigPath = () => {
     let state = {
@@ -33,19 +34,23 @@
       cwd
         .svgImageShape()
         .url('./images/bird/1.svg')
-        .size('150px'),
+        .size('150px')
+        .preventDrag(),
       cwd
         .svgImageShape()
         .url('./images/bird/2.svg')
-        .size('150px'),
+        .size('150px')
+        .preventDrag(),
       cwd
         .svgImageShape()
         .url('./images/bird/3.svg')
-        .size('150px'),
+        .size('150px')
+        .preventDrag(),
       cwd
         .svgImageShape()
         .url('./images/bird/4.svg')
         .size('150px')
+        .preventDrag()
     ];
 
     let state = {
@@ -77,7 +82,8 @@
     let content = cwd
       .svgImageShape()
       .url('./images/riverscwd.svg')
-      .size('1920px', '1080px');
+      .size('1920px', '1080px')
+      .preventDrag();
 
     let state = {
       graphic: {},
@@ -344,4 +350,11 @@
   dash.addGlyph(bridgeCar);
 
   dash.render();
+
+  if (EDIT_MODE) {
+    const draggables = Array.from(document.getElementsByClassName('draggable'));
+    draggables.forEach(draggable => {
+      draggable.addEventListener('load', cwd.makeDraggable);
+    });
+  }
 })(window.cwd);
