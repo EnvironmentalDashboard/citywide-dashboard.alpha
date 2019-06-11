@@ -65,6 +65,7 @@ export const engine = (gfxDriver, animationsDriver) => {
         if (!glyph.notMoveable) {
           glyph.$link.classList.add('draggable');
         }
+        animatedGlyphs = [];
       });
 
       const draggables = Array.from(
