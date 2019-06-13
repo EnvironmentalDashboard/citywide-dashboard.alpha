@@ -31,7 +31,7 @@
   };
 
   const bird = path => {
-    let frames = [
+    let frameShapes = [
       cwd
         .svgImageShape()
         .url('./images/bird/1.svg')
@@ -58,15 +58,16 @@
       }
     };
 
+    // TODO: get rid of preventEdits residue
     return Object.assign(
       state,
       cwd.glyph(state).preventEdits(),
-      cwd.graphic(state).shape(frames[0]),
+      cwd.graphic(state).shape(frameShapes[0]),
       cwd.fx([
         cwd
           .frameChanger(state)
           .duration(1000)
-          .frames(frames),
+          .frames(frameShapes),
         cwd
           .pathMover(state)
           .duration(3000)
