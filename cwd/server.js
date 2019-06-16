@@ -9,7 +9,7 @@ const handler = require('./handler');
 var MongoClient = require('mongodb').MongoClient;
 
 // Constants
-const PORT = 8080;
+const PORT = 80;
 const HOST = '0.0.0.0';
 var dburl = 'mongodb://159.89.232.129:27017/testdb';
 
