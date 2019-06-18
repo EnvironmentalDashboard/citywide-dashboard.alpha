@@ -10,7 +10,7 @@
   let editorDriver = cwd.editorDriver;
 
   let dash = cwd.engine(graphicsDriver, animationDriver);
-  const EDIT_MODE = 0;
+  const EDIT_MODE = 1;
 
   const zigPath = () => {
     let state = {
