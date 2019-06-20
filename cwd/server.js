@@ -21,8 +21,8 @@ app.use(express.static(__dirname));
 app.use(express.static('./city-editor'));
 
 // Load view engine
-app.set('views', path.join(__dirname, 'views'));
-app.set ('view engine', 'pug');
+// app.set('views', path.join(__dirname, 'views'));
+// app.set ('view engine', 'pug');
 
 app.listen(PORT, HOST);
 console.log(`Running on http://${HOST}:${PORT}`);
@@ -40,6 +40,7 @@ console.log(`Running on http://${HOST}:${PORT}`);
 
 app.get('/editor', (req, res) => {
   console.log('Received GET request at /editor');
+  console.log("is this working?");
   handler.getTheBird();
   //   .then(arr => res.send(arr))
   //   .catch(err => console.log(err));
@@ -50,10 +51,10 @@ app.get('/testviews', (req, res)=>{
   res.render('test');
 });
 
-// app.get('/', (req, res) => {
-//   const glyphs = getTheBird();
+app.get('/', (req, res) => {
+  const glyphs = getTheBird();
 
-//   const parsed = runtheScript(glyphs);
+  const parsed = runtheScript(glyphs);
 
-//   res.render('index', { parsed });
-// });
+  res.render('index', { parsed });
+});

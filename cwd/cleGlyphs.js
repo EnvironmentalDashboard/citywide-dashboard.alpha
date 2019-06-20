@@ -86,9 +86,7 @@ const _bird = {
       chain: null
     }
   ]
-};
-
-const 
+}; 
 
 const zigPath = () => {
   let state = {
