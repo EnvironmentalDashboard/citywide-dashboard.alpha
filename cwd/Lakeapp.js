@@ -2,13 +2,20 @@
 (function(cwd) {
     let svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
   
-  
-  
   var height = window.innerHeight
   || document.documentElement.clientHeight
   || document.body.clientHeight;
   
   var width = (16/9) * height;
+
+  // This makes sure width isn't too big for the screen, and switches to calculate based off of full width
+  if(width > (window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth)){
+    width = window.innerWidth
+    || document.documentElement.clientWidth
+    || document.body.clientWidth;
+
+    height = width * (9/16);
+  }
   
     svg.setAttribute('width', width);
     svg.setAttribute('height', height);
@@ -102,6 +109,69 @@
       return Object.assign(
         state,
         cwd.glyph(state).preventEdits(),
+        cwd.graphic(state).shape(content)
+      );
+    };
+
+    const TextBanner = () => {
+      let content = cwd
+        .svgImageShape()
+        .url('./images/lakeeriecrib_text.svg')
+        .size('20%');
+  
+      let state = {
+        graphic: {},
+        style: {
+          x: '9.8%',
+          y: '8%'
+        }
+      };
+
+      return Object.assign(
+        state,
+        cwd.glyph(state),
+        cwd.graphic(state).shape(content)
+      );
+    };
+
+      const CWDIcon = () => {
+        let content = cwd
+          .svgImageShape()
+          .url('./images/CWDIcon.svg')
+          .size('10%');
+    
+        let state = {
+          graphic: {},
+          style: {
+            x: '0%',
+            y: '0%'
+          }
+        };
+  
+      return Object.assign(
+        state,
+        cwd.glyph(state),
+        cwd.graphic(state).shape(content)
+      );
+    };
+
+    const CWDText = () => {
+      let content = cwd
+        .svgImageShape()
+        .url('./images/citywidedashboard_text.svg')
+        .size('40%');
+  
+      let state = {
+        graphic: {},
+        style: {
+          x: '10%',
+          y: '0%'
+        }
+      };
+
+      return Object.assign(
+        state,
+        cwd.glyph(state),
         cwd.graphic(state).shape(content)
       );
     };
@@ -409,12 +479,12 @@
       let content = cwd
         .svgImageShape()
         .url('./images/Agricultureisland.svg')
-        .size('26.0417%');
+        .size('25%');
   
       let state = {
         graphic: {},
         style: {
-          x: '-1.30208%',
+          x: '0%',
           y: '52.3148%'
         }
       };
@@ -432,6 +502,9 @@
   
     let allGlyphs = [
       background,
+      TextBanner,
+      CWDIcon,
+      CWDText,
       tempgauge,
       wastewatertreatedgauge,
       watertreatmentelectricgauge,
