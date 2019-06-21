@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Citywide Dashboard</title>
+
+    <style type="text/css">
+      body,
+      * {
+        padding: 0;
+        margin: 0;
+        background-color: #915f1e
+      }
+
+      #map {
+        height: 100vh;
+        width: 100vw;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      svg * {
+        transform-origin: 50% 50%;
+      }
+
+      image  {
+        transform-origin: 37.34375% 20.27778%;
+      }
+
+      .draggable {
+        cursor: move;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="page-wrap">
+      <div id="dashboard-wrap">
+        <div id="map"></div>
+      </div>
+    </div>
+
+    <script src="./dist/cwd-bundle.js"></script>
+    <script src="Lakeapp.js"></script>
+  </body>
+</html>
