@@ -46,7 +46,7 @@
           .shape(
             cwd
               .pathShape()
-              .coords('M500,250 L400,240 L240,160 L160,40 L80,80 L-100,100')
+              .coords('M1920,1080 L1500,900 L1000,800 L900,400 L240,160 L160,40 L80,80 L-1000,300')
           )
       );
     };
@@ -91,7 +91,7 @@
             .frames(frameShapes),
           cwd
             .pathMover(state)
-            .duration(3000)
+            .duration(10000)
             .path(path)
         ])
       );
