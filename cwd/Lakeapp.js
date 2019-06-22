@@ -44,7 +44,7 @@
           .shape(
             cwd
               .pathShape()
-              .coords('M500,250 L400,240 L240,160 L160,40 L80,80 L-100,100')
+              .coords('M1920,1080 L1500,900 L1000,800 L900,400 L240,160 L160,40 L80,80 L-1000,300')
           )
       );
     };
@@ -89,7 +89,7 @@
             .frames(frameShapes),
           cwd
             .pathMover(state)
-            .duration(3000)
+            .duration(10000)
             .path(path)
         ])
       );
@@ -197,17 +197,17 @@
       );
     };
   
-    const tempgauge = () => {
+    const gaugeone = () => {
       let content = cwd
         .svgImageShape()
         .url('./images/tempgauge.svg')
-        .size('18.2292%');
+        .size('20%');
   
       let state = {
         graphic: {},
         style: {
-          x: '79.6875%',
-          y: '1.852%'
+          x: '79.6%',
+          y: '0%'
         }
       };
   
@@ -218,17 +218,17 @@
       );
     };
   
-    const wastewatertreatedgauge = () => {
+    const gaugetwo = () => {
       let content = cwd
         .svgImageShape()
         .url('./images/wastewatertreatedgauge.svg')
-        .size('18.2292%');
+        .size('20%');
   
       let state = {
         graphic: {},
         style: {
-          x: '79.6875%',
-          y: '25%'
+          x: '79.6%',
+          y: '25.56%'
         }
       };
   
@@ -239,17 +239,17 @@
       );
     };
   
-    const watertreatmentelectricgauge = () => {
+    const gaugthree = () => {
       let content = cwd
         .svgImageShape()
         .url('./images/watertreatmentelectricgauge.svg')
-        .size('18.2292%');
+        .size('20%');
   
       let state = {
         graphic: {},
         style: {
-          x: '79.6875%',
-          y: '48.15%'
+          x: '79.6%',
+          y: '51.12%'
         }
       };
   
@@ -260,17 +260,17 @@
     );
   };
   
-    const drinkinggauge = () => {
+    const gaugefour = () => {
       let content = cwd
         .svgImageShape()
         .url('./images/drinkinggauge.svg')
-        .size('18.2292%');
+        .size('20%');
   
       let state = {
         graphic: {},
         style: {
-          x: '79.6875%',
-          y: '71.2963%'
+          x: '79.6%',
+          y: '76.7%'
         }
       };
   
@@ -505,10 +505,10 @@
       TextBanner,
       CWDIcon,
       CWDText,
-      tempgauge,
-      wastewatertreatedgauge,
-      watertreatmentelectricgauge,
-      drinkinggauge,
+      gaugeone,
+      gaugetwo,
+      gaugthree,
+      gaugefour,
       crib,
       glsc,
       turbines,
