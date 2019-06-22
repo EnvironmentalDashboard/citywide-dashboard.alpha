@@ -6,6 +6,12 @@ export const glyph = state => {
       }
 
       driver.handleRender(state);
+    },
+
+    preventEdits: function() {
+      state.notMoveable = true;
+
+      return this;
     }
   };
 };

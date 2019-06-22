@@ -1,347 +1,481 @@
+
 (function(cwd) {
-  let svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  svg.setAttribute('width', '1920px');
-  svg.setAttribute('height', '1080px');
-
-  document.getElementById('map').appendChild(svg);
-
-  let animationDriver = window.requestAnimationFrame.bind(window);
-  let graphicsDriver = cwd.svgDriver(svg);
-
-  let dash = cwd.engine(graphicsDriver, animationDriver);
-
-  const zigPath = () => {
-    let state = {
-      graphic: {},
-      style: {}
+    let svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  
+  
+  
+  var height = window.innerHeight
+  || document.documentElement.clientHeight
+  || document.body.clientHeight;
+  
+  var width = (16/9) * height;
+  
+    svg.setAttribute('width', width);
+    svg.setAttribute('height', height);
+    // svg.setAttribute('viewbox', '0 0 100 100');
+  
+    document.getElementById('map').appendChild(svg);
+  
+    let animationDriver = window.requestAnimationFrame.bind(window);
+    let graphicsDriver = cwd.svgDriver(svg);
+    let editorDriver = cwd.editorDriver;
+  
+    let dash = cwd.engine(graphicsDriver, animationDriver);
+    const EDIT_MODE = 0;
+    console.log(EDIT_MODE);
+  
+    const zigPath = () => {
+      let state = {
+        graphic: {},
+        style: {}
+      };
+  
+      return Object.assign(
+        state,
+        cwd
+          .graphic(state)
+          .shape(
+            cwd
+              .pathShape()
+              .coords('M500,250 L400,240 L240,160 L160,40 L80,80 L-100,100')
+          )
+      );
     };
-
-    return Object.assign(
-      state,
-      cwd
-        .graphic(state)
-        .shape(
+  
+    const bird = path => {
+      let frameShapes = [
+        cwd
+          .svgImageShape()
+          .url('./images/bird/1.svg')
+          .size('7.8125%'),
+        cwd
+          .svgImageShape()
+          .url('./images/bird/2.svg')
+          .size('7.8125%'),
+        cwd
+          .svgImageShape()
+          .url('./images/bird/3.svg')
+          .size('7.8125%'),
+        cwd
+          .svgImageShape()
+          .url('./images/bird/4.svg')
+          .size('7.8125%')
+      ];
+  
+      let state = {
+        graphic: {},
+        style: {
+          x: '26.0417%',
+          y: '46.2963%'
+        }
+      };
+  
+      // TODO: get rid of preventEdits residue
+      return Object.assign(
+        state,
+        cwd.glyph(state).preventEdits(),
+        cwd.graphic(state).shape(frameShapes[0]),
+        cwd.fx([
           cwd
-            .pathShape()
-            .coords('M500,250 L400,240 L240,160 L160,40 L80,80 L-100,100')
-        )
-    );
-  };
-
-  const bird = path => {
-    let frames = [
-      cwd
+            .frameChanger(state)
+            .duration(1000)
+            .frames(frameShapes),
+          cwd
+            .pathMover(state)
+            .duration(3000)
+            .path(path)
+        ])
+      );
+    };
+  
+    const background = () => {
+      let content = cwd
         .svgImageShape()
-        .url('./images/bird/1.svg')
-        .size('150px'),
-      cwd
+        .url('./images/riverscwd.svg')
+        .size(width, height);
+  
+      let state = {
+        graphic: {},
+        style: {}
+      };
+  
+      return Object.assign(
+        state,
+        cwd.glyph(state).preventEdits(),
+        cwd.graphic(state).shape(content)
+      );
+    };
+  
+    const car = () => {
+      let content = cwd
         .svgImageShape()
-        .url('./images/bird/2.svg')
-        .size('150px'),
-      cwd
+        .url('./images/carblue.svg')
+        .size('2.60417%');
+  
+      let state = {
+        graphic: {},
+        style: {
+          x: '45%',
+          y: '31.5%'
+        }
+      };
+  
+      return Object.assign(
+        state,
+        cwd.glyph(state),
+        cwd.graphic(state).shape(content)
+      );
+    };
+  
+    const tempgauge = () => {
+      let content = cwd
         .svgImageShape()
-        .url('./images/bird/3.svg')
-        .size('150px'),
-      cwd
+        .url('./images/tempgauge.svg')
+        .size('18.2292%');
+  
+      let state = {
+        graphic: {},
+        style: {
+          x: '79.6875%',
+          y: '1.852%'
+        }
+      };
+  
+      return Object.assign(
+        state,
+        cwd.glyph(state),
+        cwd.graphic(state).shape(content)
+      );
+    };
+  
+    const wastewatertreatedgauge = () => {
+      let content = cwd
         .svgImageShape()
-        .url('./images/bird/4.svg')
-        .size('150px')
-    ];
-
-    let state = {
-      graphic: {},
-      style: {
-        x: 500,
-        y: 500
-      }
+        .url('./images/wastewatertreatedgauge.svg')
+        .size('18.2292%');
+  
+      let state = {
+        graphic: {},
+        style: {
+          x: '79.6875%',
+          y: '25%'
+        }
+      };
+  
+      return Object.assign(
+        state,
+        cwd.glyph(state),
+        cwd.graphic(state).shape(content)
+      );
     };
-
-    return Object.assign(
-      state,
-      cwd.glyph(state),
-      cwd.graphic(state).shape(frames[0]),
-      cwd.fx([
-        cwd
-          .frameChanger(state)
-          .duration(1000)
-          .frames(frames),
-        cwd
-          .pathMover(state)
-          .duration(3000)
-          .path(path)
-      ])
-    );
-  };
-
-  const background = () => {
-    let content = cwd
-      .svgImageShape()
-      .url('./images/riverscwd.svg')
-      .size('1920px', '1080px');
-
-    let state = {
-      graphic: {},
-      style: {}
-    };
-
+  
+    const watertreatmentelectricgauge = () => {
+      let content = cwd
+        .svgImageShape()
+        .url('./images/watertreatmentelectricgauge.svg')
+        .size('18.2292%');
+  
+      let state = {
+        graphic: {},
+        style: {
+          x: '79.6875%',
+          y: '48.15%'
+        }
+      };
+  
     return Object.assign(
       state,
       cwd.glyph(state),
       cwd.graphic(state).shape(content)
     );
   };
-
-  const car = () => {
-    let content = cwd
-      .svgImageShape()
-      .url('./images/carblue.svg')
-      .size('50px');
-
-    let state = {
-      graphic: {},
-      style: {
-        x: 890,
-        y: 335
-      }
+  
+    const drinkinggauge = () => {
+      let content = cwd
+        .svgImageShape()
+        .url('./images/drinkinggauge.svg')
+        .size('18.2292%');
+  
+      let state = {
+        graphic: {},
+        style: {
+          x: '79.6875%',
+          y: '71.2963%'
+        }
+      };
+  
+      return Object.assign(
+        state,
+        cwd.glyph(state),
+        cwd.graphic(state).shape(content)
+      );
     };
-
-    return Object.assign(
-      state,
-      cwd.glyph(state),
-      cwd.graphic(state).shape(content)
-    );
-  };
-
-  const crib = () => {
-    let content = cwd
-      .svgImageShape()
-      .url('./images/clecrib.svg')
-      .size('360px');
-
-    let state = {
-      graphic: {},
-      style: {
-        x: 225,
-        y: 75
-      }
+  
+    const crib = () => {
+      let content = cwd
+        .svgImageShape()
+        .url('./images/clecrib.svg')
+        .size('18.75%');
+  
+      let state = {
+        graphic: {},
+        style: {
+          x: '11.71875%',
+          y: '6.9444%'
+        }
+      };
+  
+      return Object.assign(
+        state,
+        cwd.glyph(state),
+        cwd.graphic(state).shape(content)
+      );
     };
-
-    return Object.assign(
-      state,
-      cwd.glyph(state),
-      cwd.graphic(state).shape(content)
-    );
-  };
-
-  const glsc = () => {
-    let content = cwd
-      .svgImageShape()
-      .url('./images/GLSCisland.svg')
-      .size('400px');
-
-    let state = {
-      graphic: {},
-      style: {
-        x: 629,
-        y: 160
-      }
+  
+    const glsc = () => {
+      let content = cwd
+        .svgImageShape()
+        .url('./images/GLSCisland.svg')
+        .size('20.833%');
+  
+      let state = {
+        graphic: {},
+        style: {
+          x: '32.76%',
+          y: '14.815%'
+        }
+      };
+  
+      return Object.assign(
+        state,
+        cwd.glyph(state),
+        cwd.graphic(state).shape(content)
+      );
     };
-
-    return Object.assign(
-      state,
-      cwd.glyph(state),
-      cwd.graphic(state).shape(content)
-    );
-  };
-
-  const downtown = () => {
-    let content = cwd
-      .svgImageShape()
-      .url('./images/Cledowntownbuildings.svg')
-      .size('500px');
-
-    let state = {
-      graphic: {},
-      style: {
-        x: 775,
-        y: 100
-      }
-    };
-
-    return Object.assign(
-      state,
-      cwd.glyph(state),
-      cwd.graphic(state).shape(content)
-    );
-  };
-
-  const townhouses = () => {
-    let content = cwd
-      .svgImageShape()
-      .url('./images/townhousesisland.svg')
-      .size('300px');
-
-    let state = {
-      graphic: {},
-      style: {
-        x: 1225,
-        y: 315
-      }
-    };
-
-    return Object.assign(
-      state,
-      cwd.glyph(state),
-      cwd.graphic(state).shape(content)
-    );
-  };
-
-  const waterTreatment = () => {
-    let content = cwd
-      .svgImageShape()
-      .url('./images/Watertreatmentplant.svg')
-      .size('450px');
-
-    let state = {
-      graphic: {},
-      style: {
-        x: 945,
-        y: 605
-      }
-    };
-
-    return Object.assign(
-      state,
-      cwd.glyph(state),
-      cwd.graphic(state).shape(content)
-    );
-  };
-
-  const housesIsland = () => {
-    let content = cwd
-      .svgImageShape()
-      .url('./images/housesisland.svg')
-      .size('625px');
-
-    let state = {
-      graphic: {},
-      style: {
-        x: 390,
-        y: 787
-      }
-    };
-
-    return Object.assign(
-      state,
-      cwd.glyph(state),
-      cwd.graphic(state).shape(content)
-    );
-  };
-
-  const tram = () => {
-    let content = cwd
-      .svgImageShape()
-      .url('./images/RTAtram.svg')
-      .size('250px');
-
-    let state = {
-      graphic: {},
-      style: {
-        x: 920,
-        y: 400
-      }
-    };
-
-    return Object.assign(
-      state,
-      cwd.glyph(state),
-      cwd.graphic(state).shape(content)
-    );
-  };
-
-  const bridge = () => {
-    let content = cwd
-      .svgImageShape()
-      .url('./images/bridge.svg')
-      .size('430px');
-
-    let state = {
-      graphic: {},
-      style: {
-        x: 422,
-        y: 275
-      }
-    };
-
-    return Object.assign(
-      state,
-      cwd.glyph(state),
-      cwd.graphic(state).shape(content)
-    );
-  };
-
-  const agricultureIsland = () => {
-    let content = cwd
-      .svgImageShape()
-      .url('./images/Agricultureisland.svg')
-      .size('500px');
-
-    let state = {
-      graphic: {},
-      style: {
-        x: -25,
-        y: 565
-      }
-    };
-
-    return Object.assign(
-      state,
-      cwd.glyph(state),
-      cwd.graphic(state).shape(content)
-    );
-  };
-
-  const paths = {
-    bird: zigPath
-  };
-
-  let allGlyphs = [
-    background,
-    crib,
-    glsc,
-    downtown,
-    car,
-    townhouses,
-    waterTreatment,
-    housesIsland,
-    agricultureIsland,
-    tram,
-    bridge,
-    bird
-  ];
-
-  for (let obj of allGlyphs) {
-    if (obj.length === 0) {
-      const glyph = obj();
-      dash.addGlyph(glyph);
-    } else {
-      const glyph = obj(paths[obj.name]());
-      dash.addGlyph(glyph);
+  
+    const turbines = () => {
+      let content = cwd
+        .svgImageShape()
+        .url('./images/turbineblades.svg')
+        .size('3.333%');
+  
+      let state = {
+        graphic: {},
+        style: {
+          x: '35.625%',
+          y: '17.222%'
+        }
+      };
+  
+      return Object.assign(
+        state,
+        cwd.glyph(state),
+        cwd.graphic(state).shape(content),
+        cwd.fx([
+          cwd
+            .rotator(state)
+            .duration(3000)
+        ])
+      )
     }
-  }
-
-  // let tweetPath = zigPath();
-  // let tweet = bird(tweetPath);
-  // let rivers = background();
-  // let car = blueCar();
-  // dash.addGlyph(rivers);
-  // dash.addGlyph(tweet);
-  // dash.addGlyph(car);
-
-  const bridgeCar = car();
-  bridgeCar.style.x = 560;
-  bridgeCar.style.y = 365;
-  dash.addGlyph(bridgeCar);
-
-  dash.render();
-})(window.cwd);
+  
+    const downtown = () => {
+      let content = cwd
+        .svgImageShape()
+        .url('./images/Cledowntownbuildings.svg')
+        .size('26.0417%');
+  
+      let state = {
+        graphic: {},
+        style: {
+          x: '40.364583%',
+          y: '9.2593%'
+        }
+      };
+  
+      return Object.assign(
+        state,
+        cwd.glyph(state),
+        cwd.graphic(state).shape(content)
+      );
+    };
+  
+    const townhouses = () => {
+      let content = cwd
+        .svgImageShape()
+        .url('./images/townhousesisland.svg')
+        .size('15.625%');
+  
+      let state = {
+        graphic: {},
+        style: {
+          x: '63.80208%',
+          y: '29.167%'
+        }
+      };
+  
+      return Object.assign(
+        state,
+        cwd.glyph(state),
+        cwd.graphic(state).shape(content)
+      );
+    };
+  
+    const waterTreatment = () => {
+      let content = cwd
+        .svgImageShape()
+        .url('./images/Watertreatmentplant.svg')
+        .size('23.4375%');
+  
+      let state = {
+        graphic: {},
+        style: {
+          x: '49.21875%',
+          y: '56.0185%'
+        }
+      };
+  
+      return Object.assign(
+        state,
+        cwd.glyph(state),
+        cwd.graphic(state).shape(content)
+      );
+    };
+  
+    const housesIsland = () => {
+      let content = cwd
+        .svgImageShape()
+        .url('./images/housesisland.svg')
+        .size('32.5521%');
+  
+      let state = {
+        graphic: {},
+        style: {
+          x: '20.3125%',
+          y: '72.8704%'
+        }
+      };
+  
+      return Object.assign(
+        state,
+        cwd.glyph(state),
+        cwd.graphic(state).shape(content)
+      );
+    };
+  
+    const tram = () => {
+      let content = cwd
+        .svgImageShape()
+        .url('./images/RTAtram.svg')
+        .size('13.02083%');
+  
+      let state = {
+        graphic: {},
+        style: {
+          x: '47.9167%',
+          y: '37.037%'
+        }
+      };
+  
+      return Object.assign(
+        state,
+        cwd.glyph(state),
+        cwd.graphic(state).shape(content)
+      );
+    };
+  
+    const bridge = () => {
+      let content = cwd
+        .svgImageShape()
+        .url('./images/bridge.svg')
+        .size('22.396%');
+  
+      let state = {
+        graphic: {},
+        style: {
+          x: '21.98%',
+          y: '25.463%'
+        }
+      };
+  
+      return Object.assign(
+        state,
+        cwd.glyph(state),
+        cwd.graphic(state).shape(content)
+      );
+    };
+  
+    const agricultureIsland = () => {
+      let content = cwd
+        .svgImageShape()
+        .url('./images/Agricultureisland.svg')
+        .size('26.0417%');
+  
+      let state = {
+        graphic: {},
+        style: {
+          x: '-1.30208%',
+          y: '52.3148%'
+        }
+      };
+  
+      return Object.assign(
+        state,
+        cwd.glyph(state),
+        cwd.graphic(state).shape(content)
+      );
+    };
+  
+    const paths = {
+      bird: zigPath
+    };
+  
+    let allGlyphs = [
+      background,
+      tempgauge,
+      wastewatertreatedgauge,
+      watertreatmentelectricgauge,
+      drinkinggauge,
+      crib,
+      glsc,
+      turbines,
+      downtown,
+      car,
+      townhouses,
+      waterTreatment,
+      housesIsland,
+      agricultureIsland,
+      tram,
+      bridge,
+      bird
+    ];
+  
+    for (let obj of allGlyphs) {
+      if (obj.length === 0) {
+        const glyph = obj();
+        dash.addGlyph(glyph);
+      } else {
+        const glyph = obj(paths[obj.name]());
+        dash.addGlyph(glyph);
+      }
+    }
+  
+    // let tweetPath = zigPath();
+    // let tweet = bird(tweetPath);
+    // let rivers = background();
+    // let car = blueCar();
+    // dash.addGlyph(rivers);
+    // dash.addGlyph(tweet);
+    // dash.addGlyph(car);
+  
+    const bridgeCar = car();
+    bridgeCar.style.x = '29.167%';
+    bridgeCar.style.y = '33.7963%';
+    dash.addGlyph(bridgeCar);
+    dash.render();
+  
+    if (EDIT_MODE) {
+      dash.edit(editorDriver);
+      console.log("In Edit mode");
+    }
+  })(window.cwd);  

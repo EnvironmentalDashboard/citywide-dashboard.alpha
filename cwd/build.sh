@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker build -t city-editor .
+docker build -t citywide-dashboard .
