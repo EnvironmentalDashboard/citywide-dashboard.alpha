@@ -101,7 +101,7 @@
       let content = cwd
         .svgImageShape()
         .url('./images/riverscwd.svg')
-        .size(width, height);
+        .size('100%', '100%');
   
       let state = {
         graphic: {},
@@ -198,17 +198,17 @@
       );
     };
   
-    const tempgauge = () => {
+    const gaugeone = () => {
       let content = cwd
         .svgImageShape()
         .url('./images/tempgauge.svg')
-        .size('18.2292%');
+        .size('20%');
   
       let state = {
         graphic: {},
         style: {
-          x: '79.6875%',
-          y: '1.852%'
+          x: '79.6%',
+          y: '0%'
         }
       };
   
@@ -219,17 +219,17 @@
       );
     };
   
-    const wastewatertreatedgauge = () => {
+    const gaugetwo = () => {
       let content = cwd
         .svgImageShape()
         .url('./images/wastewatertreatedgauge.svg')
-        .size('18.2292%');
+        .size('20%');
   
       let state = {
         graphic: {},
         style: {
-          x: '79.6875%',
-          y: '25%'
+          x: '79.6%',
+          y: '25.56%'
         }
       };
   
@@ -240,17 +240,17 @@
       );
     };
   
-    const watertreatmentelectricgauge = () => {
+    const gaugethree = () => {
       let content = cwd
         .svgImageShape()
         .url('./images/watertreatmentelectricgauge.svg')
-        .size('18.2292%');
+        .size('20%');
   
       let state = {
         graphic: {},
         style: {
-          x: '79.6875%',
-          y: '48.15%'
+          x: '79.6%',
+          y: '51.12%'
         }
       };
   
@@ -261,17 +261,17 @@
     );
   };
   
-    const drinkinggauge = () => {
+    const gaugefour = () => {
       let content = cwd
         .svgImageShape()
         .url('./images/drinkinggauge.svg')
-        .size('18.2292%');
+        .size('20%');
   
       let state = {
         graphic: {},
         style: {
-          x: '79.6875%',
-          y: '71.2963%'
+          x: '79.6%',
+          y: '76.7%'
         }
       };
   
@@ -506,10 +506,10 @@
       TextBanner,
       CWDText,
       CWDIcon,
-      tempgauge,
-      wastewatertreatedgauge,
-      watertreatmentelectricgauge,
-      drinkinggauge,
+      gaugeone,
+      gaugetwo,
+      gaugethree,
+      gaugefour,
       crib,
       glsc,
       turbines,
