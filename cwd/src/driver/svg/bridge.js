@@ -1,12 +1,14 @@
 import { svgImageShapeDriver } from './graphic/svgImageShapeDriver';
 import { pathShapeDriver } from './graphic/pathShapeDriver';
+import { svgGradientDriver } from './graphic/svgGradientDriver';
 
 export const bridge = $svg => {
   let graphic = {};
 
   const elementDictionary = {
     svgImage: svgImageShapeDriver,
-    path: pathShapeDriver
+    path: pathShapeDriver,
+    linearGradient: svgGradientDriver
   };
 
   let strategyLookup = key => {
