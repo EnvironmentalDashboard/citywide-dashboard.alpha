@@ -305,7 +305,7 @@
     const gaugeone = () => {
       let content = cwd
         .svgImageShape()
-        .url('./images/tempgauge.svg')
+        .url('https://oberlin.environmentaldashboard.org/gauges/gauge.php?rv_id=2998&meter_id=2961&color=%23ecf0f1&bg=%232ecc71&height=190&width=290&font_family=Futura%2C+Helvetica%2C+sans-serif&title=Electricity+use&title2=&border_radius=3&rounding=0&ver=svg&units=')
         .size('20%');
   
       let state = {
@@ -326,7 +326,7 @@
     const gaugetwo = () => {
       let content = cwd
         .svgImageShape()
-        .url('./images/wastewatertreatedgauge.svg')
+        .url('https://oberlin.environmentaldashboard.org/gauges/gauge.php?rv_id=2999&meter_id=2964&color=%23ecf0f1&bg=%232ecc71&height=190&width=290&font_family=Futura%2C+Helvetica%2C+sans-serif&title=Water+use&title2=&border_radius=3&rounding=0&ver=svg&units=')
         .size('20%');
   
       let state = {
@@ -347,7 +347,7 @@
     const gaugethree = () => {
       let content = cwd
         .svgImageShape()
-        .url('./images/watertreatmentelectricgauge.svg')
+        .url('https://oberlin.environmentaldashboard.org/gauges/gauge.php?rv_id=3000&meter_id=2969&color=%23ecf0f1&bg=%232ecc71&height=190&width=290&font_family=Futura%2C+Helvetica%2C+sans-serif&title=Gas+use&title2=&border_radius=3&rounding=0&ver=svg&units=')
         .size('20%');
   
       let state = {
@@ -368,7 +368,7 @@
     const gaugefour = () => {
       let content = cwd
         .svgImageShape()
-        .url('./images/drinkinggauge.svg')
+        .url('https://oberlin.environmentaldashboard.org/gauges/gauge.php?rv_id=3001&meter_id=2962&color=%23ecf0f1&bg=%232ecc71&height=190&width=290&font_family=Futura%2C+Helvetica%2C+sans-serif&title=Production+%28wind%29&title2=&border_radius=3&rounding=0&ver=svg&units=')
         .size('20%');
   
       let state = {

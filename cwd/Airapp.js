@@ -202,7 +202,7 @@
     const gaugeone = () => {
       let content = cwd
         .svgImageShape()
-        .url('./images/tempgauge.svg')
+        .url('https://oberlin.environmentaldashboard.org/gauges/gauge.php?rv_id=2997&meter_id=2923&color=%23ecf0f1&bg=%232ecc71&height=190&width=290&font_family=Futura%2C+Helvetica%2C+sans-serif&title=PM+10&title2=&border_radius=3&rounding=0&ver=svg&units=')
         .size('20%');
   
       let state = {
@@ -223,7 +223,7 @@
     const gaugetwo = () => {
       let content = cwd
         .svgImageShape()
-        .url('./images/wastewatertreatedgauge.svg')
+        .url('https://oberlin.environmentaldashboard.org/gauges/gauge.php?rv_id=2996&meter_id=2921&color=%23ecf0f1&bg=%232ecc71&height=190&width=290&font_family=Futura%2C+Helvetica%2C+sans-serif&title=O3+%28ozone%29&title2=&border_radius=3&rounding=0&ver=svg&units=')
         .size('20%');
   
       let state = {
@@ -244,7 +244,7 @@
     const gaugethree = () => {
       let content = cwd
         .svgImageShape()
-        .url('./images/watertreatmentelectricgauge.svg')
+        .url('https://oberlin.environmentaldashboard.org/gauges/gauge.php?rv_id=2995&meter_id=2951&color=%23ecf0f1&bg=%232ecc71&height=190&width=290&font_family=Futura%2C+Helvetica%2C+sans-serif&title=Air+Temperature&title2=&border_radius=3&rounding=0&ver=svg&units=')
         .size('20%');
   
       let state = {
@@ -265,7 +265,7 @@
     const gaugefour = () => {
       let content = cwd
         .svgImageShape()
-        .url('./images/drinkinggauge.svg')
+        .url('https://oberlin.environmentaldashboard.org/gauges/gauge.php?rv_id=2994&meter_id=2922&color=%23ecf0f1&bg=%232ecc71&height=190&width=290&font_family=Futura%2C+Helvetica%2C+sans-serif&title=PM+2.5&title2=&border_radius=3&rounding=0&ver=svg&units=')
         .size('20%');
   
       let state = {
