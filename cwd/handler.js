@@ -1,4 +1,4 @@
-export function getTheBird() {
+function getTheBird() {
   return new Promise((resolve, reject) => {
     MongoClient.connect(dburl, { useNewUrlParser: true }, (err, database) => {
       if (!err) {
@@ -32,7 +32,7 @@ export function getTheBird() {
  * Create factory functions to send to the front end.
  * @param {Array} arr from database
  */
-export function getGlyphFunctions(arr) {
+function getGlyphFunctions(arr) {
   const functions = [];
 
   for (let obj of arr) {
@@ -73,7 +73,8 @@ function getFunction(obj) {
         ])
       );
     };
+    return toTheFuture;
   };
 
-  return toTheFuture;
-}
+ module.exports = {getTheBird, getGlyphFunctions};
+
