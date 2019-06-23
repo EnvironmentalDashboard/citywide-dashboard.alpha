@@ -333,7 +333,7 @@
         graphic: {},
         style: {
           x: '35.625%',
-          y: '17.222%'
+          y: '18%'
         }
       };
   
@@ -344,7 +344,7 @@
         cwd.fx([
           cwd
             .rotator(state)
-            .duration(3000)
+            .duration(4000)
         ])
       )
     }
