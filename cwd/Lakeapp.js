@@ -200,7 +200,7 @@
     const gaugeone = () => {
       let content = cwd
         .svgImageShape()
-        .url('https://oberlin.environmentaldashboard.org/gauges/gauge.php?rv_id=2993&meter_id=2885&color=%23ecf0f1&bg=%232ecc71&height=190&width=290&font_family=Futura%2C+Helvetica%2C+sans-serif&title=Turbidity&title2=&border_radius=3&rounding=0&ver=svg&units=')
+        .url('https://oberlin.environmentaldashboard.org/gauges/gauge.php?rv_id=2993&meter_id=2885&color=%23ecf0f1&bg=%2321a7df&height=190&width=290&font_family=Futura%2C+Helvetica%2C+sans-serif&title=Turbidity&title2=&border_radius=3&rounding=0&ver=svg&units=')
         .size('20%');
   
       let state = {
@@ -221,7 +221,7 @@
     const gaugetwo = () => {
       let content = cwd
         .svgImageShape()
-        .url('https://oberlin.environmentaldashboard.org/gauges/gauge.php?rv_id=2992&meter_id=2928&color=%23ecf0f1&bg=%232ecc71&height=190&width=290&font_family=Futura%2C+Helvetica%2C+sans-serif&title=Dissolved+Oxygen&title2=&border_radius=3&rounding=0&ver=svg&units=')
+        .url('https://oberlin.environmentaldashboard.org/gauges/gauge.php?rv_id=2992&meter_id=2928&color=%23ecf0f1&bg=%2321a7df&height=190&width=290&font_family=Futura%2C+Helvetica%2C+sans-serif&title=Dissolved+Oxygen&title2=&border_radius=3&rounding=0&ver=svg&units=')
         .size('20%');
   
       let state = {
@@ -242,7 +242,7 @@
     const gaugthree = () => {
       let content = cwd
         .svgImageShape()
-        .url('https://oberlin.environmentaldashboard.org/gauges/gauge.php?rv_id=2991&meter_id=2858&color=%23ecf0f1&bg=%232ecc71&height=190&width=290&font_family=Futura%2C+Helvetica%2C+sans-serif&title=ysi+chlorophyll&title2=&border_radius=3&rounding=0&ver=svg&units=')
+        .url('https://oberlin.environmentaldashboard.org/gauges/gauge.php?rv_id=2991&meter_id=2858&color=%23ecf0f1&bg=%2321a7df&height=190&width=290&font_family=Futura%2C+Helvetica%2C+sans-serif&title=ysi+chlorophyll&title2=&border_radius=3&rounding=0&ver=svg&units=')
         .size('20%');
   
       let state = {
@@ -263,7 +263,7 @@
     const gaugefour = () => {
       let content = cwd
         .svgImageShape()
-        .url('https://oberlin.environmentaldashboard.org/gauges/gauge.php?rv_id=2990&meter_id=2861&color=%23ecf0f1&bg=%232ecc71&height=190&width=290&font_family=Futura%2C+Helvetica%2C+sans-serif&title=Temperature+%28at+surface%29&title2=&border_radius=3&rounding=0&ver=svg&units=')
+        .url('https://oberlin.environmentaldashboard.org/gauges/gauge.php?rv_id=2990&meter_id=2861&color=%23ecf0f1&bg=%2321a7df&height=190&width=290&font_family=Futura%2C+Helvetica%2C+sans-serif&title=Temperature+%28at+surface%29&title2=&border_radius=3&rounding=0&ver=svg&units=')
         .size('20%');
   
       let state = {
