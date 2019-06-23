@@ -507,6 +507,27 @@
     );
   };
 
+  const industryIsland = () => {
+    let content = cwd
+      .svgImageShape()
+      .url('./images/industryisland.svg')
+      .size('22%');
+
+    let state = {
+      graphic: {},
+      style: {
+        x: '4%',
+        y: '28%'
+      }
+    };
+
+    return Object.assign(
+      state,
+      cwd.glyph(state),
+      cwd.graphic(state).shape(content)
+    );
+  };
+
   const paths = {
     bird: zigPath
   };
@@ -529,6 +550,7 @@
     waterTreatment,
     housesIsland,
     agricultureIsland,
+    industryIsland,
     tram,
     bridge,
     bird
