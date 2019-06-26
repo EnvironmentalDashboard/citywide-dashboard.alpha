@@ -1,8 +1,6 @@
 'use strict';
 
 const express = require('express');
-const glyphs = require('./cleGlyphs');
-const paths = require('./clePaths');
 const handler = require('./handler');
 
 // Constants
@@ -30,21 +28,5 @@ app.use(express.static(__dirname));
 
 app.get('/editor', (req, res) => {
   console.log('Received GET request at /editor');
-  console.log("is this working?");
-  handler.getTheBird();
-  //   .then(arr => res.send(arr))
-  //   .catch(err => console.log(err));
-});
-
-app.get('/testviews', (req, res)=>{
-  console.log('Received GET request at /testviews');
-  res.render('test');
-});
-
-app.get('/', (req, res) => {
-  const glyphs = getTheBird();
-
-  const parsed = runtheScript(glyphs);
-
-  res.render('index', { parsed });
+  res.sendStatus(200);
 });
