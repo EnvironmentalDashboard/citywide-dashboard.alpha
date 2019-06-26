@@ -19,13 +19,11 @@ app.listen(PORT, HOST);
 console.log(`Running on http://${HOST}:${PORT}`);
 
 app.get('/', (req, res) => {
-//   if (!err) {
-  handler.getTheBird()
-    .then(arr => {
-      console.log(arr)
-      const activeGlyphsStr = JSON.stringify({arr})
-      res.render('index', { activeGlyphsStr })
-    });
+  handler.getTheBird().then(arr => {
+    console.log(arr);
+    const activeGlyphsStr = JSON.stringify({ arr });
+    res.render('index', { activeGlyphsStr });
+  });
 });
 
 app.use(express.static(__dirname));
