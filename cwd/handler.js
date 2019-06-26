@@ -19,6 +19,7 @@ function getTheBird() {
         .db()
         .collection('activeGlyphs')
         .find({})
+        .sort({ layer: 1 })
         .toArray()
         .then(result => {
           resolve(result);
@@ -34,5 +35,4 @@ function getTheBird() {
   });
 }
 
- module.exports = {getTheBird};
-
+module.exports = { getTheBird };
