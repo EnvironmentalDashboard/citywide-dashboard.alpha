@@ -5,13 +5,9 @@ const glyphs = require('./cleGlyphs');
 const paths = require('./clePaths');
 const handler = require('./handler');
 
-// Connect to mongodb
-var MongoClient = require('mongodb').MongoClient;
-
 // Constants
 const PORT = 80;
 const HOST = '0.0.0.0';
-var dburl = 'mongodb://159.89.232.129:27017/testdb';
 
 
 
@@ -32,11 +28,7 @@ console.log(`Running on http://${HOST}:${PORT}`);
 //     console.log('connected to mongodb');
 //   }
 
-//   database
-//     .db()
-//     .collection('activeGlyphs')
-//     .findOneAndUpdate({ name: 'bird' }, { $set: { path: paths.zigPath } });
-// });
+app.use(express.static(__dirname));
 
 app.get('/editor', (req, res) => {
   console.log('Received GET request at /editor');
