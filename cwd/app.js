@@ -2,7 +2,7 @@
 (function(cwd, activeGlyphs) {
     let svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
   
-  const glyphsArr = activeGlyphs.arr;
+  const allGlyphs = activeGlyphs.arr;
   var height = window.innerHeight
   || document.documentElement.clientHeight
   || document.body.clientHeight;
@@ -21,109 +21,6 @@
   
     let dash = cwd.engine(graphicsDriver, animationDriver);
     const EDIT_MODE = 0;
-
-    const zigPath = () => {
-      let state = {
-        graphic: {},
-        style: {}
-      };
-  
-      return Object.assign(
-        state,
-        cwd
-          .graphic(state)
-          .shape(
-            cwd
-              .pathShape()
-              .coords('M500,250 L400,240 L240,160 L160,40 L80,80 L-100,100')
-          )
-      );
-    };
-  
-    const bird = path => {
-      let frameShapes = [
-        cwd
-          .svgImageShape()
-          .url('./images/bird/1.svg')
-          .size('7.8125%'),
-        cwd
-          .svgImageShape()
-          .url('./images/bird/2.svg')
-          .size('7.8125%'),
-        cwd
-          .svgImageShape()
-          .url('./images/bird/3.svg')
-          .size('7.8125%'),
-        cwd
-          .svgImageShape()
-          .url('./images/bird/4.svg')
-          .size('7.8125%')
-      ];
-  
-      let state = {
-        graphic: {},
-        style: {
-          x: '26.0417%',
-          y: '46.2963%'
-        }
-      };
-  
-      // TODO: get rid of preventEdits residue
-      return Object.assign(
-        state,
-        cwd.glyph(state).preventEdits(),
-        cwd.graphic(state).shape(frameShapes[0]),
-        cwd.fx([
-          cwd
-            .frameChanger(state)
-            .duration(1000)
-            .frames(frameShapes),
-          cwd
-            .pathMover(state)
-            .duration(3000)
-            .path(path)
-        ])
-      );
-    };
-  
-    const background = () => {
-      let content = cwd
-        .svgImageShape()
-        .url('./images/riverscwd.svg')
-        .size(width, height);
-  
-      let state = {
-        graphic: {},
-        style: {}
-      };
-  
-      return Object.assign(
-        state,
-        cwd.glyph(state).preventEdits(),
-        cwd.graphic(state).shape(content)
-      );
-    };
-  
-    const car = () => {
-      let content = cwd
-        .svgImageShape()
-        .url('./images/carblue.svg')
-        .size('2.60417%');
-  
-      let state = {
-        graphic: {},
-        style: {
-          x: '45%',
-          y: '31.5%'
-        }
-      };
-  
-      return Object.assign(
-        state,
-        cwd.glyph(state),
-        cwd.graphic(state).shape(content)
-      );
-    };
   
     const tempgauge = () => {
       let content = cwd
@@ -209,254 +106,84 @@
       );
     };
   
-    const crib = () => {
-      let content = cwd
-        .svgImageShape()
-        .url('./images/clecrib.svg')
-        .size('18.75%');
-  
-      let state = {
-        graphic: {},
-        style: {
-          x: '11.71875%',
-          y: '6.9444%'
+    const factory = glyph => {
+      const producePath = obj => {
+        let state = obj.state || {graphic: {}, style: {}};
+    
+        return Object.assign(
+          state,
+          cwd.graphic(state).shape(cwd.pathShape().coords(obj.coords || ''))
+        );
+      }
+    
+      return function() {
+        // Set up variables
+        let state = glyph.state;
+        let product = state;
+    
+        // Glyph first
+        glyph.props.preventEdits ?
+          Object.assign(product, cwd.glyph(state).preventEdits())
+          : Object.assign(product, cwd.glyph(state));
+    
+        // Then graphic
+        const shape = cwd.svgImageShape().url(glyph.shape || '').size(glyph.props.size || '100%');
+        Object.assign(product, cwd.graphic(state).shape(shape));
+    
+        // Then fx
+        const fxArray = [];
+        for (animator in glyph.animators) {
+          switch (animator) {
+            case 'frameChanger':
+              const frameShapes = [];
+              for (frameURL of glyph.animators[animator].frames) {
+                frameShapes.push(
+                  cwd
+                    .svgImageShape()
+                    .url(frameURL)
+                    .size(glyph.props.size || '100%')
+                );
+              }
+              fxArray.push(
+                cwd
+                  .frameChanger(state)
+                  .duration(glyph.animators[animator].duration)
+                  .frames(frameShapes)
+              );
+              break;
+            case 'pathMover':
+              const path = producePath(glyph.animators[animator].path);
+              fxArray.push(
+                cwd
+                  .pathMover(state)
+                  .duration(glyph.animators[animator].duration)
+                  .path(path)
+              );
+            default:
+              break;
+          }
+          Object.assign(product, cwd.fx(fxArray));
         }
-      };
-  
-      return Object.assign(
-        state,
-        cwd.glyph(state),
-        cwd.graphic(state).shape(content)
-      );
-    };
-  
-    const glsc = () => {
-      let content = cwd
-        .svgImageShape()
-        .url('./images/GLSCisland.svg')
-        .size('20.833%');
-  
-      let state = {
-        graphic: {},
-        style: {
-          x: '32.76%',
-          y: '14.815%'
-        }
-      };
-  
-      return Object.assign(
-        state,
-        cwd.glyph(state),
-        cwd.graphic(state).shape(content)
-      );
-    };
-  
-    const turbines = () => {
-      let content = cwd
-        .svgImageShape()
-        .url('./images/turbineblades.svg')
-        .size('3.333%');
-  
-      let state = {
-        graphic: {},
-        style: {
-          x: '35.625%',
-          y: '17.222%'
-        }
-      };
-  
-      return Object.assign(
-        state,
-        cwd.glyph(state),
-        cwd.graphic(state).shape(content),
-        cwd.fx([
-          cwd
-            .rotator(state)
-            .duration(3000)
-        ])
-      )
-    }
-  
-    const downtown = () => {
-      let content = cwd
-        .svgImageShape()
-        .url('./images/Cledowntownbuildings.svg')
-        .size('26.0417%');
-  
-      let state = {
-        graphic: {},
-        style: {
-          x: '40.364583%',
-          y: '9.2593%'
-        }
-      };
-  
-      return Object.assign(
-        state,
-        cwd.glyph(state),
-        cwd.graphic(state).shape(content)
-      );
-    };
-  
-    const townhouses = () => {
-      let content = cwd
-        .svgImageShape()
-        .url('./images/townhousesisland.svg')
-        .size('15.625%');
-  
-      let state = {
-        graphic: {},
-        style: {
-          x: '63.80208%',
-          y: '29.167%'
-        }
-      };
-  
-      return Object.assign(
-        state,
-        cwd.glyph(state),
-        cwd.graphic(state).shape(content)
-      );
-    };
-  
-    const waterTreatment = () => {
-      let content = cwd
-        .svgImageShape()
-        .url('./images/Watertreatmentplant.svg')
-        .size('23.4375%');
-  
-      let state = {
-        graphic: {},
-        style: {
-          x: '49.21875%',
-          y: '56.0185%'
-        }
-      };
-  
-      return Object.assign(
-        state,
-        cwd.glyph(state),
-        cwd.graphic(state).shape(content)
-      );
-    };
-  
-    const housesIsland = () => {
-      let content = cwd
-        .svgImageShape()
-        .url('./images/housesisland.svg')
-        .size('32.5521%');
-  
-      let state = {
-        graphic: {},
-        style: {
-          x: '20.3125%',
-          y: '72.8704%'
-        }
-      };
-  
-      return Object.assign(
-        state,
-        cwd.glyph(state),
-        cwd.graphic(state).shape(content)
-      );
-    };
-  
-    const tram = () => {
-      let content = cwd
-        .svgImageShape()
-        .url('./images/RTAtram.svg')
-        .size('13.02083%');
-  
-      let state = {
-        graphic: {},
-        style: {
-          x: '47.9167%',
-          y: '37.037%'
-        }
-      };
-  
-      return Object.assign(
-        state,
-        cwd.glyph(state),
-        cwd.graphic(state).shape(content)
-      );
-    };
-  
-    const bridge = () => {
-      let content = cwd
-        .svgImageShape()
-        .url('./images/bridge.svg')
-        .size('22.396%');
-  
-      let state = {
-        graphic: {},
-        style: {
-          x: '21.98%',
-          y: '25.463%'
-        }
-      };
-  
-      return Object.assign(
-        state,
-        cwd.glyph(state),
-        cwd.graphic(state).shape(content)
-      );
-    };
-  
-    const agricultureIsland = () => {
-      let content = cwd
-        .svgImageShape()
-        .url('./images/Agricultureisland.svg')
-        .size('26.0417%');
-  
-      let state = {
-        graphic: {},
-        style: {
-          x: '-1.30208%',
-          y: '52.3148%'
-        }
-      };
-  
-      return Object.assign(
-        state,
-        cwd.glyph(state),
-        cwd.graphic(state).shape(content)
-      );
-    };
-  
-    const paths = {
-      bird: zigPath
-    };
-  
-    let allGlyphs = [
-      background,
-      tempgauge,
-      wastewatertreatedgauge,
-      watertreatmentelectricgauge,
-      drinkinggauge,
-      crib,
-      glsc,
-      turbines,
-      downtown,
-      car,
-      townhouses,
-      waterTreatment,
-      housesIsland,
-      agricultureIsland,
-      tram,
-      bridge,
-      bird
-    ];
-  
-    for (let obj of allGlyphs) {
-      if (obj.length === 0) {
-        const glyph = obj();
-        dash.addGlyph(glyph);
-      } else {
-        const glyph = obj(paths[obj.name]());
-        dash.addGlyph(glyph);
+    
+        // Then return the whole thing
+        return product;
       }
     }
+  
+    allGlyphs.forEach(glyphObj => {
+      const glyph = factory(glyphObj)();
+      dash.addGlyph(glyph);
+    });
+
+    // for (let obj of allGlyphs) {
+    //   // if (obj.length === 0) {
+    //     const glyph = obj();
+    //     dash.addGlyph(glyph);
+    //   // } else {
+    //     // const glyph = obj(paths[obj.name]());
+    //     // dash.addGlyph(glyph);
+    //   // }
+    // }
   
     // let tweetPath = zigPath();
     // let tweet = bird(tweetPath);
