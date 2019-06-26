@@ -9,24 +9,24 @@ const handler = require('./handler');
 const PORT = 80;
 const HOST = '0.0.0.0';
 
-
-
 // App
 const app = express();
-app.use(express.static(__dirname));
-app.use(express.static('./city-editor'));
 
 // Load view engine
-// app.set('views', path.join(__dirname, 'views'));
-// app.set ('view engine', 'pug');
+app.set('view engine', 'pug');
 
 app.listen(PORT, HOST);
 console.log(`Running on http://${HOST}:${PORT}`);
 
-// MongoClient.connect(dburl, { useNewUrlParser: true }, (err, database) => {
+app.get('/', (req, res) => {
 //   if (!err) {
-//     console.log('connected to mongodb');
-//   }
+  handler.getTheBird()
+    .then(arr => {
+      console.log(arr)
+      const activeGlyphsStr = JSON.stringify({arr})
+      res.render('index', { activeGlyphsStr })
+    });
+});
 
 app.use(express.static(__dirname));
 
