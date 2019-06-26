@@ -108,35 +108,39 @@
   
     const factory = glyph => {
       const producePath = obj => {
-        let state = obj.state || {graphic: {}, style: {}};
-    
+        let state = obj.state || { graphic: {}, style: {} };
+
         return Object.assign(
           state,
           cwd.graphic(state).shape(cwd.pathShape().coords(obj.coords || ''))
         );
-      }
-    
+      };
+
       return function() {
         // Set up variables
         let state = glyph.state;
         let product = state;
-    
+
         // Glyph first
-        glyph.props.preventEdits ?
-          Object.assign(product, cwd.glyph(state).preventEdits())
+        glyph.props.preventEdits
+          ? Object.assign(product, cwd.glyph(state).preventEdits())
           : Object.assign(product, cwd.glyph(state));
-    
+
         // Then graphic
-        const shape = cwd.svgImageShape().url(glyph.shape || '').size(glyph.props.size || '100%');
+        const shape = cwd
+          .svgImageShape()
+          .url(glyph.shape || '')
+          .size(glyph.props.size || '100%');
         Object.assign(product, cwd.graphic(state).shape(shape));
-    
+
         // Then fx
         const fxArray = [];
-        for (animator in glyph.animators) {
-          switch (animator) {
+        for (animatorType in glyph.animators) {
+          const animator = glyph.animators[animatorType];
+          switch (animatorType) {
             case 'frameChanger':
               const frameShapes = [];
-              for (frameURL of glyph.animators[animator].frames) {
+              for (frameURL of animator.frames) {
                 frameShapes.push(
                   cwd
                     .svgImageShape()
@@ -147,16 +151,16 @@
               fxArray.push(
                 cwd
                   .frameChanger(state)
-                  .duration(glyph.animators[animator].duration)
+                  .duration(animator.duration)
                   .frames(frameShapes)
               );
               break;
             case 'pathMover':
-              const path = producePath(glyph.animators[animator].path);
+              const path = producePath(animator.path);
               fxArray.push(
                 cwd
                   .pathMover(state)
-                  .duration(glyph.animators[animator].duration)
+                  .duration(animator.duration)
                   .path(path)
               );
             default:
@@ -164,11 +168,11 @@
           }
           Object.assign(product, cwd.fx(fxArray));
         }
-    
+
         // Then return the whole thing
         return product;
-      }
-    }
+      };
+    };
   
     allGlyphs.forEach(glyphObj => {
       const glyph = factory(glyphObj)();
