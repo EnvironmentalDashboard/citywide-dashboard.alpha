@@ -1,9 +1,8 @@
 
-(function(cwd) {
+(function(cwd, activeGlyphs) {
     let svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
   
-  
-  
+  const glyphsArr = activeGlyphs.arr;
   var height = window.innerHeight
   || document.documentElement.clientHeight
   || document.body.clientHeight;
@@ -22,8 +21,7 @@
   
     let dash = cwd.engine(graphicsDriver, animationDriver);
     const EDIT_MODE = 0;
-    console.log(EDIT_MODE);
-  
+
     const zigPath = () => {
       let state = {
         graphic: {},
@@ -478,4 +476,5 @@
       dash.edit(editorDriver);
       console.log("In Edit mode");
     }
-  })(window.cwd);  
+
+  })(window.cwd, activeGlyphs);  
