@@ -119,6 +119,7 @@
       return function() {
         // Set up variables
         let state = glyph.state;
+        state._id = glyph._id;
         let product = state;
 
         // Glyph first
@@ -197,10 +198,10 @@
     // dash.addGlyph(tweet);
     // dash.addGlyph(car);
   
-    const bridgeCar = car();
-    bridgeCar.style.x = '29.167%';
-    bridgeCar.style.y = '33.7963%';
-    dash.addGlyph(bridgeCar);
+    // const bridgeCar = car();
+    // bridgeCar.style.x = '29.167%';
+    // bridgeCar.style.y = '33.7963%';
+    // dash.addGlyph(bridgeCar);
     dash.render();
   
     if (EDIT_MODE) {
