@@ -1,505 +1,283 @@
-const _bird = {
+const bird = {
   name: 'bird',
-  layer: 5,
-  frameShapes: [
-    {
-      type: 'svgImageShape',
-      chain: [
-        { name: 'url', args: './images/bird/1.svg' },
-        {
-          name: 'size',
-          args: '150px'
-        }
-      ]
-    },
-    {
-      type: 'svgImageShape',
-      chain: [
-        { name: 'url', args: './images/bird/2.svg' },
-        {
-          name: 'size',
-          args: '150px'
-        }
-      ]
-    },
-    {
-      type: 'svgImageShape',
-      chain: [
-        { name: 'url', args: './images/bird/3.svg' },
-        {
-          name: 'size',
-          args: '150px'
-        }
-      ]
-    },
-    {
-      type: 'svgImageShape',
-      chain: [
-        { name: 'url', args: './images/bird/4.svg' },
-        {
-          name: 'size',
-          args: '150px'
-        }
-      ]
-    }
-  ],
+  shape: './images/bird/1.svg',
   state: {
     graphic: {},
     style: {
-      x: 500,
-      y: 500
+      x: '26.0417%',
+      y: '46.2963%'
     }
   },
-  composite: [
-    {
-      name: 'glyph',
-      chain: [
-        {
-          name: 'preventEdits',
-          args: null
-        }
-      ]
-    },
-    {
-      name: 'graphic',
-      chain: [
-        {
-          name: 'shape',
-          args: '_frameShapes[0]'
-        }
-      ]
-    },
-    {
-      name: 'fx',
-      animators: [
-        {
-          type: 'frameChanger',
-          duration: 1000,
-          frames: '_frameShapes'
-        },
-        {
-          type: 'pathMover',
-          duration: 3000,
-          path: '_path'
-        }
-      ],
-      chain: null
-    }
-  ]
-}; 
-
-const zigPath = () => {
-  let state = {
-    graphic: {},
-    style: {}
-  };
-
-  return Object.assign(
-    state,
-    cwd
-      .graphic(state)
-      .shape(
-        cwd
-          .pathShape()
-          .coords('M500,250 L400,240 L240,160 L160,40 L80,80 L-100,100')
-      )
-  );
-};
-
-const bird = path => {
-  let frameShapes = [
-    cwd
-      .svgImageShape()
-      .url('./images/bird/1.svg')
-      .size('150px'),
-    cwd
-      .svgImageShape()
-      .url('./images/bird/2.svg')
-      .size('150px'),
-    cwd
-      .svgImageShape()
-      .url('./images/bird/3.svg')
-      .size('150px'),
-    cwd
-      .svgImageShape()
-      .url('./images/bird/4.svg')
-      .size('150px')
-  ];
-
-  let state = {
-    graphic: {},
-    style: {
-      x: 500,
-      y: 500
-    }
-  };
-
-  // TODO: get rid of preventEdits residue
-  return Object.assign(
-    state,
-    cwd.glyph(state).preventEdits(),
-    cwd.graphic(state).shape(frameShapes[0]),
-    cwd.fx([
-      cwd
-        .frameChanger(state)
-        .duration(1000)
-        .frames(frameShapes),
-      cwd
-        .pathMover(state)
-        .duration(3000)
-        .path(path)
-    ])
-  );
-};
-
-const background = () => {
-  let content = cwd
-    .svgImageShape()
-    .url('./images/riverscwd.svg')
-    .size('1920px', '1080px');
-
-  let state = {
-    graphic: {},
-    style: {}
-  };
-
-  return Object.assign(
-    state,
-    cwd.glyph(state).preventEdits(),
-    cwd.graphic(state).shape(content)
-  );
-};
-
-const car = () => {
-  let content = cwd
-    .svgImageShape()
-    .url('./images/carblue.svg')
-    .size('50px');
-
-  let state = {
-    graphic: {},
-    style: {
-      x: 890,
-      y: 335
-    }
-  };
-
-  return Object.assign(
-    state,
-    cwd.glyph(state),
-    cwd.graphic(state).shape(cwd
-      .svgImageShape()
-      .url('./images/carblue.svg')
-      .size('50px'))
-  );
-};
-
-const carObj = {
-  name: 'car',
-  url: './images/carblue.svg',
-  size: '50px',
-  state: {
-    graphic: {},
-    style: {
-      x: 890,
-      y: 335
-    }
+  props: {
+    size: '7.8125%',
+    preventEdits: true
   },
-  glyph: {},
-  graphic: {},
-}
-
-const birdObj = {
-  name: 'bird',
-  url: './images/bird/1.svg',
-  size: '150px',
-  state: {
-    graphic: {},
-    style: {
-      x: 500,
-      y: 500
-    }
-  },
-  glyph: {},
-  graphic: {},
-  animations: {
+  animators: {
     frameChanger: {
       duration: 1000,
       frames: [
-        {
-          url: './images/bird/1.svg',
-          size: '150px'
-        },
-        {
-          url: './images/bird/2.svg',
-          size: '150px'
-        },
-        {
-          url: './images/bird/3.svg',
-          size: '150px'
-        },
-        {
-          url: './images/bird/4.svg',
-          size: '150px'
-        }
+        './images/bird/1.svg',
+        './images/bird/2.svg',
+        './images/bird/3.svg',
+        './images/bird/4.svg'
       ]
     },
     pathMover: {
       duration: 3000,
       path: {
+        state: {
+          graphic: {},
+          style: {}
+        },
         coords: 'M500,250 L400,240 L240,160 L160,40 L80,80 L-100,100'
       }
     }
   }
-}
-
-const crib = () => {
-  let content = cwd
-    .svgImageShape()
-    .url('./images/clecrib.svg')
-    .size('360px');
-
-  let state = {
-    graphic: {},
-    style: {
-      x: 225,
-      y: 75
-    }
-  };
-
-  return Object.assign(
-    state,
-    cwd.glyph(state),
-    cwd.graphic(state).shape(content)
-  );
 };
 
-const glsc = () => {
-  let content = cwd
-    .svgImageShape()
-    .url('./images/GLSCisland.svg')
-    .size('400px');
-
-  let state = {
+const background = {
+  name: 'background',
+  shape: './images/riverscwd.svg',
+  state: {
     graphic: {},
-    style: {
-      x: 629,
-      y: 160
-    }
-  };
-
-  return Object.assign(
-    state,
-    cwd.glyph(state),
-    cwd.graphic(state).shape(content)
-  );
+    style: {}
+  },
+  props: {
+    size: '100%'
+  },
+  animators: {},
+  layer: 1
 };
 
-const downtown = () => {
-  let content = cwd
-    .svgImageShape()
-    .url('./images/Cledowntownbuildings.svg')
-    .size('500px');
-
-  let state = {
+// TODO: Needs layer
+const car = {
+  name: 'car',
+  shape: './images/carblue.svg',
+  state: {
     graphic: {},
     style: {
-      x: 775,
-      y: 100
+      x: '45%',
+      y: '31.5%'
     }
-  };
-
-  return Object.assign(
-    state,
-    cwd.glyph(state),
-    cwd.graphic(state).shape(content)
-  );
+  },
+  props: {
+    size: '2.60417%'
+  },
+  animators: {}
 };
 
-const townhouses = () => {
-  let content = cwd
-    .svgImageShape()
-    .url('./images/townhousesisland.svg')
-    .size('300px');
-
-  let state = {
+const crib = {
+  name: 'crib',
+  shape: './images/clecrib.svg',
+  state: {
     graphic: {},
     style: {
-      x: 1225,
-      y: 315
+      x: '11.72%',
+      y: '6.94%'
     }
-  };
-
-  return Object.assign(
-    state,
-    cwd.glyph(state),
-    cwd.graphic(state).shape(content)
-  );
+  },
+  props: {
+    size: '18.75%'
+  },
+  animators: {},
+  layer: 5
 };
 
-const waterTreatment = () => {
-  let content = cwd
-    .svgImageShape()
-    .url('./images/Watertreatmentplant.svg')
-    .size('450px');
-
-  let state = {
+const glsc = {
+  name: 'glsc',
+  shape: './images/GLSCisland.svg',
+  state: {
     graphic: {},
     style: {
-      x: 945,
-      y: 605
+      x: '32.76%',
+      y: '14.19%'
     }
-  };
-
-  return Object.assign(
-    state,
-    cwd.glyph(state),
-    cwd.graphic(state).shape(content)
-  );
+  },
+  props: {
+    size: '20.83%'
+  },
+  animators: {},
+  layer: 5
 };
 
-const housesIsland = () => {
-  let content = cwd
-    .svgImageShape()
-    .url('./images/housesisland.svg')
-    .size('625px');
-
-  let state = {
+const downtown = {
+  name: 'downtown',
+  shape: './images/Cledowntownbuildings.svg',
+  state: {
     graphic: {},
     style: {
-      x: 390,
-      y: 787
+      x: '60.46%',
+      y: '9.26%'
     }
-  };
-
-  return Object.assign(
-    state,
-    cwd.glyph(state),
-    cwd.graphic(state).shape(content)
-  );
+  },
+  props: {
+    size: '26.04%'
+  },
+  animators: {},
+  layer: 5
 };
 
-const tram = () => {
-  let content = cwd
-    .svgImageShape()
-    .url('./images/RTAtram.svg')
-    .size('250px');
-
-  let state = {
+const townhouses = {
+  name: 'townhouses',
+  shape: './images/townhousesisland.svg',
+  state: {
     graphic: {},
     style: {
-      x: 920,
-      y: 400
+      x: '63.80%',
+      y: '29.17%'
     }
-  };
-
-  return Object.assign(
-    state,
-    cwd.glyph(state),
-    cwd.graphic(state).shape(content)
-  );
+  },
+  props: {
+    size: '15.63%'
+  },
+  animators: {},
+  layer: 5
 };
 
-const bridge = () => {
-  let content = cwd
-    .svgImageShape()
-    .url('./images/bridge.svg')
-    .size('430px');
-
-  let state = {
+const waterTreatment = {
+  name: 'waterTreatment',
+  shape: './images/Watertreatmentplant.svg',
+  state: {
     graphic: {},
     style: {
-      x: 422,
-      y: 275
+      x: '49.22%',
+      y: '56.02%'
     }
-  };
-
-  return Object.assign(
-    state,
-    cwd.glyph(state),
-    cwd.graphic(state).shape(content)
-  );
+  },
+  props: {
+    size: '23.44%'
+  },
+  animators: {},
+  layer: 5
 };
 
-const agricultureIsland = () => {
-  let content = cwd
-    .svgImageShape()
-    .url('./images/Agricultureisland.svg')
-    .size('500px');
-
-  let state = {
+const housesIsland = {
+  name: 'housesIsland',
+  shape: './images/housesisland.svg',
+  state: {
     graphic: {},
     style: {
-      x: -25,
-      y: 565
+      x: '20.31%',
+      y: '72.87%'
     }
-  };
+  },
+  props: {
+    size: '32.55%'
+  },
+  animators: {},
+  layer: 5
+};
 
-  return Object.assign(
-    state,
-    cwd.glyph(state),
-    cwd.graphic(state).shape(content)
-  );
+const tram = {
+  name: 'tram',
+  shape: './images/RTAtram.svg',
+  state: {
+    graphic: {},
+    style: {
+      x: '47.91%',
+      y: '37.03%'
+    }
+  },
+  props: {
+    size: '13.02%'
+  },
+  animators: {},
+  layer: 5
+};
+
+const bridge = {
+  name: 'bridge',
+  shape: './images/bridge.svg',
+  state: {
+    graphic: {},
+    style: {
+      x: '21.98%',
+      y: '25.46%'
+    }
+  },
+  props: {
+    size: '22.40%'
+  },
+  animators: {},
+  layer: 5
+};
+
+const agricultureIsland = {
+  name: 'agricultureIsland',
+  shape: './images/Agricultureisland.svg',
+  state: {
+    graphic: {},
+    style: {
+      x: '0%',
+      y: '52.31%'
+    }
+  },
+  props: {
+    size: '25%'
+  },
+  animators: {},
+  layer: 5
+};
+
+const industryIsland = {
+  name: 'industryIsland',
+  shape: './images/industryisland.svg',
+  state: {
+    graphic: {},
+    style: {
+      x: '4%',
+      y: '28%'
+    }
+  },
+  props: {
+    size: '22%'
+  },
+  animators: {},
+  layer: 5
+};
+
+const bridgeCar = {
+  name: 'bridgeCar',
+  shape: './images/carblue.svg',
+  state: {
+    graphic: {},
+    style: {
+      x: '29.16%',
+      y: '33.80%'
+    }
+  },
+  props: {
+    size: '2.60%'
+  },
+  animators: {},
+  layer: 5
 };
 
 let glyphTemplate = {
+  name: String,
+  shape: String,
   state: {
     graphic: {},
     style: {}
   },
-  composite: [
-    {
-      name: '',
-      chain: [
-        {
-          name: '',
-          args: '_variable'
-        }
-      ]
+  props: {
+    size: String,
+    preventEdits: Boolean
+  },
+  animators: {
+    frameChanger: {
+      duration: Number,
+      frames: [String, String]
     },
-    {
-      name: 'fx',
-      animators: [
-        {
-          type: '',
-          duration: null,
-          frames: null,
-          path: null
-        }
-      ],
-      chain: null
+    pathMover: {
+      duration: Number,
+      path: {
+        state: {
+          graphic: {},
+          style: {}
+        },
+        coords: String
+      }
     }
-  ]
+  }
 };
-
-let pathTemplate = {
-  state: {
-    graphic: {},
-    style: {}
-  },
-  composite: [
-    {
-      name: '',
-      chain: [
-        {
-          name: 'shape',
-          args: {
-            type: '',
-            chain: [
-              {
-                name: '',
-                args: ''
-              }
-            ]
-          }
-        }
-      ]
-    }
-  ]
-};
-
-const pathDictionary = {
-  bird: 'zigPath'
-};
-
-module.exports.bird = bird;

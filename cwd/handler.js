@@ -1,3 +1,9 @@
+// Connect to mongodb
+var MongoClient = require('mongodb').MongoClient;
+
+// Constants
+const dburl = 'mongodb://159.89.232.129:27017/testdb';
+
 function getTheBird() {
   return new Promise((resolve, reject) => {
     MongoClient.connect(dburl, { useNewUrlParser: true }, (err, database) => {
@@ -11,8 +17,9 @@ function getTheBird() {
 
       database
         .db()
-        .collection('inventory')
+        .collection('activeGlyphs')
         .find({})
+        .sort({ layer: 1 })
         .toArray()
         .then(result => {
           resolve(result);
@@ -28,53 +35,4 @@ function getTheBird() {
   });
 }
 
-/**
- * Create factory functions to send to the front end.
- * @param {Array} arr from database
- */
-function getGlyphFunctions(arr) {
-  const functions = [];
-
-  for (let obj of arr) {
-    functions.push(obj.getFunction());
-  }
-
-  return functions;
-}
-
-/**
- * Create factory function to send to the front end.
- * @param {JSON} obj from database
- */
-function getFunction(obj) {
-  let name = obj.name;
-  // parse frameShapes
-  let frameShapes = obj.frameShapes ? obj.frameShapes : null;
-
-
-  const toTheFuture = (props) => {
-    let frameShapes = props.frameShapes;
-  
-      let state = props.state;
-  
-      return Object.assign(
-        state,
-        cwd.glyph(state).preventEdits(),
-        cwd.graphic(state).shape(frameShapes[0]),
-        cwd.fx([
-          cwd
-            .frameChanger(state)
-            .duration(1000)
-            .frames(frameShapes),
-          cwd
-            .pathMover(state)
-            .duration(3000)
-            .path(path)
-        ])
-      );
-    };
-    return toTheFuture;
-  };
-
- module.exports = {getTheBird, getGlyphFunctions};
-
+module.exports = { getTheBird };

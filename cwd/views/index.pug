@@ -3,7 +3,7 @@ html
   head
     title Citywide Dashboard
 
-    <style type="text/css">
+    style(type="text/css").
       body,
       * {
         padding: 0;
@@ -22,15 +22,12 @@ html
       .draggable {
         cursor: move;
       }
-    </style>
+    style
 
   body
-    script .
-        var testthis = #{testVar};
-        console.log(testthis);
     div(id="page-wrap")
         div(id="dashboard-wrap")
             div(id="map")
-
+    script const activeGlyphs = !{activeGlyphsStr};
     script(src="./dist/cwd-bundle.js")
     script(src="./app.js")
