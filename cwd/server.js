@@ -18,7 +18,6 @@ console.log(`Running on http://${HOST}:${PORT}`);
 
 app.get('/', (req, res) => {
   handler.getTheBird().then(arr => {
-    console.log(arr);
     const activeGlyphsStr = JSON.stringify({ arr });
     res.render('index', { activeGlyphsStr });
   });
