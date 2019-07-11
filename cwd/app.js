@@ -129,7 +129,7 @@
 
         // Then graphic
         const shape = cwd
-          .svgImageShape()
+          .svgShape()
           .url(glyph.shape || '')
           .size(glyph.props.size || '100%');
         Object.assign(product, cwd.graphic(state).shape(shape));
