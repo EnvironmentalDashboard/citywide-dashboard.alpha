@@ -1,6 +1,7 @@
 import { svgImageShapeDriver } from './graphic/svgImageShapeDriver';
 import { pathShapeDriver } from './graphic/pathShapeDriver';
 import { svgGradientDriver } from './graphic/svgGradientDriver';
+import { svgShapeDriver } from "./graphic/svgShapeDriver";
 
 export const bridge = $svg => {
   let graphic = {};
@@ -8,7 +9,8 @@ export const bridge = $svg => {
   const elementDictionary = {
     svgImage: svgImageShapeDriver,
     path: pathShapeDriver,
-    linearGradient: svgGradientDriver
+    linearGradient: svgGradientDriver,
+    svg: svgShapeDriver
   };
 
   let strategyLookup = key => {
