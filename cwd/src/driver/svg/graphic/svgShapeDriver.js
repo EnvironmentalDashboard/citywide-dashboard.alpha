@@ -10,9 +10,9 @@ export const svgShapeDriver = () => {
       // Insert svgContent into state.$link
       const svgString = await fetch(state.graphic.url).then(response => response.text());
       const svgElement = new DOMParser().parseFromString(svgString, "image/svg+xml").firstElementChild;
-      console.log(svgElement)
-      state.$link = state.$link.parentNode.replaceChild(svgElement, state.$link);
-      
+      state.$link.parentNode.replaceChild(svgElement, state.$link);
+      state.$link = svgElement;
+
       // Set relevant style attributes
       if (state.graphic.width || state.graphic.height) {
         state.graphic.height
