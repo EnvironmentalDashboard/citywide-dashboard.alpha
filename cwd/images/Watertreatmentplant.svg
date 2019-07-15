@@ -1,140 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 23.0.3, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 1920 1080" style="enable-background:new 0 0 1920 1080;" xml:space="preserve">
-<style type="text/css">
-	.Watertreatmentplant_st0{fill:#8CC63F;}
-	.Watertreatmentplant_st1{fill:#666666;}
-	.Watertreatmentplant_st2{fill:none;stroke:#E6E6E6;stroke-width:5;stroke-miterlimit:10;}
-	.Watertreatmentplant_st3{fill:#FFFFFF;}
-	.Watertreatmentplant_st4{fill:#FF931E;}
-	.Watertreatmentplant_st5{fill:#F14929;}
-	.Watertreatmentplant_st6{fill:#CCCCCC;}
-	.Watertreatmentplant_st7{fill:#B3B3B3;}
-	.Watertreatmentplant_st8{fill:#E6E6E6;}
-	.Watertreatmentplant_st9{fill:none;stroke:#FFFFFF;stroke-width:7;stroke-linecap:round;stroke-miterlimit:10;}
-	.Watertreatmentplant_st10{fill:#BDCCD4;}
-	.Watertreatmentplant_st11{fill:#2E3192;}
-	.Watertreatmentplant_st12{fill:#999999;}
-	.Watertreatmentplant_st13{fill:#1FA5AA;stroke:#E6E6E6;stroke-width:3;stroke-miterlimit:10;}
-	.Watertreatmentplant_st14{fill:#7C6029;stroke:#E6E6E6;stroke-width:3;stroke-miterlimit:10;}
-	.Watertreatmentplant_st15{fill:#ED1C24;}
-	.Watertreatmentplant_st16{fill:#FF842D;}
-	.Watertreatmentplant_st17{fill:#F7931E;}
-	.Watertreatmentplant_st18{fill:#4D4D4D;}
-	.Watertreatmentplant_st19{fill:#1FA5AA;stroke:#F2F2F2;stroke-width:4;stroke-miterlimit:10;}
-	.Watertreatmentplant_st20{fill:#808080;}
-</style>
+<!-- Generator: Adobe Illustrator 23.0.4, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 1705.7 1062" style="enable-background:new 0 0 1705.7 1062;" xml:space="preserve">
 <g id="island_background">
-	<path class="Watertreatmentplant_st0" d="M1675.4,952H96.5c-6.6,0-12-5.4-12-12V701.9c0-58.8,48.1-106.9,106.9-106.9h1425.7c38.7,0,70.3,31.6,70.3,70.3
-		V940C1687.4,946.6,1682,952,1675.4,952z"/>
-	<path class="Watertreatmentplant_st1" d="M1675.4,973.7H96.5c-6.6,0-12-5.4-12-12V834.2c0-6.6,5.4-12,12-12h1581.4c5.3,0,9.5,4.3,9.5,9.5v129.9
-		C1687.4,968.3,1682,973.7,1675.4,973.7z"/>
-	<path class="Watertreatmentplant_st0" d="M1716.8,1062H57.6c-13,0-23.6-10.6-23.6-23.6v-49c0-20.5,16.8-37.4,37.4-37.4h1630.2c21,0,38.1,17.1,38.1,38.1
-		v49C1739.7,1051.7,1729.4,1062,1716.8,1062z"/>
+	<path style="fill:#8CC63F;" d="M1641.4,952H62.5c-6.6,0-12-5.4-12-12V701.9c0-58.8,48.1-106.9,106.9-106.9h1425.7
+		c38.7,0,70.3,31.6,70.3,70.3V940C1653.4,946.6,1648,952,1641.4,952z"/>
+	<path style="fill:#666666;" d="M1641.4,973.7H62.5c-6.6,0-12-5.4-12-12V834.2c0-6.6,5.4-12,12-12h1581.4c5.3,0,9.5,4.3,9.5,9.5
+		v129.9C1653.4,968.3,1648,973.7,1641.4,973.7z"/>
+	<path style="fill:#8CC63F;" d="M1682.8,1062H23.6c-13,0-23.6-10.6-23.6-23.6v-49C0,968.9,16.8,952,37.4,952h1630.2
+		c21,0,38.1,17.1,38.1,38.1v49C1705.7,1051.7,1695.4,1062,1682.8,1062z"/>
 </g>
-<g id="Layer_1">
-	<line class="Watertreatmentplant_st2" x1="689.8" y1="476.7" x2="689.8" y2="407.5"/>
+<g>
+	<line style="fill:none;stroke:#E6E6E6;stroke-width:5;stroke-miterlimit:10;" x1="655.8" y1="476.7" x2="655.8" y2="407.5"/>
+	<rect x="999.9" y="237.6" style="fill:#FF931E;" width="186.5" height="470.3"/>
+	<ellipse style="fill:#FF931E;" cx="1093.4" cy="239.3" rx="93" ry="37"/>
+	<ellipse style="fill:#F14929;" cx="1311.9" cy="365.7" rx="82.2" ry="46.6"/>
+	<rect x="1229.9" y="360.6" style="fill:#F14929;" width="164.2" height="359.9"/>
+	<path style="fill:#CCCCCC;" d="M1313.1,122.6H929.9c-4.7,0-8.5-3.8-8.5-8.5v-13.7c0-4.7,3.8-8.5,8.5-8.5h383.3
+		c4.7,0,8.5,3.8,8.5,8.5v13.7C1321.6,118.8,1317.8,122.6,1313.1,122.6z"/>
 	<g>
-		<g>
-			<path class="Watertreatmentplant_st3" d="M651,206.2c5-11.3,9.3-22.9,13.5-34.5c4.2-11.4,8.4-22.7,10.9-34.6c1.1-5.2,1.2-10.4,2.1-15.6
-				c0.8-4.6,2.3-7.7,0.2-12.3c-2.2-4.7-6.6-4-9.4-0.3c-3.9,5.1-5.8,12.6-7.6,18.6c-3.3,11.4-4.5,23.2-6,34.9
-				c-1.4,11-2,21.7-2.1,32.8c0,6.1-0.2,12.3,0.8,18.3c0.6,3.9,3.1,9.9,7.9,5.9c2.5-2.1,3.6-6.2,4.4-9.2c1.7-6,3.8-11.9,5.4-17.9
-				c-1,0-1.9,0-2.9,0c0.8,3.2,1.2,10.2,5.6,10.6c2.4,0.2,4.5-2.1,5.9-3.7c3-3.5,5-7.7,8.8-10.4c-0.6-0.1-1.2-0.2-1.8-0.2
-				c4.9,6.1,1,16.2,8.3,21c0.4,0.3,1.1,0.3,1.5,0c3.7-2.7,6.8-7.1,8.4-11.4c0.7-1.8-2.2-2.6-2.9-0.8c-0.9,2.4-3,6.5-5.3,7.9
-				c-2.7,1.7-3.4-3.3-3.9-5.6c-0.9-4.6-1-9.5-4.1-13.4c-0.4-0.5-1.3-0.6-1.8-0.2c-4.1,3-6.2,7.2-9.4,10.9c-5,5.7-5.5-1.6-6.5-5.6
-				c-0.4-1.4-2.5-1.4-2.9,0c-1.8,7-3.9,14.2-6.3,21c-0.4,1.1-2.2,5.9-4.3,4.9c-0.6-0.3-0.8-1.9-0.9-2.5c-0.7-2.7-0.8-5.5-1-8.3
-				c-0.7-13.1-0.4-26.5,1.4-39.5c2.2-16.6,3.9-33.2,10-49c0.9-2.5,2-5.2,3.6-7.3c4-5.1,5.5,3.1,4.8,6.3c-1.9,8.3-2.3,16.9-4.4,25.3
-				c-2.6,10.1-6.3,19.7-9.9,29.5c-4,11.1-8.1,22.1-12.9,32.8C647.6,206.5,650.2,208,651,206.2L651,206.2z"/>
-		</g>
+		<path style="fill:#B3B3B3;" d="M862.2,742.9H737.1c-10.7,0-19.5-10.7-19.5-23.9l39-491.4c0-13.1,8.8-23.9,19.5-23.9h52
+			c10.7,0,19.5,10.7,19.5,23.9L881.7,719C881.7,732.1,872.9,742.9,862.2,742.9z"/>
+		<path style="fill:#CCCCCC;" d="M644,612.5l298.6-172.4c3.6-2.1,4.8-6.7,2.7-10.2l-6-10.4c-2.1-3.6-6.7-4.8-10.2-2.7L630.5,589
+			c-3.6,2.1-4.8,6.7-2.7,10.2l6,10.4C635.9,613.3,640.5,614.5,644,612.5z"/>
+		<path style="fill:#CCCCCC;" d="M950.7,608.9L652.2,436.5c-3.6-2.1-4.8-6.7-2.7-10.2l6-10.4c2.1-3.6,6.7-4.8,10.2-2.7l298.6,172.4
+			c3.6,2.1,4.8,6.7,2.7,10.2l-6,10.4C958.9,609.7,954.3,610.9,950.7,608.9z"/>
+		<path style="fill:#CCCCCC;" d="M923.2,390.7L668.4,243.6c-3.6-2.1-4.8-6.7-2.7-10.2l6-10.4c2.1-3.6,6.7-4.8,10.2-2.7l254.8,147.1
+			c3.6,2.1,4.8,6.7,2.7,10.2l-6,10.4C931.4,391.5,926.8,392.8,923.2,390.7z"/>
+		<path style="fill:#CCCCCC;" d="M671.1,394.3l254.8-147.1c3.6-2.1,4.8-6.7,2.7-10.2l-6-10.4c-2.1-3.6-6.7-4.8-10.2-2.7l-254.8,147
+			c-3.6,2.1-4.8,6.7-2.7,10.2l6,10.4C662.9,395.1,667.5,396.4,671.1,394.3z"/>
+		<path style="fill:#E6E6E6;" d="M611.4,729.7l17,1.9c3.8,0.4,7.3-2.4,7.7-6.2l59.1-527.2c0.4-3.8-2.4-7.3-6.2-7.7l-17-1.9
+			c-3.8-0.4-7.3,2.4-7.7,6.2L605.2,722C604.8,725.8,607.6,729.3,611.4,729.7z"/>
+		<path style="fill:#E6E6E6;" d="M984.3,735.1l-16.4,1.8c-3.8,0.4-7.3-2.4-7.7-6.2l-59.1-527.2c-0.4-3.8,2.4-7.3,6.2-7.7l16.4-1.8
+			c3.8-0.4,7.3,2.4,7.7,6.2l59.1,527.2C990.9,731.2,988.1,734.7,984.3,735.1z"/>
+		<path style="fill:#CCCCCC;" d="M930.4,194.7c0,0,0,0-0.1-0.1c0.1,0.6,0.1,1.2,0.1,1.9c0,26.9-59.3,48.7-132.5,48.7
+			s-132.5-21.8-132.5-48.7c0-0.6,0-1.2,0.1-1.8c-0.1,0-0.1,0-0.1,0V70.3l115.1,23.6l0.3-0.1l10.8,7.2l10.9-7l127.9-23.6V194.7z"/>
+		<path style="fill:#CCCCCC;" d="M809.6,148l-10.9,7l-11.1-7.1c3.4-0.1,6.8-0.1,10.2-0.1C801.8,147.9,805.7,147.9,809.6,148z"/>
+		<ellipse style="fill:#E6E6E6;" cx="797.9" cy="64.3" rx="132.5" ry="61.3"/>
 	</g>
-	<rect x="1033.9" y="237.6" class="Watertreatmentplant_st4" width="186.5" height="470.3"/>
-	<ellipse class="Watertreatmentplant_st4" cx="1127.4" cy="244.3" rx="93" ry="37"/>
-	<ellipse class="Watertreatmentplant_st5" cx="1345.9" cy="365.7" rx="82.2" ry="46.6"/>
-	<rect x="1263.9" y="360.6" class="Watertreatmentplant_st5" width="164.2" height="359.9"/>
-	<path class="Watertreatmentplant_st6" d="M1347.1,122.6H963.9c-4.7,0-8.5-3.8-8.5-8.5v-13.7c0-4.7,3.8-8.5,8.5-8.5h383.3c4.7,0,8.5,3.8,8.5,8.5v13.7
-		C1355.6,118.8,1351.8,122.6,1347.1,122.6z"/>
+	
+		<line style="fill:none;stroke:#FFFFFF;stroke-width:7;stroke-linecap:round;stroke-miterlimit:10;" x1="1020.5" y1="665.3" x2="1175.6" y2="663.5"/>
 	<g>
-		<path class="Watertreatmentplant_st7" d="M896.2,742.9H771.1c-10.7,0-19.5-10.7-19.5-23.9l39-491.4c0-13.1,8.8-23.9,19.5-23.9h52
-			c10.7,0,19.5,10.7,19.5,23.9L915.7,719C915.7,732.1,906.9,742.9,896.2,742.9z"/>
-		<path class="Watertreatmentplant_st6" d="M678,612.5l298.6-172.4c3.6-2.1,4.8-6.7,2.7-10.2l-6-10.4c-2.1-3.6-6.7-4.8-10.2-2.7L664.5,589
-			c-3.6,2.1-4.8,6.7-2.7,10.2l6,10.4C669.9,613.3,674.5,614.5,678,612.5z"/>
-		<path class="Watertreatmentplant_st6" d="M984.7,608.9L686.2,436.5c-3.6-2.1-4.8-6.7-2.7-10.2l6-10.4c2.1-3.6,6.7-4.8,10.2-2.7l298.6,172.4
-			c3.6,2.1,4.8,6.7,2.7,10.2l-6,10.4C992.9,609.7,988.3,610.9,984.7,608.9z"/>
-		<path class="Watertreatmentplant_st6" d="M957.2,390.7L702.4,243.6c-3.6-2.1-4.8-6.7-2.7-10.2l6-10.4c2.1-3.6,6.7-4.8,10.2-2.7l254.8,147.1
-			c3.6,2.1,4.8,6.7,2.7,10.2l-6,10.4C965.4,391.5,960.8,392.8,957.2,390.7z"/>
-		<path class="Watertreatmentplant_st6" d="M705.1,394.3l254.8-147.1c3.6-2.1,4.8-6.7,2.7-10.2l-6-10.4c-2.1-3.6-6.7-4.8-10.2-2.7L691.6,370.9
-			c-3.6,2.1-4.8,6.7-2.7,10.2l6,10.4C696.9,395.1,701.5,396.4,705.1,394.3z"/>
-		<path class="Watertreatmentplant_st8" d="M645.4,729.7l17,1.9c3.8,0.4,7.3-2.4,7.7-6.2l59.1-527.2c0.4-3.8-2.4-7.3-6.2-7.7l-17-1.9
-			c-3.8-0.4-7.3,2.4-7.7,6.2L639.2,722C638.8,725.8,641.6,729.3,645.4,729.7z"/>
-		<path class="Watertreatmentplant_st8" d="M1018.3,735.1l-16.4,1.8c-3.8,0.4-7.3-2.4-7.7-6.2l-59.1-527.2c-0.4-3.8,2.4-7.3,6.2-7.7l16.4-1.8
-			c3.8-0.4,7.3,2.4,7.7,6.2l59.1,527.2C1024.9,731.2,1022.1,734.7,1018.3,735.1z"/>
-		<path class="Watertreatmentplant_st6" d="M964.4,194.7c0,0,0,0-0.1-0.1c0.1,0.6,0.1,1.2,0.1,1.9c0,26.9-59.3,48.7-132.5,48.7s-132.5-21.8-132.5-48.7
-			c0-0.6,0-1.2,0.1-1.8c-0.1,0-0.1,0-0.1,0V70.3l115.1,23.6c0,0,0.3-0.1,0.3-0.1l10.8,7.2l10.9-7l127.9-23.6V194.7z"/>
-		<path class="Watertreatmentplant_st6" d="M843.6,148l-10.9,7l-11.1-7.1c3.4-0.1,6.8-0.1,10.2-0.1C835.8,147.9,839.7,147.9,843.6,148z"/>
-		<ellipse class="Watertreatmentplant_st8" cx="831.9" cy="61.3" rx="132.5" ry="61.3"/>
+		<rect x="322.7" y="485" style="fill:#E6E6E6;" width="344.4" height="257.8"/>
+		<rect x="530.1" y="485" style="fill:#FF931E;" width="137" height="82.9"/>
+		<rect x="620.3" y="568" style="fill:#F14929;" width="137" height="178.5"/>
+		<rect x="334.4" y="519.6" style="fill:#BDCCD4;" width="37.4" height="40"/>
+		<rect x="389.4" y="519.6" style="fill:#BDCCD4;" width="37.4" height="40"/>
+		<rect x="389.4" y="577.4" style="fill:#BDCCD4;" width="37.4" height="40"/>
+		<rect x="334.4" y="577.4" style="fill:#BDCCD4;" width="37.4" height="40"/>
+		<rect x="641.8" y="609.7" style="fill:#2E3192;" width="37.4" height="40"/>
+		<rect x="706.7" y="609.7" style="fill:#2E3192;" width="37.4" height="40"/>
+		<rect x="350.1" y="645.5" style="fill:#BDCCD4;" width="64.1" height="94.9"/>
+		<rect x="481.4" y="645.9" style="fill:#BDCCD4;" width="37.4" height="40"/>
+		<rect x="535.5" y="645.9" style="fill:#BDCCD4;" width="37.4" height="40"/>
+		<rect x="426.3" y="645.9" style="fill:#BDCCD4;" width="37.4" height="40"/>
 	</g>
-	<line class="Watertreatmentplant_st9" x1="1054.5" y1="665.3" x2="1209.6" y2="663.5"/>
-	<g>
-		<rect x="356.7" y="485" class="Watertreatmentplant_st8" width="344.4" height="257.8"/>
-		<rect x="564.1" y="485" class="Watertreatmentplant_st4" width="137" height="82.9"/>
-		<rect x="654.3" y="568" class="Watertreatmentplant_st5" width="137" height="178.5"/>
-		<rect x="368.4" y="519.6" class="Watertreatmentplant_st10" width="37.4" height="40"/>
-		<rect x="423.4" y="519.6" class="Watertreatmentplant_st10" width="37.4" height="40"/>
-		<rect x="423.4" y="577.4" class="Watertreatmentplant_st10" width="37.4" height="40"/>
-		<rect x="368.4" y="577.4" class="Watertreatmentplant_st10" width="37.4" height="40"/>
-		<rect x="675.8" y="609.7" class="Watertreatmentplant_st11" width="37.4" height="40"/>
-		<rect x="740.7" y="609.7" class="Watertreatmentplant_st11" width="37.4" height="40"/>
-		<rect x="384.1" y="645.5" class="Watertreatmentplant_st10" width="64.1" height="94.9"/>
-		<rect x="515.4" y="645.9" class="Watertreatmentplant_st10" width="37.4" height="40"/>
-		<rect x="569.5" y="645.9" class="Watertreatmentplant_st10" width="37.4" height="40"/>
-		<rect x="460.3" y="645.9" class="Watertreatmentplant_st10" width="37.4" height="40"/>
-	</g>
-	<rect x="73.7" y="993.5" class="Watertreatmentplant_st12" width="709.8" height="37.9"/>
-	<path class="Watertreatmentplant_st6" d="M768.8,1011.5l-679,3.6c-8.9,0-16.2-9.7-16.2-21.6l131.6-203.7c0-11.9,7.3-21.6,16.2-21.6H831
-		c8.9,0,16.2,9.7,16.2,21.6L785,989.9C785,1001.8,777.7,1011.5,768.8,1011.5z"/>
-	<path class="Watertreatmentplant_st13" d="M209.2,1000.7l-103.9-1.8c-1.1,0-1.6-9.7-1.6-21.6L215,806c0-11.9,0.6-21.6,1.7-21.6H295c1.1,0,2,9.7,2,21.6
-		l-87.4,169.5C209.6,987.4,210.2,1000.7,209.2,1000.7z"/>
-	<path class="Watertreatmentplant_st13" d="M328.1,1000.7h-98.3c-1.1,0,0-13.3,0-25.2L315.9,806c0-11.9,0.6-21.6,1.7-21.6h78.9c1.1,0,2,9.7,2,21.6
-		l-68.4,173.1C330.1,991,329.2,1000.7,328.1,1000.7z"/>
-	<path class="Watertreatmentplant_st13" d="M437,1000.7h-90c-1.1,0,1.2-9.7,1.2-21.6L418.7,806c0-11.9,0.6-21.6,1.7-21.6h85.7c1.1,0,0.4,9.7,0.4,21.6
-		L439,979.1C439,991,438.1,1000.7,437,1000.7z"/>
-	<path class="Watertreatmentplant_st14" d="M547.4,1000.7h-90c-1.1,0,1.2-9.7,1.2-21.6L527.3,806c0-11.9,0.6-21.6,1.7-21.6h82.1c1.1,0,0.4,9.7,0.4,21.6
-		l-62.1,173.1C549.4,991,548.5,1000.7,547.4,1000.7z"/>
-	<path class="Watertreatmentplant_st14" d="M656.2,1000.7h-90c-1.1,0,1.2-9.7,1.2-21.6L636.1,806c0-11.9,0.6-21.6,1.7-21.6h82.1c1.1,0,0.4,9.7,0.4,21.6
-		l-62.1,173.1C658.2,991,657.3,1000.7,656.2,1000.7z"/>
-	<path class="Watertreatmentplant_st14" d="M763.4,1000.7h-90c-1.1,0,1.2-9.7,1.2-21.6L743.4,806c0-11.9,0.6-21.6,1.7-21.6h82.1c1.1,0,0.4,9.7,0.4,21.6
-		l-62.1,173.1C765.4,991,764.5,1000.7,763.4,1000.7z"/>
-	<path class="Watertreatmentplant_st6" d="M831.9,0C905,0,964.4,27.4,964.4,61.3s-59.3,61.3-132.5,61.3"/>
-	<path class="Watertreatmentplant_st6" d="M599.1,314"/>
-	<path class="Watertreatmentplant_st7" d="M831,245.2c70.8,0,135.2-18.6,135.2-41.6c0-0.5,0-1.1-0.1-1.6c0.1,0,0.1,0,0.1,0l-1.3-132.3
-		c-11,11.8-30.6,29.5-59.8,40.6c-14.4,5.5-27.7,8-38.4,9.1c-11.6,0.6-23.3,1.2-34.9,1.8C831.5,162.6,831.2,203.9,831,245.2z"/>
+	<rect x="39.7" y="993.5" style="fill:#999999;" width="709.8" height="37.9"/>
+	<path style="fill:#CCCCCC;" d="M734.8,1011.5l-679,3.6c-8.9,0-16.2-9.7-16.2-21.6l131.6-203.7c0-11.9,7.3-21.6,16.2-21.6H797
+		c8.9,0,16.2,9.7,16.2,21.6L751,989.9C751,1001.8,743.7,1011.5,734.8,1011.5z"/>
+	<path style="fill:#1FA5AA;stroke:#E6E6E6;stroke-width:3;stroke-miterlimit:10;" d="M175.2,1000.7l-103.9-1.8
+		c-1.1,0-1.6-9.7-1.6-21.6L181,806c0-11.9,0.6-21.6,1.7-21.6H261c1.1,0,2,9.7,2,21.6l-87.4,169.5
+		C175.6,987.4,176.2,1000.7,175.2,1000.7z"/>
+	<path style="fill:#1FA5AA;stroke:#E6E6E6;stroke-width:3;stroke-miterlimit:10;" d="M294.1,1000.7h-98.3c-1.1,0,0-13.3,0-25.2
+		L281.9,806c0-11.9,0.6-21.6,1.7-21.6h78.9c1.1,0,2,9.7,2,21.6l-68.4,173.1C296.1,991,295.2,1000.7,294.1,1000.7z"/>
+	<path style="fill:#1FA5AA;stroke:#E6E6E6;stroke-width:3;stroke-miterlimit:10;" d="M403,1000.7h-90c-1.1,0,1.2-9.7,1.2-21.6
+		L384.7,806c0-11.9,0.6-21.6,1.7-21.6h85.7c1.1,0,0.4,9.7,0.4,21.6L405,979.1C405,991,404.1,1000.7,403,1000.7z"/>
+	<path style="fill:#7C6029;stroke:#E6E6E6;stroke-width:3;stroke-miterlimit:10;" d="M513.4,1000.7h-90c-1.1,0,1.2-9.7,1.2-21.6
+		L493.3,806c0-11.9,0.6-21.6,1.7-21.6h82.1c1.1,0,0.4,9.7,0.4,21.6l-62.1,173.1C515.4,991,514.5,1000.7,513.4,1000.7z"/>
+	<path style="fill:#7C6029;stroke:#E6E6E6;stroke-width:3;stroke-miterlimit:10;" d="M622.2,1000.7h-90c-1.1,0,1.2-9.7,1.2-21.6
+		L602.1,806c0-11.9,0.6-21.6,1.7-21.6h82.1c1.1,0,0.4,9.7,0.4,21.6l-62.1,173.1C624.2,991,623.3,1000.7,622.2,1000.7z"/>
+	<path style="fill:#7C6029;stroke:#E6E6E6;stroke-width:3;stroke-miterlimit:10;" d="M729.4,1000.7h-90c-1.1,0,1.2-9.7,1.2-21.6
+		L709.4,806c0-11.9,0.6-21.6,1.7-21.6h82.1c1.1,0,0.4,9.7,0.4,21.6l-62.1,173.1C731.4,991,730.5,1000.7,729.4,1000.7z"/>
+	<path style="fill:#CCCCCC;" d="M565.1,314"/>
+	<path style="fill:#B3B3B3;" d="M797,245.2c70.8,0,135.2-18.6,135.2-41.6c0-0.5,0-1.1-0.1-1.6c0.1,0,0.1,0,0.1,0l-1.3-132.3
+		c-11,11.8-30.6,29.5-59.8,40.6c-14.4,5.5-27.7,8-38.4,9.1c-11.6,0.6-23.3,1.2-34.9,1.8C797.5,162.6,797.2,203.9,797,245.2z"/>
+	<path style="fill:#CCCCCC;" d="M797.9,4C871,4,930.4,31.4,930.4,65.3s-59.3,61.3-132.5,61.3"/>
 </g>
 <g id="WT_Storage">
-	<path class="Watertreatmentplant_st15" d="M1346.6,319.1v373.2h81.5l-0.4-331.8c-3.9-6.6-15.3-24-37.9-34.3C1371.3,317.9,1354.4,318.4,1346.6,319.1z"/>
-	<path class="Watertreatmentplant_st6" d="M1350.9,335.4h-10.4c-3.6,0-6.5-2.9-6.5-6.5V100.3c0-3.6,2.9-6.5,6.5-6.5h10.4c3.6,0,6.5,2.9,6.5,6.5v228.6
-		C1357.4,332.4,1354.5,335.4,1350.9,335.4z"/>
-	<path class="Watertreatmentplant_st16" d="M1126.7,207.4l-3.6,434.5l97.4,2.7v-407c-4.1-4.2-8.9-8.4-14.4-12.2C1176.1,204.6,1142.4,205.7,1126.7,207.4z
-		"/>
-	<path class="Watertreatmentplant_st17" d="M478,426"/>
-	<path class="Watertreatmentplant_st6" d="M1129.4,218.2c-6.4,0-11.7-5.3-11.7-11.7v-97.4c0-6.4,5.3-11.7,11.7-11.7s11.7,5.3,11.7,11.7v97.4
-		C1141.1,212.9,1135.8,218.2,1129.4,218.2z"/>
+	<path style="fill:#ED1C24;" d="M1312.6,319.1v373.2h81.5l-0.4-331.8c-3.9-6.6-15.3-24-37.9-34.3
+		C1337.3,317.9,1320.4,318.4,1312.6,319.1z"/>
+	<path style="fill:#CCCCCC;" d="M1316.9,335.4h-10.4c-3.6,0-6.5-2.9-6.5-6.5V100.3c0-3.6,2.9-6.5,6.5-6.5h10.4
+		c3.6,0,6.5,2.9,6.5,6.5v228.6C1323.4,332.4,1320.5,335.4,1316.9,335.4z"/>
+	<path style="fill:#FF842D;" d="M1092.7,207.4l-3.6,434.5l97.4,2.7v-407c-4.1-4.2-8.9-8.4-14.4-12.2
+		C1142.1,204.6,1108.4,205.7,1092.7,207.4z"/>
+	<path style="fill:#F7931E;" d="M444,426"/>
+	<path style="fill:#CCCCCC;" d="M1095.4,218.2c-6.4,0-11.7-5.3-11.7-11.7v-97.4c0-6.4,5.3-11.7,11.7-11.7s11.7,5.3,11.7,11.7v97.4
+		C1107.1,212.9,1101.8,218.2,1095.4,218.2z"/>
 </g>
 <g id="WT_towers">
 </g>
 <g id="buildings">
 </g>
 <g id="WT_pools">
-	<path class="Watertreatmentplant_st1" d="M1438.6,766.3l-328.2-2c-11.9,0-21.6-10.7-21.6-23.7l12.6-75c0-13,9.7-23.7,21.6-23.7H1426
-		c11.9,0,21.6,10.7,21.6,23.7l12.6,77C1460.2,755.6,1450.5,766.3,1438.6,766.3z"/>
-	<path class="Watertreatmentplant_st18" d="M1285.3,638.3H1426c11.9,0,21.6,11,21.6,24.4l12.6,79.2c0,13.4-9.7,24.4-21.6,24.4l-153.3-0.9"/>
-	<ellipse class="Watertreatmentplant_st19" cx="1270.9" cy="643.7" rx="173.1" ry="45.1"/>
-	<path class="Watertreatmentplant_st12" d="M1229.4,802.4l-328.2-2c-11.9,0-21.6-11-21.6-24.4l12.6-77.2c0-13.4,9.7-24.4,21.6-24.4h302.9
-		c11.9,0,21.6,11,21.6,24.4l12.6,79.2C1251.1,791.4,1241.3,802.4,1229.4,802.4z"/>
-	<path class="Watertreatmentplant_st20" d="M1076.2,676.1h140.6c11.9,0,21.6,11,21.6,24.4l12.6,79.2c0,13.4-9.7,24.4-21.6,24.4l-153.3-0.9"/>
-	<ellipse class="Watertreatmentplant_st19" cx="1061.7" cy="676.1" rx="173.1" ry="45.1"/>
-	<line class="Watertreatmentplant_st9" x1="1275.4" y1="644.6" x2="1430.5" y2="642.8"/>
-	<line class="Watertreatmentplant_st9" x1="1057.2" y1="677" x2="1212.3" y2="675.2"/>
+	<path style="fill:#666666;" d="M1404.6,766.3l-328.2-2c-11.9,0-21.6-10.7-21.6-23.7l12.6-75c0-13,9.7-23.7,21.6-23.7h303
+		c11.9,0,21.6,10.7,21.6,23.7l12.6,77C1426.2,755.6,1416.5,766.3,1404.6,766.3z"/>
+	<path style="fill:#4D4D4D;" d="M1251.3,638.3H1392c11.9,0,21.6,11,21.6,24.4l12.6,79.2c0,13.4-9.7,24.4-21.6,24.4l-153.3-0.9"/>
+	<ellipse style="fill:#1FA5AA;stroke:#F2F2F2;stroke-width:4;stroke-miterlimit:10;" cx="1236.9" cy="643.7" rx="173.1" ry="45.1"/>
+	<path style="fill:#999999;" d="M1195.4,802.4l-328.2-2c-11.9,0-21.6-11-21.6-24.4l12.6-77.2c0-13.4,9.7-24.4,21.6-24.4h302.9
+		c11.9,0,21.6,11,21.6,24.4l12.6,79.2C1217.1,791.4,1207.3,802.4,1195.4,802.4z"/>
+	<path style="fill:#808080;" d="M1042.2,676.1h140.6c11.9,0,21.6,11,21.6,24.4l12.6,79.2c0,13.4-9.7,24.4-21.6,24.4l-153.3-0.9"/>
+	<ellipse style="fill:#1FA5AA;stroke:#F2F2F2;stroke-width:4;stroke-miterlimit:10;" cx="1027.7" cy="676.1" rx="173.1" ry="45.1"/>
+	
+		<line style="fill:none;stroke:#FFFFFF;stroke-width:7;stroke-linecap:round;stroke-miterlimit:10;" x1="1241.4" y1="644.6" x2="1396.5" y2="642.8"/>
+	
+		<line style="fill:none;stroke:#FFFFFF;stroke-width:7;stroke-linecap:round;stroke-miterlimit:10;" x1="1023.2" y1="677" x2="1178.3" y2="675.2"/>
 </g>
 <g id="Crib">
 </g>
