@@ -26,8 +26,14 @@ export const svgShapeDriver = () => {
         state.$link.setAttribute('height', '400px');
       }
 
+      state.$link.setAttribute('preserveAspectRatio', 'xMinYMin');
+
       for (var key in state.style) {
-        state.$link.style[key] = state.style[key];
+        if (key === 'x' || key === 'y') {
+          state.$link.setAttribute(key, state.style[key]);
+        } else {
+          state.$link.style[key] = state.style[key];
+        }
       }
     }
   };
