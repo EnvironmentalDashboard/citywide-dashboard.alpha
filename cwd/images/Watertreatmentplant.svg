@@ -87,10 +87,7 @@
 	<path style="fill:#CCCCCC;" d="M1095.4,218.2c-6.4,0-11.7-5.3-11.7-11.7v-97.4c0-6.4,5.3-11.7,11.7-11.7s11.7,5.3,11.7,11.7v97.4
 		C1107.1,212.9,1101.8,218.2,1095.4,218.2z"/>
 </g>
-<g id="WT_towers">
-</g>
-<g id="buildings">
-</g>
+
 <g id="WT_pools">
 	<path style="fill:#666666;" d="M1404.6,766.3l-328.2-2c-11.9,0-21.6-10.7-21.6-23.7l12.6-75c0-13,9.7-23.7,21.6-23.7h303
 		c11.9,0,21.6,10.7,21.6,23.7l12.6,77C1426.2,755.6,1416.5,766.3,1404.6,766.3z"/>
@@ -104,7 +101,5 @@
 		<line style="fill:none;stroke:#FFFFFF;stroke-width:7;stroke-linecap:round;stroke-miterlimit:10;" x1="1241.4" y1="644.6" x2="1396.5" y2="642.8"/>
 	
 		<line style="fill:none;stroke:#FFFFFF;stroke-width:7;stroke-linecap:round;stroke-miterlimit:10;" x1="1023.2" y1="677" x2="1178.3" y2="675.2"/>
-</g>
-<g id="Crib">
 </g>
 </svg>

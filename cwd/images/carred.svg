@@ -2,9 +2,8 @@
 <!-- Generator: Adobe Illustrator 23.0.4, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 1404 681.9" style="enable-background:new 0 0 1404 681.9;" xml:space="preserve">
-<g id="Layer_3">
-</g>
-<g id="transport">
+
+<g id="car">
 	<path style="fill:#E35F00;" d="M1404,375.2v145.2h-121.2c-17.4-23.2-42.9-40-72.5-46c-7.7-1.6-16-2.4-24.2-2.4
 		c-39.5,0-74.7,19-96.5,48.4H383.1C362.8,491,328.9,472,290.5,472s-72.3,19-92.6,48.4H6c-3.9-12.7-6-26.3-6-40.3v-1.6
 		c13.4,6,30.2,9.7,48.4,9.7c44.5,0,80.7-21.6,80.7-48.4c0-26.8-36.1-48.4-80.7-48.4c-1.6,0-3.4,0-5,0.2
@@ -32,16 +31,5 @@
 		c1.6-7.7,2.4-15.8,2.4-24c0-27.4-9-52.6-24.4-72.6H1404V520.4z"/>
 	<rect x="693.9" y="326.8" width="80.7" height="32.3"/>
 	<rect x="1065.1" y="326.8" width="80.7" height="32.3"/>
-</g>
-<g id="buildings">
-	<path style="fill:#666666;" d="M1315-713.9h0.7c-0.4,2.6-0.7,5.3-0.7,8V-713.9z"/>
-	<path style="fill:#97B4BB;" d="M1443-713.9v8c0-2.7-0.2-5.4-0.7-8H1443z"/>
-	<path style="fill:#97B4BB;" d="M1481-713.9h0.7c-0.4,2.6-0.7,5.3-0.7,8V-713.9z"/>
-	<path style="fill:#97B4BB;" d="M1609-713.9v8c0-2.7-0.2-5.4-0.7-8H1609z"/>
-	<path style="fill:#97B4BB;" d="M1649.7-683.4c-0.3,1.6-0.6,3.3-0.6,5c0,0.4,0,0.8,0,1.1v-6.1H1649.7z"/>
-	<path style="fill:#97B4BB;" d="M1777-683.4v6.1c0-2.1-0.2-4.1-0.7-6.1H1777z"/>
-	<path style="fill:#97B4BB;" d="M1609-705.9c0-2.7-0.2-5.4-0.7-8h0.7V-705.9z"/>
-</g>
-<g id="bridge">
 </g>
 </svg>

@@ -2,13 +2,7 @@
 <!-- Generator: Adobe Illustrator 23.0.4, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 1225.8 1009.1" style="enable-background:new 0 0 1225.8 1009.1;" xml:space="preserve">
-<g>
-	<path style="fill:#BDCCD4;" d="M240.1,188.6"/>
-</g>
-<g id="Layer_3">
-</g>
-<g id="transport">
-</g>
+
 <g id="buildings">
 	<path style="fill:#BDCCD4;" d="M392.9,634.9h97.8c0-124.9,0-249.9,0-374.8c-32.6,0-65.2,0-97.8,0V634.9z"/>
 	<path style="fill:#2E3192;" d="M363.6,638.1H406v-378c-14.1,6.5-28.2,13-42.4,19.6C363.6,399.1,363.6,518.6,363.6,638.1z"/>
@@ -383,6 +377,5 @@
 	<rect x="83.2" y="731.5" style="fill:#FF931E;" width="26.7" height="52.7"/>
 	<rect x="83.2" y="797.5" style="fill:#FF931E;" width="26.7" height="52.7"/>
 </g>
-<g id="bridge">
-</g>
+
 </svg>

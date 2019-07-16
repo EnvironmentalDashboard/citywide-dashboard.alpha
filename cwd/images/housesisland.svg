@@ -3,11 +3,6 @@
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 1737.5 746.2" style="enable-background:new 0 0 1737.5 746.2;" xml:space="preserve">
 <g>
-	<g id="Layer_6">
-		<g>
-			<rect x="1659.6" y="537.5" style="fill:#2E3192;" width="33.4" height="59.7"/>
-		</g>
-	</g>
 	<g id="XMLID_5_">
 		<g>
 			<path style="fill:#F14929;" d="M1662.9,542.6v59.7h32.1v-59.7H1662.9z M1723.2,576.7v132.5c-1.1,0.8-2.2,1.2-3.4,1.2H1569v-203
@@ -536,13 +531,5 @@
 		c-13.1-11.5-22.6-16.3-6.8-36c1.7-2.2,2.9,15.5,1.2,21.1c-3.4,11-15.3,23.7-23.9,27.9c14.6,3.7,44.4-3.6,57.7,5.1l-5.9,69.8
 		l12.9,5.9l3.9,9.3l-25.6-7.9l-0.3-14.9c0,0-5.3-36.3-1.7-43.6c0,0-35.8,3.4-57.7,3.4c0,0-21.7-7.3-10.7-36.6L1133.3,540.3z"/>
 	<path style="fill:#666666;" d="M1134.3,540.3v-7.2c0,0-18-7.4,4.5-25.7c0,0,9-7.3,18,0c0,0,22.4,21.9-9,29.3v11L1134.3,540.3z"/>
-</g>
-<g id="TH_Background">
-</g>
-<g id="TH_buildings">
-</g>
-<g id="TH_Details">
-</g>
-<g id="Toilet_person">
 </g>
 </svg>

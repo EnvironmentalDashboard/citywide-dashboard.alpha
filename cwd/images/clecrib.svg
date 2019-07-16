@@ -2,9 +2,8 @@
 <!-- Generator: Adobe Illustrator 23.0.4, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 788.6 996.4" style="enable-background:new 0 0 788.6 996.4;" xml:space="preserve">
-<g id="island_background">
-</g>
-<g>
+
+<g id="crib">
 	<path style="fill:#F2F2F2;stroke:#F14929;stroke-width:2;stroke-miterlimit:10;" d="M597.6,769c-71.7,0-143.5,0-215.2,0
 		c1-88,2-175.9,3.1-263.9c71.7,5.5,143.5,11,215.2,16.5C599.6,604.1,598.6,686.6,597.6,769z"/>
 	<path style="fill:#F2F2F2;stroke:#F14929;stroke-width:2;stroke-miterlimit:10;" d="M384.4,777.3c-74.8,0-149.6,0-224.4,0V525.7
@@ -39,14 +38,5 @@
 	<path style="fill:#39B0D8;" d="M250.7,944.6H4.2c-2.3,0-4.2-1.9-4.2-4.2v-67.3c0-2.3,1.9-4.2,4.2-4.2h246.5c2.3,0,4.2,1.9,4.2,4.2
 		v67.3C254.9,942.8,253,944.6,250.7,944.6z"/>
 </g>
-<g id="WT_Storage">
-</g>
-<g id="WT_towers">
-</g>
-<g id="buildings">
-</g>
-<g id="WT_pools">
-</g>
-<g id="Crib">
-</g>
+
 </svg>
