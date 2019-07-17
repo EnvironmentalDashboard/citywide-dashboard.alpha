@@ -191,38 +191,6 @@
       dash.addGlyph(glyph);
     });
 
-    const sampleLine = {
-      _id: "1234",
-      name: 'line',
-      shape: './images/sampleLine.svg',
-      state: {
-        graphic: {},
-        style: {
-          x: '25%',
-          y: '25%'
-        }
-      },
-      props: {
-        size: '15%'
-      },
-      animators: {
-        pathMover: {
-          path: {
-            state: {
-              graphic: {},
-              style: {}
-            },
-            pathId: 'toBottom',
-          },
-          duration: 1000,
-          group: 'mycircle'
-        }
-      },
-      layer: 6
-    };
-
-    dash.addGlyph(factory(sampleLine)());
-
     // for (let obj of allGlyphs) {
     //   // if (obj.length === 0) {
     //     const glyph = obj();
