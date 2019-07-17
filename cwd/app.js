@@ -110,10 +110,19 @@
       const producePath = obj => {
         let state = obj.state || { graphic: {}, style: {} };
 
-        return Object.assign(
-          state,
-          cwd.graphic(state).shape(cwd.pathShape().coords(obj.coords || ''))
-        );
+        if (obj.pathId) {
+          return Object.assign(
+            state,
+            cwd.graphic(state).shape(cwd.pathShape().from(obj.pathId))
+          );
+        } else {
+          return Object.assign(
+            state,
+            cwd
+              .graphic(state)
+              .shape(cwd.pathShape().coords(obj.coords || ''))
+          );
+        }
       };
 
       return function() {
@@ -139,23 +148,23 @@
         for (animatorType in glyph.animators) {
           const animator = glyph.animators[animatorType];
           switch (animatorType) {
-            case 'frameChanger':
-              const frameShapes = [];
-              for (frameURL of animator.frames) {
-                frameShapes.push(
-                  cwd
-                    .svgImageShape()
-                    .url(frameURL)
-                    .size(glyph.props.size || '100%')
-                );
-              }
-              fxArray.push(
-                cwd
-                  .frameChanger(state)
-                  .duration(animator.duration)
-                  .frames(frameShapes)
-              );
-              break;
+            // case 'frameChanger':
+            //   const frameShapes = [];
+            //   for (frameURL of animator.frames) {
+            //     frameShapes.push(
+            //       cwd
+            //         .svgImageShape()
+            //         .url(frameURL)
+            //         .size(glyph.props.size || '100%')
+            //     );
+            //   }
+            //   fxArray.push(
+            //     cwd
+            //       .frameChanger(state)
+            //       .duration(animator.duration)
+            //       .frames(frameShapes)
+            //   );
+            //   break;
             case 'pathMover':
               const path = producePath(animator.path);
               fxArray.push(
@@ -177,9 +186,42 @@
     };
   
     allGlyphs.forEach(glyphObj => {
+      // if (glyphObj.name === 'bird') return;
       const glyph = factory(glyphObj)();
       dash.addGlyph(glyph);
     });
+
+    const sampleLine = {
+      _id: "1234",
+      name: 'line',
+      shape: './images/sampleLine.svg',
+      state: {
+        graphic: {},
+        style: {
+          x: '25%',
+          y: '25%'
+        }
+      },
+      props: {
+        size: '15%'
+      },
+      animators: {
+        pathMover: {
+          path: {
+            state: {
+              graphic: {},
+              style: {}
+            },
+            pathId: 'toBottom',
+          },
+          duration: 1000,
+          group: 'mycircle'
+        }
+      },
+      layer: 6
+    };
+
+    dash.addGlyph(factory(sampleLine)());
 
     // for (let obj of allGlyphs) {
     //   // if (obj.length === 0) {
