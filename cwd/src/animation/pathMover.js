@@ -34,45 +34,43 @@ export const pathMover = state => {
     step: function(timestamp) {
       lastStepped = timestamp;
       let current = timestamp % duration;
-
+      let lengthOnPath =
+      (current / duration) * state.path.$link.getTotalLength();
+      /**
+       * @todo This may be leakly logic...
+       */
+      let point = state.path.$link.getPointAtLength(lengthOnPath);
+      
       if (group) {
         console.log('has a group!');
         let groupLink = null;
         for (let node of state.$link.children) {
           if (node.id === group) {
             groupLink = node;
-            groupLink.style.offsetPath = `path("${state.path.graphic.coords}")`;
-            // groupLink.style.offsetPath = `path("M140,140 L 0 0")`;
-            groupLink.style.offsetDistance = `${(current / duration) * 100}%`;
-            groupLink.style.offsetRotate = '0deg';
+
+            const transform = getCompositeTransform(
+              state.style,
+              `translate(${point.x}px, ${point.y}px)`
+            );
+            state.style = Object.assign(state.style, { transform });
           }
         }
 
-        // if (groupLink) {
-        //   console.log(groupLink.style ? groupLink : 'merp');
-        // }
       } else {
-      let lengthOnPath =
-        (current / duration) * state.path.$link.getTotalLength();
+        let linkTransformable =
+          state.$link.tagName.toUpperCase() === 'SVG' ? false : true;
 
-      let linkTransformable = state.$link.tagName.toUpperCase() === 'SVG' ? false : true;
-
-      /**
-       * @todo This may be leakly logic...
-       */
-      let point = state.path.$link.getPointAtLength(lengthOnPath);
-
-      // TODO: Transform by point.x vs. setting x: point.x? Behavior is inconsistent.
-      if (linkTransformable) {
-        const transform = getCompositeTransform(
-          state,
-          `translate(${point.x}px, ${point.y}px)`
-        );
-        state.style = Object.assign(state.style, { transform });
-      } else {
-        state.style = Object.assign(state.style, { x: point.x, y: point.y });
+        // TODO: Transform by point.x vs. setting x: point.x? Behavior is inconsistent.
+        if (linkTransformable) {
+          const transform = getCompositeTransform(
+            state.style,
+            `translate(${point.x}px, ${point.y}px)`
+          );
+          state.style = Object.assign(state.style, { transform });
+        } else {
+          state.style = Object.assign(state.style, { x: point.x, y: point.y });
+        }
       }
-    }
     },
 
     readyToStep: function(timestamp) {

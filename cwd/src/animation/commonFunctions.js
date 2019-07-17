@@ -3,16 +3,16 @@
  * @param {String} tf transform to be added to state.style.transform
  * @returns {String}
  */
-const getCompositeTransform = (state, tf) => {
+const getCompositeTransform = (style, tf) => {
   const transformType = tf.substring(0, tf.indexOf('('));
   const typeSearch = new RegExp(`${transformType}\\([^\(\)]*\\)`, `i`);
   let transform;
-  if (state.style.transform) {
-    let idx = state.style.transform.search(typeSearch);
+  if (style.transform) {
+    let idx = style.transform.search(typeSearch);
     if (idx < 0) {
-      transform = `${state.style.transform} ${tf}`;
+      transform = `${style.transform} ${tf}`;
     } else {
-      transform = state.style.transform.replace(typeSearch, tf);
+      transform = style.transform.replace(typeSearch, tf);
     }
   } else {
     transform = tf;
