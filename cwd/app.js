@@ -163,6 +163,7 @@
                   .pathMover(state)
                   .duration(animator.duration)
                   .path(path)
+                  .toSVGGroup(animator.group ? animator.group : null)
               );
             default:
               break;

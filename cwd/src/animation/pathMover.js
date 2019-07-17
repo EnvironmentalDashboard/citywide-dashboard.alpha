@@ -7,7 +7,7 @@ export const pathMover = state => {
   let stepEvery = 1;
 
   let path = null;
-  let group = null;
+  let groupId = null;
 
   return {
     duration: function(dur) {
@@ -23,11 +23,10 @@ export const pathMover = state => {
       return this;
     },
 
-    addGroup: function(groupName) {
-      if (groupName) {
-        group = groupName;
+    toSVGGroup: function(id) {
+      if (id) {
+        groupId = id;
       }
-      console.log(group);
       return this;
     },
 
@@ -41,21 +40,18 @@ export const pathMover = state => {
        */
       let point = state.path.$link.getPointAtLength(lengthOnPath);
       
-      if (group) {
-        console.log('has a group!');
-        let groupLink = null;
+      if (groupId) {
+        let $group = null;
         for (let node of state.$link.children) {
-          if (node.id === group) {
-            groupLink = node;
-
+          if (node.id === groupId) {
+            $group = node;
             const transform = getCompositeTransform(
-              state.style,
+              $group.style,
               `translate(${point.x}px, ${point.y}px)`
             );
-            state.style = Object.assign(state.style, { transform });
+            $group.style.transform = transform;
           }
         }
-
       } else {
         let linkTransformable =
           state.$link.tagName.toUpperCase() === 'SVG' ? false : true;
