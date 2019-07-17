@@ -191,28 +191,6 @@
       dash.addGlyph(glyph);
     });
 
-    // for (let obj of allGlyphs) {
-    //   // if (obj.length === 0) {
-    //     const glyph = obj();
-    //     dash.addGlyph(glyph);
-    //   // } else {
-    //     // const glyph = obj(paths[obj.name]());
-    //     // dash.addGlyph(glyph);
-    //   // }
-    // }
-  
-    // let tweetPath = zigPath();
-    // let tweet = bird(tweetPath);
-    // let rivers = background();
-    // let car = blueCar();
-    // dash.addGlyph(rivers);
-    // dash.addGlyph(tweet);
-    // dash.addGlyph(car);
-  
-    // const bridgeCar = car();
-    // bridgeCar.style.x = '29.167%';
-    // bridgeCar.style.y = '33.7963%';
-    // dash.addGlyph(bridgeCar);
     dash.render();
   
     if (EDIT_MODE) {
