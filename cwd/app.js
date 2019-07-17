@@ -148,23 +148,23 @@
         for (animatorType in glyph.animators) {
           const animator = glyph.animators[animatorType];
           switch (animatorType) {
-            // case 'frameChanger':
-            //   const frameShapes = [];
-            //   for (frameURL of animator.frames) {
-            //     frameShapes.push(
-            //       cwd
-            //         .svgImageShape()
-            //         .url(frameURL)
-            //         .size(glyph.props.size || '100%')
-            //     );
-            //   }
-            //   fxArray.push(
-            //     cwd
-            //       .frameChanger(state)
-            //       .duration(animator.duration)
-            //       .frames(frameShapes)
-            //   );
-            //   break;
+            case 'frameChanger':
+              const frameShapes = [];
+              for (frameURL of animator.frames) {
+                frameShapes.push(
+                  cwd
+                    .svgShape()
+                    .url(frameURL)
+                    .size(glyph.props.size || '100%')
+                );
+              }
+              fxArray.push(
+                cwd
+                  .frameChanger(state)
+                  .duration(animator.duration)
+                  .frames(frameShapes)
+              );
+              break;
             case 'pathMover':
               const path = producePath(animator.path);
               fxArray.push(
