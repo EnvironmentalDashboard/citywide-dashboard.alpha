@@ -9,6 +9,12 @@ export const graphic = state => {
       state.graphic = shape.graphic();
 
       return this;
+    },
+
+    domEffects: function(props) {
+      props.hoverEffect ? state.graphic.hoverEffect = 'true' : state.graphic.hoverEffect = '';
+
+      return this;
     }
   };
 };
