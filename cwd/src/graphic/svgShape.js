@@ -3,7 +3,6 @@ export const svgShape = () => {
     type: 'svg',
     url: null,
     draggable: true,
-    svgContent: null
   };
 
   return {

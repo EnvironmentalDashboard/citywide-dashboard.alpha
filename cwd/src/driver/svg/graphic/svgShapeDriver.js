@@ -7,7 +7,7 @@ export const svgShapeDriver = () => {
     },
 
     update: async function(state) {
-      // Insert svgContent into state.$link
+      // Insert svg into state.$link
       const svgString = await fetch(state.graphic.url).then(response => response.text());
       const svgElement = new DOMParser().parseFromString(svgString, "image/svg+xml").firstElementChild;
       state.$link.parentNode.replaceChild(svgElement, state.$link);
