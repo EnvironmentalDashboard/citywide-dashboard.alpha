@@ -186,7 +186,11 @@
     };
   
     allGlyphs.forEach(glyphObj => {
-      // if (glyphObj.name === 'bird') return;
+      // if (glyphObj.name === 'bird' || glyphObj.name === 'cloud') return;
+      if (glyphObj.name === 'bird') {
+        glyphObj.animators.pathMover.path.coords = 'M1200,350 L600,240 L340,160 L160,40 L80,80 L-100,100';
+        glyphObj.animators.pathMover.duration = '4000';
+      }
       const glyph = factory(glyphObj)();
       dash.addGlyph(glyph);
     });
