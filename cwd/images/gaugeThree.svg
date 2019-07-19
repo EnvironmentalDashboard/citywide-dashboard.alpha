@@ -66,7 +66,7 @@
       height="100%"
       rx="3" ry="3"
       style="fill:#21a7df" />
-<g class='two'
+<g class='one'
 
           style=''>
 <text x='117' y='86.363636363636' alignment-baseline='central' text-anchor='middle' style='font-weight: 100;font-family: Futura, Helvetica, sans-serif;font-size:48;fill: #ecf0f1;'>0</text>
@@ -170,7 +170,7 @@
 <text x='117' y='4986.3636363636' alignment-baseline='central' text-anchor='middle' style='font-weight: 100;font-family: Futura, Helvetica, sans-serif;font-size:48;fill: #ecf0f1;'>8</text>
 <text x='117' y='5036.3636363636' alignment-baseline='central' text-anchor='middle' style='font-weight: 100;font-family: Futura, Helvetica, sans-serif;font-size:48;fill: #ecf0f1;'>9</text>
 </g>
-<g class='seven'
+<g class='three'
 
           style=''>
 <text x='147' y='86.363636363636' alignment-baseline='central' text-anchor='middle' style='font-weight: 100;font-family: Futura, Helvetica, sans-serif;font-size:48;fill: #ecf0f1;'>0</text>
@@ -274,7 +274,7 @@
 <text x='147' y='4986.3636363636' alignment-baseline='central' text-anchor='middle' style='font-weight: 100;font-family: Futura, Helvetica, sans-serif;font-size:48;fill: #ecf0f1;'>8</text>
 <text x='147' y='5036.3636363636' alignment-baseline='central' text-anchor='middle' style='font-weight: 100;font-family: Futura, Helvetica, sans-serif;font-size:48;fill: #ecf0f1;'>9</text>
 </g>
-<g class='seven'
+<g class='three'
 
           style=''>
 <text x='177' y='86.363636363636' alignment-baseline='central' text-anchor='middle' style='font-weight: 100;font-family: Futura, Helvetica, sans-serif;font-size:48;fill: #ecf0f1;'>0</text>
@@ -397,7 +397,7 @@
       text-anchor="middle"
       alignment-baseline="central"
       style="font-family: Futura, Helvetica, sans-serif;font-size: 24px;fill: #ecf0f1;">
-        Electricity use</text>
+        Gas use</text>
 
 
 
@@ -406,7 +406,7 @@
       text-anchor="middle"
       alignment-baseline="central"
       style="font-weight: 100;font-family: Futura, Helvetica, sans-serif;font-size: 24;fill: rgba(236, 240, 241, 0.8)">
-        Kilowatts</text>
+        Other / hour</text>
 
 <g>
   <line x1="15%" y1="90%" x2="85%" y2="90%"
