@@ -3,11 +3,28 @@
     let svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
   
   const allGlyphs = activeGlyphs.arr;
+
+
+  // This makes sure width isn't too big for the screen, and switches to calculate based off of full width
   var height = window.innerHeight
   || document.documentElement.clientHeight
   || document.body.clientHeight;
   
   var width = (16/9) * height;
+
+  if (
+    width >
+    (window.innerWidth ||
+      document.documentElement.clientWidth ||
+      document.body.clientWidth)
+  ) {
+    width =
+      window.innerWidth ||
+      document.documentElement.clientWidth ||
+      document.body.clientWidth;
+
+    height = width * (9 / 16);
+  }
   
     svg.setAttribute('width', width);
     svg.setAttribute('height', height);
