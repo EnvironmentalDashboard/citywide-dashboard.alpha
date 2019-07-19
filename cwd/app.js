@@ -110,10 +110,19 @@
       const producePath = obj => {
         let state = obj.state || { graphic: {}, style: {} };
 
-        return Object.assign(
-          state,
-          cwd.graphic(state).shape(cwd.pathShape().coords(obj.coords || ''))
-        );
+        if (obj.pathId) {
+          return Object.assign(
+            state,
+            cwd.graphic(state).shape(cwd.pathShape().from(obj.pathId))
+          );
+        } else {
+          return Object.assign(
+            state,
+            cwd
+              .graphic(state)
+              .shape(cwd.pathShape().coords(obj.coords || ''))
+          );
+        }
       };
 
       return function() {
@@ -129,7 +138,7 @@
 
         // Then graphic
         const shape = cwd
-          .svgImageShape()
+          .svgShape()
           .url(glyph.shape || '')
           .size(glyph.props.size || '100%');
         Object.assign(product, cwd.graphic(state).shape(shape));
@@ -144,7 +153,7 @@
               for (frameURL of animator.frames) {
                 frameShapes.push(
                   cwd
-                    .svgImageShape()
+                    .svgShape()
                     .url(frameURL)
                     .size(glyph.props.size || '100%')
                 );
@@ -163,6 +172,7 @@
                   .pathMover(state)
                   .duration(animator.duration)
                   .path(path)
+                  .toSVGGroup(animator.group ? animator.group : null)
               );
             default:
               break;
@@ -176,32 +186,15 @@
     };
   
     allGlyphs.forEach(glyphObj => {
+      // if (glyphObj.name === 'bird' || glyphObj.name === 'cloud') return;
+      if (glyphObj.name === 'bird') {
+        glyphObj.animators.pathMover.path.coords = 'M1200,350 L600,240 L340,160 L160,40 L80,80 L-100,100';
+        glyphObj.animators.pathMover.duration = '4000';
+      }
       const glyph = factory(glyphObj)();
       dash.addGlyph(glyph);
     });
 
-    // for (let obj of allGlyphs) {
-    //   // if (obj.length === 0) {
-    //     const glyph = obj();
-    //     dash.addGlyph(glyph);
-    //   // } else {
-    //     // const glyph = obj(paths[obj.name]());
-    //     // dash.addGlyph(glyph);
-    //   // }
-    // }
-  
-    // let tweetPath = zigPath();
-    // let tweet = bird(tweetPath);
-    // let rivers = background();
-    // let car = blueCar();
-    // dash.addGlyph(rivers);
-    // dash.addGlyph(tweet);
-    // dash.addGlyph(car);
-  
-    // const bridgeCar = car();
-    // bridgeCar.style.x = '29.167%';
-    // bridgeCar.style.y = '33.7963%';
-    // dash.addGlyph(bridgeCar);
     dash.render();
   
     if (EDIT_MODE) {

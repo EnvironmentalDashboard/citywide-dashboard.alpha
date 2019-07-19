@@ -1,0 +1,10 @@
+<svg id="Layer_1" data-name="Layer 1" 
+  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2128.61 1075.11">
+  <title>powerline7</title>
+  <path d="M1920.16.48C1721.47,359.1,274.3,1022.23.49,867.16" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="2"/>
+  <path d="M1920.16.48C1721.47,359.1,644.73,1067.56,291,864" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="2"/>
+  <path id="powerline7_path" d="M2127.61,3.61c0,194.2-239.52,1103.34-479,1069.58" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="2"/>
+    <g id="powerline7_electron">
+    <circle style="fill:#FFFF00" r="20"/>
+  </g>
+</svg>

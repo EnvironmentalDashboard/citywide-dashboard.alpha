@@ -7,6 +7,7 @@ export const pathMover = state => {
   let stepEvery = 1;
 
   let path = null;
+  let groupId = null;
 
   return {
     duration: function(dur) {
@@ -22,24 +23,50 @@ export const pathMover = state => {
       return this;
     },
 
+    toSVGGroup: function(id) {
+      if (id) {
+        groupId = id;
+      }
+      return this;
+    },
+
     step: function(timestamp) {
       lastStepped = timestamp;
-
       let current = timestamp % duration;
-
       let lengthOnPath =
-        (current / duration) * state.path.$link.getTotalLength();
-
+      (current / duration) * state.path.$link.getTotalLength();
       /**
        * @todo This may be leakly logic...
        */
       let point = state.path.$link.getPointAtLength(lengthOnPath);
-      const transform = getCompositeTransform(
-        state,
-        `translate(${point.x}px, ${point.y}px)`
-      );
+      
+      if (groupId) {
+        let $group = null;
+        for (let node of state.$link.children) {
+          if (node.id === groupId) {
+            $group = node;
+            const transform = getCompositeTransform(
+              $group.style,
+              `translate(${point.x}px, ${point.y}px)`
+            );
+            $group.style.transform = transform;
+          }
+        }
+      } else {
+        let linkTransformable =
+          state.$link.tagName.toUpperCase() === 'SVG' ? false : true;
 
-      state.style = Object.assign(state.style, { transform });
+        // TODO: Transform by point.x vs. setting x: point.x? Behavior is inconsistent.
+        if (linkTransformable) {
+          const transform = getCompositeTransform(
+            state.style,
+            `translate(${point.x}px, ${point.y}px)`
+          );
+          state.style = Object.assign(state.style, { transform });
+        } else {
+          state.style = Object.assign(state.style, { x: point.x, y: point.y });
+        }
+      }
     },
 
     readyToStep: function(timestamp) {

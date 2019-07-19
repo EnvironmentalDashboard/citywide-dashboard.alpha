@@ -4,6 +4,7 @@ export { graphic } from './graphic';
 export { pathShape } from './graphic/pathShape';
 export { svgImageShape } from './graphic/svgImageShape';
 export { svgGradient } from './graphic/svgGradient';
+export { svgShape } from './graphic/svgShape';
 
 export { fx } from './fx';
 export { frameChanger } from './animation/frameChanger';
