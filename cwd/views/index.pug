@@ -21,6 +21,7 @@ html
 
       .glow-on-hover:hover {
         filter: url(#glow);
+        cursor: pointer;
       }
     style
 
@@ -28,7 +29,7 @@ html
     div(id="page-wrap")
       div(id="dashboard-wrap")
         div(id="map")
-          svg(id="svg-wrap")
+          svg(id="svg-wrap" xmlns="http://www.w3.org/2000/svg")
             defs
               filter(id="glow" x="0" y="0")
                 feGaussianBlur(in="SourceGraphic" stdDeviation="15")
