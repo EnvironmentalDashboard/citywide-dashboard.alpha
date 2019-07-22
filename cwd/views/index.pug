@@ -18,12 +18,21 @@ html
       .draggable {
         cursor: move;
       }
+
+      .glow-on-hover:hover {
+        filter: url(#glow);
+      }
     style
 
   body
     div(id="page-wrap")
-        div(id="dashboard-wrap")
-            div(id="map")
+      div(id="dashboard-wrap")
+        div(id="map")
+          svg(id="svg-wrap")
+            defs
+              filter(id="glow" x="0" y="0")
+                feGaussianBlur(in="SourceGraphic" stdDeviation="15")
+
     script const activeGlyphs = !{activeGlyphsStr};
     script(src="./dist/cwd-bundle.js")
     script(src="./app.js")

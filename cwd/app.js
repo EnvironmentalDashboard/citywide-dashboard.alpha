@@ -1,6 +1,6 @@
 
 (function(cwd, activeGlyphs) {
-    let svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    let svg = document.getElementById("svg-wrap");
   
   const allGlyphs = activeGlyphs.arr;
 
@@ -28,10 +28,7 @@
   
     svg.setAttribute('width', width);
     svg.setAttribute('height', height);
-    // svg.setAttribute('viewbox', '0 0 100 100');
-  
-    document.getElementById('map').appendChild(svg);
-  
+    
     let animationDriver = window.requestAnimationFrame.bind(window);
     let graphicsDriver = cwd.svgDriver(svg);
     let editorDriver = cwd.editorDriver;
@@ -157,8 +154,8 @@
         const shape = cwd
           .svgShape()
           .url(glyph.shape || '')
-          .size(glyph.props.size || '100%');
-        Object.assign(product, cwd.graphic(state).shape(shape));
+          .size(glyph.props.size || '100%')
+        Object.assign(product, cwd.graphic(state).shape(shape).domEffects(glyph.props));
 
         // Then fx
         const fxArray = [];
