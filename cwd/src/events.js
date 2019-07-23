@@ -1,4 +1,4 @@
-export const listener = function(state) {
+export const events = function(state) {
   let needsRedraw = true,
     events = [];
 

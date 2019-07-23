@@ -1,5 +1,5 @@
 /**
- * MapEngine ties together all drivers and map dependencies (e.g., gylphs) & keeps
+ * MapEngine ties together all drivers and map dependencies (e.g., glyphs) & keeps
  * track of them in a live map simulation.
  *
  * At simulation instantiation, the MapEngine's `render()` method is triggered.

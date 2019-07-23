@@ -1,9 +1,9 @@
 
 (function(cwd, activeGlyphs) {
-    let svg = document.getElementById("svg-wrap");
+  
+  let svg = document.getElementById("svg-wrap");
   
   const allGlyphs = activeGlyphs.arr;
-
 
   // This makes sure width isn't too big for the screen, and switches to calculate based off of full width
   var height = window.innerHeight
@@ -35,90 +35,20 @@
   
     let dash = cwd.engine(graphicsDriver, animationDriver);
     const EDIT_MODE = 0;
-  
-    const tempgauge = () => {
-      let content = cwd
-        .svgImageShape()
-        .url('./images/tempgauge.svg')
-        .size('18.2292%');
-  
-      let state = {
-        graphic: {},
-        style: {
-          x: '79.6875%',
-          y: '1.852%'
-        }
-      };
-  
-      return Object.assign(
-        state,
-        cwd.glyph(state),
-        cwd.graphic(state).shape(content)
-      );
+
+    let eventsDict = {
+      "switchView": function(){
+        // switch (this.id) {
+        //   case "water":
+            
+        //     break;
+        
+        //   default:
+        //     break;
+        // }
+      }
     };
-  
-    const wastewatertreatedgauge = () => {
-      let content = cwd
-        .svgImageShape()
-        .url('./images/wastewatertreatedgauge.svg')
-        .size('18.2292%');
-  
-      let state = {
-        graphic: {},
-        style: {
-          x: '79.6875%',
-          y: '25%'
-        }
-      };
-  
-      return Object.assign(
-        state,
-        cwd.glyph(state),
-        cwd.graphic(state).shape(content)
-      );
-    };
-  
-    const watertreatmentelectricgauge = () => {
-      let content = cwd
-        .svgImageShape()
-        .url('./images/watertreatmentelectricgauge.svg')
-        .size('18.2292%');
-  
-      let state = {
-        graphic: {},
-        style: {
-          x: '79.6875%',
-          y: '48.15%'
-        }
-      };
-  
-    return Object.assign(
-      state,
-      cwd.glyph(state),
-      cwd.graphic(state).shape(content)
-    );
-  };
-  
-    const drinkinggauge = () => {
-      let content = cwd
-        .svgImageShape()
-        .url('./images/drinkinggauge.svg')
-        .size('18.2292%');
-  
-      let state = {
-        graphic: {},
-        style: {
-          x: '79.6875%',
-          y: '71.2963%'
-        }
-      };
-  
-      return Object.assign(
-        state,
-        cwd.glyph(state),
-        cwd.graphic(state).shape(content)
-      );
-    };
+
   
     const factory = glyph => {
       const producePath = obj => {
@@ -156,6 +86,9 @@
           .url(glyph.shape || '')
           .size(glyph.props.size || '100%')
         Object.assign(product, cwd.graphic(state).shape(shape).domEffects(glyph.props));
+
+        // Then events
+
 
         // Then fx
         const fxArray = [];
@@ -200,7 +133,7 @@
     };
   
     allGlyphs.forEach(glyphObj => {
-      // if (glyphObj.name === 'bird' || glyphObj.name === 'cloud') return;
+      // if (glyphObj.name === 'bird' || glyphObj.name === 'cloud' || glyphObj.name === 'powerline') return;
       if (glyphObj.name === 'bird') {
         glyphObj.animators.pathMover.path.coords = 'M1200,350 L600,240 L340,160 L160,40 L80,80 L-100,100';
         glyphObj.animators.pathMover.duration = '4000';
