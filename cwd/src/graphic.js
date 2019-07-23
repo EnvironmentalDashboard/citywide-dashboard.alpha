@@ -12,7 +12,7 @@ export const graphic = state => {
     },
 
     domEffects: function(props) {
-      props.hoverEffect ? state.graphic.hoverEffect = 'true' : state.graphic.hoverEffect = '';
+      props.hoverEffect ? state.graphic.hoverEffect = props.hoverEffect : state.graphic.hoverEffect = props.hoverEffect;
 
       return this;
     }

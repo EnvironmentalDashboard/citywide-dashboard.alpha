@@ -29,7 +29,13 @@ export const svgShapeDriver = () => {
       state.$link.setAttribute('preserveAspectRatio', 'xMinYMin');
 
       if (state.graphic.hoverEffect){
-        state.$link.setAttribute('class', 'glow-on-hover');
+        switch(state.graphic.hoverEffect) {
+          case 'glow':
+            state.$link.setAttribute('class', 'glow-on-hover');
+            break;
+          default:
+            console.log('Unknown hover effect: ' + state.graphic.hoverEffect)
+        }
       }
 
       for (var key in state.style) {
