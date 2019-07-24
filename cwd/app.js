@@ -81,11 +81,21 @@
           : Object.assign(product, cwd.glyph(state));
 
         // Then graphic
-        const shape = cwd
+        if(glyph.name === "gauge"){
+          const shape = cwd
+          .svgImageShape()
+          .url(glyph.shape || '')
+          .size(glyph.props.size || '100%')
+          Object.assign(product, cwd.graphic(state).shape(shape).domEffects(glyph.props));
+        }
+        else{
+          const shape = cwd
           .svgShape()
           .url(glyph.shape || '')
           .size(glyph.props.size || '100%')
-        Object.assign(product, cwd.graphic(state).shape(shape).domEffects(glyph.props));
+          Object.assign(product, cwd.graphic(state).shape(shape).domEffects(glyph.props));
+      }
+        
 
         // Then events
 
