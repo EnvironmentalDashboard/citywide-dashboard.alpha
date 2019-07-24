@@ -80,14 +80,23 @@
           ? Object.assign(product, cwd.glyph(state).preventEdits())
           : Object.assign(product, cwd.glyph(state));
 
+        let shape;
         // Then graphic
-        const shape = cwd
+        if (glyph.name === 'bird') {
+          shape = cwd
+            .svgImageShape()
+            .url(glyph.shape || '')
+            .size(glyph.props.size || '100%')
+        } else {
+        shape = cwd
           .svgShape()
           .url(glyph.shape || '')
           .size(glyph.props.size || '100%')
+        }
         Object.assign(product, cwd.graphic(state).shape(shape).domEffects(glyph.props));
 
         // Then events
+          Object.assign(product, cwd.events(state).addEvents([{type: 'click', listener: function(ev) {console.log(ev.target)}}]));
 
 
         // Then fx
@@ -100,7 +109,7 @@
               for (frameURL of animator.frames) {
                 frameShapes.push(
                   cwd
-                    .svgShape()
+                    .svgImageShape()
                     .url(frameURL)
                     .size(glyph.props.size || '100%')
                 );

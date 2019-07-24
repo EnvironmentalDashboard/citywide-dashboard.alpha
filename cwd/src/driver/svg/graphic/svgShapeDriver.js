@@ -1,17 +1,17 @@
 export const svgShapeDriver = () => {
   return {
-    create: function(state) {
-      let $svg = document.createElement('svg');
-
+    create: async function(graphic) {
+      // Insert svg into state.$link
+      const svgString = await fetch(graphic.url).then(response => response.text());
+      const $svg = new DOMParser().parseFromString(svgString, "image/svg+xml").firstElementChild;
       return $svg;
     },
 
-    update: async function(state) {
-      // Insert svg into state.$link
-      const svgString = await fetch(state.graphic.url).then(response => response.text());
-      const svgElement = new DOMParser().parseFromString(svgString, "image/svg+xml").firstElementChild;
-      state.$link.parentNode.replaceChild(svgElement, state.$link);
-      state.$link = svgElement;
+    update: function(state) {
+
+      if (!state.$link) {
+        return;
+      }
 
       // Set relevant style attributes
       if (state.graphic.width || state.graphic.height) {
