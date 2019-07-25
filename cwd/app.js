@@ -82,17 +82,29 @@
 
         let shape;
         // Then graphic
-        if (glyph.name === 'bird') {
-          shape = cwd
-            .svgImageShape()
-            .url(glyph.shape || '')
+        switch (glyph.shape) {
+          case 'svg':
+            shape = cwd
+            .svgShape()
+            .url(glyph.url || '')
             .size(glyph.props.size || '100%')
-        } else {
-        shape = cwd
-          .svgShape()
-          .url(glyph.shape || '')
-          .size(glyph.props.size || '100%')
+            break;
+
+          case 'svgImage':
+            shape = cwd
+            .svgImageShape()
+            .url(glyph.url || '')
+            .size(glyph.props.size || '100%')
+            break;
+
+          default:
+            shape = cwd
+            .svgShape()
+            .url(glyph.url || '')
+            .size(glyph.props.size || '100%')
+            break;
         }
+
         Object.assign(product, cwd.graphic(state).shape(shape).domEffects(glyph.props));
 
         // Then events
@@ -158,4 +170,4 @@
       console.log("In Edit mode");
     }
 
-  })(window.cwd, activeGlyphs);  
+  })(window.cwd, activeGlyphs);
