@@ -43,7 +43,30 @@
       //   default:
       //     break;
       // }
+    },
+    logSomething: function(evt) {
+      console.log('You clicked on this element:');
+      console.log(evt.target);
     }
+  };
+
+  const viewListener = viewContent => {
+    const name = viewContent.viewName;
+    const gauges = viewContent.gauges;
+
+    let listener = function() {
+      console.log('tryna switch views, broski?');
+      console.log(`loading view ${name} with gauge urls:`);
+      console.log(gauges);
+    };
+
+    functions = [];
+    const funcObj = {
+      type: 'click',
+      listener
+    }
+    functions.push(funcObj);
+    return functions;
   };
 
   const factory = glyph => {
@@ -110,14 +133,11 @@
       // Then events
       Object.assign(
         product,
-        cwd.events(state).addEvents([
-          {
-            type: 'click',
-            listener: function(ev) {
-              console.log(ev.target);
-            }
-          }
-        ])
+        cwd
+          .events(state)
+          .addEvents(
+            glyph.viewContent ? viewListener(glyph.viewContent) : [{type: 'click', listener: eventsDict.logSomething}]
+          )
       );
 
       // Then fx
