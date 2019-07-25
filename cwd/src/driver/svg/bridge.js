@@ -1,7 +1,7 @@
 import { svgImageShapeDriver } from './graphic/svgImageShapeDriver';
 import { pathShapeDriver } from './graphic/pathShapeDriver';
 import { svgGradientDriver } from './graphic/svgGradientDriver';
-import { svgShapeDriver } from "./graphic/svgShapeDriver";
+import { svgShapeDriver } from './graphic/svgShapeDriver';
 
 export const bridge = $svg => {
   let graphic = {};
@@ -34,6 +34,11 @@ export const bridge = $svg => {
         .call()
         .create(state.path.graphic);
     }
+
+    if (state.id) {
+      state.$link.setAttribute('id', state.id);
+    }
+
     // event driver
     if (state.eventsArr !== undefined) {
       state.eventsArr.forEach(event => {
@@ -70,8 +75,8 @@ export const bridge = $svg => {
           return;
         }
         state.hasRegistered = true;
-        await register(state)
-        update(state)
+        await register(state);
+        update(state);
       } else {
         update(state);
       }

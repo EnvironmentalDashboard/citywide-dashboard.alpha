@@ -50,23 +50,27 @@
     }
   };
 
-  const viewListener = viewContent => {
-    const name = viewContent.viewName;
-    const gauges = viewContent.gauges;
+  const viewListener = view => {
+    const name = view.name;
+    const gauges = view.gauges;
 
     let listener = function() {
-      console.log('tryna switch views, broski?');
-      console.log(`loading view ${name} with gauge urls:`);
-      console.log(gauges);
+      for (let i = 0; i < gauges.length; i++) {
+        let $gauge = document.getElementById(`gauge-${i + 1}`);
+        $gauge.setAttributeNS(
+          'http://www.w3.org/1999/xlink',
+          'xlink:href',
+          gauges[i]
+        );
+      }
     };
 
-    functions = [];
-    const funcObj = {
+    const event = {
       type: 'click',
       listener
-    }
-    functions.push(funcObj);
-    return functions;
+    };
+
+    return event;
   };
 
   const factory = glyph => {
@@ -127,18 +131,13 @@
         cwd
           .graphic(state)
           .shape(shape)
-          .domEffects(glyph.props)
+          .props(glyph.props)
       );
 
       // Then events
-      Object.assign(
-        product,
-        cwd
-          .events(state)
-          .addEvents(
-            glyph.viewContent ? viewListener(glyph.viewContent) : [{type: 'click', listener: eventsDict.logSomething}]
-          )
-      );
+      const events = [];
+      if (glyph.view) events.push(viewListener(glyph.view));
+      Object.assign(product, cwd.events(state).addEvents(events));
 
       // Then fx
       const fxArray = [];
