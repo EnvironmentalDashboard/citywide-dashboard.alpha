@@ -11,8 +11,9 @@ export const graphic = state => {
       return this;
     },
 
-    domEffects: function(props) {
+    props: function(props) {
       props.hoverEffect ? state.graphic.hoverEffect = props.hoverEffect : state.graphic.hoverEffect = props.hoverEffect;
+      state.id = props.id;
 
       return this;
     }

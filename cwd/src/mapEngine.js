@@ -1,5 +1,5 @@
 /**
- * MapEngine ties together all drivers and map dependencies (e.g., gylphs) & keeps
+ * MapEngine ties together all drivers and map dependencies (e.g., glyphs) & keeps
  * track of them in a live map simulation.
  *
  * At simulation instantiation, the MapEngine's `render()` method is triggered.
@@ -21,19 +21,20 @@ export const engine = (gfxDriver, animationsDriver) => {
      * Runs every glyph's `render()` method with the graphics driver and sequences
      * animations
      */
-    render: function() {
+    render: async function() {
+      
+      // Assign `MapEngine.renderAnimations` to the animations driver
+      drivers.animations(this.renderAnimations);
+
       // Iterate through every glyph and render
-      glyphs.forEach(function(glyph) {
-        glyph.render(drivers.gfx);
+      for (let glyph of glyphs) {
+        await glyph.render(drivers.gfx);
 
         // Animated glyphs must be tracked more frequently
         if (glyph.isAnimated) {
           animatedGlyphs.push(glyph);
         }
-      });
-
-      // Assign `MapEngine.renderAnimations` to the animations driver
-      drivers.animations(this.renderAnimations);
+      }
     },
 
     /**

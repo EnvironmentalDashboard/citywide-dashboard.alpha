@@ -1,7 +1,7 @@
 import { svgImageShapeDriver } from './graphic/svgImageShapeDriver';
 import { pathShapeDriver } from './graphic/pathShapeDriver';
 import { svgGradientDriver } from './graphic/svgGradientDriver';
-import { svgShapeDriver } from "./graphic/svgShapeDriver";
+import { svgShapeDriver } from './graphic/svgShapeDriver';
 
 export const bridge = $svg => {
   let graphic = {};
@@ -21,12 +21,12 @@ export const bridge = $svg => {
     return;
   };
 
-  let register = state => {
+  let register = async state => {
     if (state.graphic.type == null) {
       return;
     }
 
-    state.$link = strategyLookup(state.graphic.type)
+    state.$link = await strategyLookup(state.graphic.type)
       .call()
       .create(state.graphic);
     if (state.path) {
@@ -34,9 +34,14 @@ export const bridge = $svg => {
         .call()
         .create(state.path.graphic);
     }
+
+    if (state.id) {
+      state.$link.setAttribute('id', state.id);
+    }
+
     // event driver
-    if (state.events !== undefined) {
-      state.events.forEach(event => {
+    if (state.eventsArr !== undefined) {
+      state.eventsArr.forEach(event => {
         state.$link.addEventListener(event.type, event.listener);
       });
     }
@@ -64,12 +69,17 @@ export const bridge = $svg => {
       console.log('No driver');
     },
 
-    handleRender: state => {
+    handleRender: async state => {
       if (!state.hasOwnProperty('$link')) {
-        register(state);
+        if (state.hasRegistered) {
+          return;
+        }
+        state.hasRegistered = true;
+        await register(state);
+        update(state);
+      } else {
+        update(state);
       }
-
-      update(state);
     }
   };
 };

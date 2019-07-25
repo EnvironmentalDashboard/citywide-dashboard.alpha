@@ -1,11 +1,11 @@
 export const glyph = state => {
   return {
-    render: driver => {
+    render: async driver => {
       if (!state.graphic) {
         return;
       }
 
-      driver.handleRender(state);
+      await driver.handleRender(state);
     },
 
     preventEdits: function() {

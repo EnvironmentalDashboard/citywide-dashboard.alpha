@@ -33,6 +33,11 @@ export const pathMover = state => {
     step: function(timestamp) {
       lastStepped = timestamp;
       let current = timestamp % duration;
+
+      if (!state.path.$link) {
+        return;
+      }
+      
       let lengthOnPath =
       (current / duration) * state.path.$link.getTotalLength();
       /**
