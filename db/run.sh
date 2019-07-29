@@ -10,5 +10,5 @@ then
 fi
 
 # create cwd volume with `docker volume create cwd`
-docker run -d -p 52000:27017 -v cwd:/var/lib/mongodb -e MONGO_INITDB_ROOT_USERNAME=$user -e MONGO_INITDB_ROOT_PASSWORD=$pass --name cwd-mongo mongo
+docker run -d -p 52000:27017 --restart always -v cwd:/var/lib/mongodb -e MONGO_INITDB_ROOT_USERNAME=$user -e MONGO_INITDB_ROOT_PASSWORD=$pass --name cwd-mongo mongo
 # mongo -u "mongoadmin" -p "pass123"
