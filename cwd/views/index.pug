@@ -20,7 +20,7 @@ html
       }
 
       .glow-on-hover:hover {
-        filter: url(#glow);
+        filter: url(#whiteGlow);
         cursor: pointer;
       }
     style
@@ -31,8 +31,16 @@ html
         div(id="map")
           svg(id="svg-wrap" xmlns="http://www.w3.org/2000/svg")
             defs
-              filter(id="glow" x="0" y="0")
+              filter(id="blur" x="0" y="0")
                 feGaussianBlur(in="SourceGraphic" stdDeviation="15")
+              filter(id="whiteGlow" height="500%" width="500%" x="0" y="0")
+                feMorphology(operator="dilate" radius="25" in="SourceAlpha" result="thicken")
+                feGaussianBlur(in="thicken" stdDeviation="40" result="blurred")
+                feFlood(flood-color="rgb(235,235,235)" result="glowColor")
+                feComposite(in="glowColor" in2="blurred" operator="in" result="softGlow_colored")
+                feMerge
+                  feMergeNode(in="softGlow_colored")
+                  feMergeNode(in="SourceGraphic")
 
     script const activeGlyphs = !{activeGlyphsStr};
     script(src="./dist/cwd-bundle.js")
