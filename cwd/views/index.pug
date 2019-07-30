@@ -33,7 +33,7 @@ html
             defs
               filter(id="blur" x="0" y="0")
                 feGaussianBlur(in="SourceGraphic" stdDeviation="15")
-              filter(id="whiteGlow" height="500%" width="500%" x="0" y="0")
+              filter(id="whiteGlow" x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" overflow="auto")
                 feMorphology(operator="dilate" radius="25" in="SourceAlpha" result="thicken")
                 feGaussianBlur(in="thicken" stdDeviation="40" result="blurred")
                 feFlood(flood-color="rgb(235,235,235)" result="glowColor")

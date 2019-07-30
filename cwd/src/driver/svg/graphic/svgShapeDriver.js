@@ -27,6 +27,7 @@ export const svgShapeDriver = () => {
       }
 
       state.$link.setAttribute('preserveAspectRatio', 'xMinYMin');
+      state.$link.setAttribute('overflow', 'visible');
 
       if (state.graphic.hoverEffect){
         switch(state.graphic.hoverEffect) {
