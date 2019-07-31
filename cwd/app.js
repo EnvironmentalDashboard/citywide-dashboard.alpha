@@ -36,38 +36,31 @@
   const EDIT_MODE = 0;
 
   let eventsDict = {
-    switchView: function() {
-      // switch (this.id) {
-      //   case "water":
-      //     break;
-      //   default:
-      //     break;
-      // }
-    },
-    logSomething: function(evt) {
-      console.log('You clicked on this element:');
-      console.log(evt.target);
+    viewSwitcher: function(glyph){
+      const name = glyph.view.name;
+      const gauges = glyph.view.gauges;
+  
+      let listener = function() {
+        for (let i = 0; i < gauges.length; i++) {
+          let $gauge = document.getElementById(`gauge-${i + 1}`);
+          $gauge.setAttributeNS(
+            'http://www.w3.org/1999/xlink',
+            'xlink:href',
+            gauges[i]
+          );
+        }
+      };
+  
+      const event = {
+        type: 'click',
+        listener
+      };
+  
+      return event;
     }
   };
 
-  const viewListener = viewContent => {
-    const name = viewContent.viewName;
-    const gauges = viewContent.gauges;
 
-    let listener = function() {
-      console.log('tryna switch views, broski?');
-      console.log(`loading view ${name} with gauge urls:`);
-      console.log(gauges);
-    };
-
-    functions = [];
-    const funcObj = {
-      type: 'click',
-      listener
-    }
-    functions.push(funcObj);
-    return functions;
-  };
 
   const factory = glyph => {
     const producePath = obj => {
@@ -127,18 +120,13 @@
         cwd
           .graphic(state)
           .shape(shape)
-          .domEffects(glyph.props)
+          .props(glyph.props)
       );
 
       // Then events
-      Object.assign(
-        product,
-        cwd
-          .events(state)
-          .addEvents(
-            glyph.viewContent ? viewListener(glyph.viewContent) : [{type: 'click', listener: eventsDict.logSomething}]
-          )
-      );
+      const events = [];
+      if (glyph.props.clickEffect && eventsDict[glyph.props.clickEffect]) events.push(eventsDict[glyph.props.clickEffect](glyph));
+      Object.assign(product, cwd.events(state).addEvents(events));
 
       // Then fx
       const fxArray = [];
