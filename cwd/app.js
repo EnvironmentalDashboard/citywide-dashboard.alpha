@@ -39,11 +39,7 @@
       let listener = function() {
         for (let i = 0; i < gauges.length; i++) {
           let $gauge = document.getElementById(`gauge-${i + 1}`);
-          $gauge.setAttributeNS(
-            'http://www.w3.org/1999/xlink',
-            'xlink:href',
-            gauges[i]
-          );
+          $gauge.setAttributeNS('href', gauges[i]);
         }
       };
   

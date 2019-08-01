@@ -10,11 +10,7 @@ export const svgImageShapeDriver = () => {
     },
 
     update: function(state) {
-      state.$link.setAttributeNS(
-        'http://www.w3.org/1999/xlink',
-        'xlink:href',
-        state.graphic.url
-      );
+      state.$link.setAttribute('href', state.graphic.url);
 
       if (state.graphic.width || state.graphic.height) {
         state.graphic.height
