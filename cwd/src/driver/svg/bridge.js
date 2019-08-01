@@ -21,12 +21,12 @@ export const bridge = $svg => {
     return;
   };
 
-  let register = async state => {
+  let register = state => {
     if (state.graphic.type == null) {
       return;
     }
 
-    state.$link = await strategyLookup(state.graphic.type)
+    state.$link = strategyLookup(state.graphic.type)
       .call()
       .create(state.graphic);
     if (state.path) {
@@ -69,13 +69,9 @@ export const bridge = $svg => {
       console.log('No driver');
     },
 
-    handleRender: async state => {
+    handleRender: state => {
       if (!state.hasOwnProperty('$link')) {
-        if (state.hasRegistered) {
-          return;
-        }
-        state.hasRegistered = true;
-        await register(state);
+        register(state);
         update(state);
       } else {
         update(state);

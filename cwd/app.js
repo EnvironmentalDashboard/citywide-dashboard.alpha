@@ -28,51 +28,33 @@
   svg.setAttribute('width', width);
   svg.setAttribute('height', height);
 
-  let animationDriver = window.requestAnimationFrame.bind(window);
-  let graphicsDriver = cwd.svgDriver(svg);
-  let editorDriver = cwd.editorDriver;
-
-  let dash = cwd.engine(graphicsDriver, animationDriver);
   const EDIT_MODE = 0;
+  const KIOSK_MODE = 1;
+
+  /** The amount of time in seconds between views in kiosk mode. */
+  const VIEW_DURATION = 10;
 
   let eventsDict = {
-    switchView: function() {
-      // switch (this.id) {
-      //   case "water":
-      //     break;
-      //   default:
-      //     break;
-      // }
-    },
-    logSomething: function(evt) {
-      console.log('You clicked on this element:');
-      console.log(evt.target);
+    viewSwitcher: function(glyph) {
+      let listener = function() {
+        renderView(glyph.view);
+      };
+
+      const event = {
+        type: 'click',
+        listener
+      };
+
+      return event;
     }
   };
 
-  const viewListener = view => {
-    const name = view.name;
-    const gauges = view.gauges;
-
-    let listener = function() {
-      for (let i = 0; i < gauges.length; i++) {
-        let $gauge = document.getElementById(`gauge-${i + 1}`);
-        $gauge.setAttributeNS(
-          'http://www.w3.org/1999/xlink',
-          'xlink:href',
-          gauges[i]
-        );
-      }
-    };
-
-    const event = {
-      type: 'click',
-      listener
-    };
-
-    return event;
-  };
-
+  /**
+   * Creates an appropriate factory function from a database object that,
+   * when executed, produces a glyph object that can be added into the
+   * rendering engine.
+   * @param {glyph} glyph The database object from which to make an appropriate factory function.
+   */
   const factory = glyph => {
     const producePath = obj => {
       let state = obj.state || { graphic: {}, style: {} };
@@ -108,7 +90,8 @@
           shape = cwd
             .svgShape()
             .url(glyph.url || '')
-            .size(glyph.props.size || '100%');
+            .size(glyph.props.size || '100%')
+            .content(glyph.state.graphic.svgContent);
           break;
 
         case 'svgImage':
@@ -136,7 +119,7 @@
 
       // Then events
       const events = [];
-      if (glyph.view) events.push(viewListener(glyph.view));
+      if (glyph.props.clickEffect && eventsDict[glyph.props.clickEffect]) events.push(eventsDict[glyph.props.clickEffect](glyph));
       Object.assign(product, cwd.events(state).addEvents(events));
 
       // Then fx
@@ -181,21 +164,108 @@
     };
   };
 
-  allGlyphs.forEach(glyphObj => {
-    // if (glyphObj.name === 'bird' || glyphObj.name === 'cloud' || glyphObj.name === 'powerline') return;
-    if (glyphObj.name === 'bird') {
-      glyphObj.animators.pathMover.path.coords =
-        'M1200,350 L600,240 L340,160 L160,40 L80,80 L-100,100';
-      glyphObj.animators.pathMover.duration = '4000';
+  /**
+   * Update the gauges on the DOM with the links contained in `view.gauges`.
+   * @param {JSON} view The view object within a viewController object.
+   */
+  const updateGauges = view => {
+    const gauges = view.gauges;
+    for (let i = 0; i < gauges.length; i++) {
+      let $gauge = document.getElementById(`gauge-${i + 1}`);
+      $gauge.setAttribute('href', gauges[i]);
     }
-    const glyph = factory(glyphObj)();
-    dash.addGlyph(glyph);
-  });
+    return;
+  }
 
-  dash.render();
+  /**
+   * Initializes a rendering engine and renders all of the glyphs in the array
+   * of database glyph objects.
+   * @param {JSON[]} glyphsArr All database objects to render as glyphs in the rendering engine.
+   */ 
+  const startEngine = glyphsArr => {
+    let animationDriver = window.requestAnimationFrame.bind(window);
+    let glyphs = JSON.parse(JSON.stringify(glyphsArr));
+    let graphicsDriver = cwd.svgDriver(svg);
+    let dash = cwd.engine(graphicsDriver, animationDriver);
 
-  if (EDIT_MODE) {
-    dash.edit(editorDriver);
-    console.log('In Edit mode');
+    glyphs.forEach(obj => {
+      // if (glyphObj.name === 'bird' || glyphObj.name === 'cloud' || glyphObj.name === 'powerline') return;
+      const glyph = factory(obj)();
+      dash.addGlyph(glyph);
+    });
+
+    dash.render();
+
+    if (EDIT_MODE) {
+      let editorDriver = cwd.editorDriver;
+      dash.edit(editorDriver);
+      console.log('In Edit mode');
+    }
+  };
+
+  /**
+   * Responsible for updating the necessary elements on the DOM to reflect
+   * the view specified.
+   * @param {JSON} view The view object to render.
+   */
+  const renderView = view => {
+    console.log(`Rendering view: ${view.name}`);
+    updateGauges(view);
+  };
+
+  /**
+   * Caches svgContent into each of the glyph objects
+   * @param {JSON[]} glyphs array of glyph objects to cache svgContent
+   */
+  async function cache(glyphs) {
+    let promises = [];
+    glyphs
+      .filter(glyph => glyph.shape === 'svg')
+      .forEach(glyph => {
+        promises.push(
+          fetch(glyph.url)
+            .then(response => response.text())
+            .then(svgText => {
+              glyph.state.graphic.svgContent = svgText;
+              return glyph;
+            })
+        );
+      });
+    await Promise.all(promises).catch(err => {
+      console.error(`Error caching glyphs: ${err}`);
+    });
+    return glyphs;
+  }
+
+  const clearDash = () => {
+    const $wrap = document.getElementById('svg-wrap');
+    Array.from($wrap.children)
+      .filter(child => child.tagName != 'defs')
+      .forEach(child => $wrap.removeChild(child));
+  };
+
+  /**
+   * Responsible for starting and running kiosk mode by initializing a map 
+   * engine and switching views appropriately.
+   * @param {Number} duration The time in seconds between switching views. 
+   */
+  function startKiosk(duration) {
+    let views = allGlyphs.filter(obj => obj.view).map(obj => obj.view);
+    let index = 0;
+    cache(allGlyphs).then(allGlyphs => {
+      startEngine(allGlyphs);
+      renderView(views[index]);
+    });
+    setInterval(function() {
+      index++;
+      if (index === views.length) index = 0;
+      renderView(views[index]);
+    }, duration * 1000);
+  }
+  
+  if (KIOSK_MODE) {
+    startKiosk(VIEW_DURATION);
+  } else {
+    console.error('Please enable Kiosk mode.');
   }
 })(window.cwd, activeGlyphs);

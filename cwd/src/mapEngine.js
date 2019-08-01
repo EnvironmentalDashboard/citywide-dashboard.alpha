@@ -21,14 +21,14 @@ export const engine = (gfxDriver, animationsDriver) => {
      * Runs every glyph's `render()` method with the graphics driver and sequences
      * animations
      */
-    render: async function() {
+    render: function() {
       
       // Assign `MapEngine.renderAnimations` to the animations driver
       drivers.animations(this.renderAnimations);
 
       // Iterate through every glyph and render
       for (let glyph of glyphs) {
-        await glyph.render(drivers.gfx);
+        glyph.render(drivers.gfx);
 
         // Animated glyphs must be tracked more frequently
         if (glyph.isAnimated) {
