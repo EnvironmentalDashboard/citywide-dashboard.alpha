@@ -38,6 +38,13 @@ html
         line-height: 20px;
       }
 
+      #tooltip span{
+        float: right;
+        display: inline-block;
+        cursor: pointer;
+        font-weight: bold;
+      }
+
       @font-face {
         font-family: Biko;
         src: url('./images/fonts/Biko_Regular.otf') format('opentype');
@@ -64,7 +71,8 @@ html
                 feMerge
                   feMergeNode(in="softGlow_colored")
                   feMergeNode(in="SourceGraphic")
-            <div id="tooltip" display="none" style="position: absolute; display: none;"></div>
+            div(id="tooltip" display="none" style="position: absolute; display: none;")
+              span(id="close" onclick="document.getElementById('tooltip').style.display='none'") X
 
     script const activeGlyphs = !{activeGlyphsStr};
     script(src="./dist/cwd-bundle.js")
