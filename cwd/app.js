@@ -255,10 +255,19 @@
   };
 
   if (KIOSK_MODE) {
-    cache(allGlyphs).then(glyphsArr => renderView(glyphsArr));
-    // setInterval(function() {
-    //   clearDash();
-    //   renderView(allGlyphs);
-    // }, 15000);
+    let views = getViews(allGlyphs);
+    let index = 0;
+    cache(allGlyphs).then(allGlyphs => {
+      renderView(allGlyphs);
+      switchView(allGlyphs, views[index]);
+    });
+    setInterval(function() {
+      index++;
+      if (index === views.length) index = 0;
+      // renderView(allGlyphs, views[index]);
+      switchView(allGlyphs, views[index]);
+    }, 10000);
+  } else {
+    console.error('Please enable Kiosk mode.');
   }
 })(window.cwd, activeGlyphs);
