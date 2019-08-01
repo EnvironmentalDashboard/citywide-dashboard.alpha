@@ -87,9 +87,10 @@
         // Position tooltip to where the mouse clicked
         tooltip.style.display = "block";
         tooltip.style.left = evt.pageX + 10 + 'px';
-        tooltip.style.top = evt.pageY - 25 + 'px';
+        tooltip.style.top = evt.pageY - 100 + 'px';
       };
   
+      // Create event for events driver
       const event = {
         type: 'click',
         listener
