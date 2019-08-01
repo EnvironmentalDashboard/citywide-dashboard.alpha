@@ -163,6 +163,19 @@
     };
   };
 
+  /**
+   * Update the gauges on the DOM with the links contained in `view`
+   * @param {JSON} view the view object within a viewController object
+   */
+  const updateGauges = view => {
+    const gauges = view.gauges;
+    for (let i = 0; i < gauges.length; i++) {
+      let $gauge = document.getElementById(`gauge-${i + 1}`);
+      $gauge.setAttribute('href', gauges[i]);
+    }
+    return;
+  }
+
   const renderView = (glyphsArr, view) => {
     // switch (view) {
     //   case 'electricity':
@@ -191,6 +204,12 @@
       console.log('In Edit mode');
     }
   };
+
+  const switchView = (glyphsArr, view) => {
+    console.log('view is ' + view)
+    let viewController = glyphsArr.find(glyph => glyph.view ? glyph.view.name === view : false);
+    updateGauges(viewController.view)
+  }
 
   /**
    * Caches svgContent into each of the glyph objects
@@ -222,6 +241,17 @@
     Array.from($wrap.children)
       .filter(child => child.tagName != 'defs')
       .forEach(child => $wrap.removeChild(child));
+  };
+
+  /**
+   * 
+   * @param {JSON[]} objs Database objects from which to extract view names
+   * @returns {String[]} View names  
+   */
+  const getViews = objs => {
+    let views = [];
+    objs.filter(obj => obj.view).forEach(obj => views.push(obj.view.name));
+    return views;
   };
 
   if (KIOSK_MODE) {
