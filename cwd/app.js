@@ -28,12 +28,8 @@
   svg.setAttribute('width', width);
   svg.setAttribute('height', height);
 
-  let animationDriver = window.requestAnimationFrame.bind(window);
-  let graphicsDriver = cwd.svgDriver(svg);
-  let editorDriver = cwd.editorDriver;
-
-  let dash = cwd.engine(graphicsDriver, animationDriver);
-  const EDIT_MODE = 0;
+  const EDIT_MODE = false;
+  const KIOSK_MODE = true;
 
   let eventsDict = {
     viewSwitcher: function(glyph){
@@ -97,7 +93,8 @@
           shape = cwd
             .svgShape()
             .url(glyph.url || '')
-            .size(glyph.props.size || '100%');
+            .size(glyph.props.size || '100%')
+            .content(glyph.state.graphic.svgContent);
           break;
 
         case 'svgImage':
@@ -170,21 +167,72 @@
     };
   };
 
-  allGlyphs.forEach(glyphObj => {
-    // if (glyphObj.name === 'bird' || glyphObj.name === 'cloud' || glyphObj.name === 'powerline') return;
-    if (glyphObj.name === 'bird') {
-      glyphObj.animators.pathMover.path.coords =
-        'M1200,350 L600,240 L340,160 L160,40 L80,80 L-100,100';
-      glyphObj.animators.pathMover.duration = '4000';
+  const renderView = (glyphsArr, view) => {
+    // switch (view) {
+    //   case 'electricity':
+    //     glyphs.filter(glyph => glyph.name);
+    //     break;
+    //   default:
+    //     break;
+    // }
+    let animationDriver = window.requestAnimationFrame.bind(window);
+    let glyphs = JSON.parse(JSON.stringify(glyphsArr));
+    let graphicsDriver = cwd.svgDriver(svg);
+    let dash = cwd.engine(graphicsDriver, animationDriver);
+
+    glyphs.forEach(glyphObj => {
+      console.log(JSON.stringify(glyphObj));
+      // if (glyphObj.name === 'bird' || glyphObj.name === 'cloud' || glyphObj.name === 'powerline') return;
+      const glyph = factory(glyphObj)();
+      dash.addGlyph(glyph);
+    });
+
+    dash.render();
+
+    if (EDIT_MODE) {
+      let editorDriver = cwd.editorDriver;
+      dash.edit(editorDriver);
+      console.log('In Edit mode');
     }
-    const glyph = factory(glyphObj)();
-    dash.addGlyph(glyph);
-  });
+  };
 
-  dash.render();
+  /**
+   * Caches svgContent into each of the glyph objects
+   * @param {JSON[]} glyphs array of glyph objects to cache svgContent
+   * @returns {Promise<JSON[]>}
+   */
+  async function cache(glyphs) {
+    let promises = [];
+    glyphs
+      .filter(glyph => glyph.shape === 'svg')
+      .forEach(glyph => {
+        promises.push(
+          fetch(glyph.url)
+            .then(response => response.text())
+            .then(svgText => {
+              glyph.state.graphic.svgContent = svgText;
+              return glyph;
+            })
+        );
+      });
+    await Promise.all(promises).catch(err => {
+      console.error(`Error caching glyphs: ${err}`);
+    });
+    return glyphs;
+  }
 
-  if (EDIT_MODE) {
-    dash.edit(editorDriver);
-    console.log('In Edit mode');
+  const clearDash = () => {
+    const $wrap = document.getElementById('svg-wrap');
+    Array.from($wrap.children)
+      .filter(child => child.tagName != 'defs')
+      .forEach(child => $wrap.removeChild(child));
+  };
+
+  if (KIOSK_MODE) {
+    cache(allGlyphs).then(glyphsArr => renderView(glyphsArr));
+    // setInterval(function() {
+    //   clearDash();
+    //   renderView(allGlyphs);
+    // }, 15000);
   }
 })(window.cwd, activeGlyphs);

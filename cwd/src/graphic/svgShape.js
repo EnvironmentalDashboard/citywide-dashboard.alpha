@@ -21,6 +21,11 @@ export const svgShape = () => {
 
     graphic: function() {
       return graphic;
+    },
+
+    content: function(svgContent) {
+      graphic.svgContent = svgContent;
+      return this;
     }
   };
 };
