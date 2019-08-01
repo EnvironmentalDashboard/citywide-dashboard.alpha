@@ -35,16 +35,16 @@
   const VIEW_DURATION = 10;
 
   let eventsDict = {
-    viewSwitcher: function(glyph){
+    viewSwitcher: function(glyph) {
       let listener = function() {
-        updateGauges(glyph.view)
+        renderView(glyph.view);
       };
-  
+
       const event = {
         type: 'click',
         listener
       };
-  
+
       return event;
     }
   };
@@ -206,14 +206,12 @@
   /**
    * Responsible for updating the necessary elements on the DOM to reflect
    * the view specified.
-   * @param {String} view The name of the view to render.
+   * @param {JSON} view The view object to render.
    */
   const renderView = view => {
-    console.log('view is ' + view)
-    let viewController = allGlyphs.find(glyph => glyph.view ? glyph.view.name === view : false);
-    if (!viewController) console.error(`Couldn't render view: ${view}`);
-    updateGauges(viewController.view)
-  }
+    console.log(`Rendering view: ${view.name}`);
+    updateGauges(view);
+  };
 
   /**
    * Caches svgContent into each of the glyph objects
@@ -247,23 +245,12 @@
   };
 
   /**
-   * Returns an array of view names that exist in a given set of database objects.
-   * @param {JSON[]} objs An array of database objects from which to extract view names.
-   * @returns {String[]} An array of view names.
-   */
-  const getViews = objs => {
-    let views = [];
-    objs.filter(obj => obj.view).forEach(obj => views.push(obj.view.name));
-    return views;
-  };
-
-  /**
    * Responsible for starting and running kiosk mode by initializing a map 
    * engine and switching views appropriately.
    * @param {Number} duration The time in seconds between switching views. 
    */
   function startKiosk(duration) {
-    let views = getViews(allGlyphs);
+    let views = allGlyphs.filter(obj => obj.view).map(obj => obj.view);
     let index = 0;
     cache(allGlyphs).then(allGlyphs => {
       startEngine(allGlyphs);
