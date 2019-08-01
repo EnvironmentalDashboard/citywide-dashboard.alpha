@@ -24,6 +24,13 @@ html
         cursor: pointer;
       }
 
+      #tooltip {
+        background: white;
+        border-radius: 5px;
+        padding: 5px;
+        hyphens: auto;
+      }
+
   body
     div(id="page-wrap")
       div(id="dashboard-wrap")
@@ -40,6 +47,7 @@ html
                 feMerge
                   feMergeNode(in="softGlow_colored")
                   feMergeNode(in="SourceGraphic")
+            <div id="tooltip" display="none" style="position: absolute; display: none;"></div>
 
     script const activeGlyphs = !{activeGlyphsStr};
     script(src="./dist/cwd-bundle.js")

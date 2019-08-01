@@ -57,6 +57,24 @@
       };
   
       return event;
+    },
+    showTooltip: function(glyph){
+      const tooltipContent = glyph.props.tooltip;
+
+      let listener = function(evt) {
+        let tooltip = document.getElementById("tooltip");
+        tooltip.innerHTML = tooltipContent.text;
+        tooltip.style.display = "block";
+        tooltip.style.left = evt.pageX + 10 + 'px';
+        tooltip.style.top = evt.pageY - 20 + 'px';
+      };
+  
+      const event = {
+        type: 'click',
+        listener
+      };
+  
+      return event;
     }
   };
 
