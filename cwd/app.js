@@ -176,21 +176,19 @@
     return;
   }
 
+  /**
+   * Render the appropriate view
+   * @param {JSON[]} glyphsArr all glyphs
+   * @param {String} view view name
+   */
   const renderView = (glyphsArr, view) => {
-    // switch (view) {
-    //   case 'electricity':
-    //     glyphs.filter(glyph => glyph.name);
-    //     break;
-    //   default:
-    //     break;
-    // }
+
     let animationDriver = window.requestAnimationFrame.bind(window);
     let glyphs = JSON.parse(JSON.stringify(glyphsArr));
     let graphicsDriver = cwd.svgDriver(svg);
     let dash = cwd.engine(graphicsDriver, animationDriver);
 
     glyphs.forEach(glyphObj => {
-      console.log(JSON.stringify(glyphObj));
       // if (glyphObj.name === 'bird' || glyphObj.name === 'cloud' || glyphObj.name === 'powerline') return;
       const glyph = factory(glyphObj)();
       dash.addGlyph(glyph);
