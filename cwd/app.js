@@ -58,15 +58,36 @@
   
       return event;
     },
+
+    // Shows tooltip on click
+    // Replaces div content with properly formatted text
     showTooltip: function(glyph){
       const tooltipContent = glyph.props.tooltip;
 
       let listener = function(evt) {
         let tooltip = document.getElementById("tooltip");
-        tooltip.innerHTML = tooltipContent.text;
+
+        // Clear previous content
+        Array.from(tooltip.children).forEach(child => {tooltip.removeChild(child);});
+
+        // Create header content
+        var header = document.createElement("h1");
+        var headerNode = document.createTextNode(tooltipContent.header);
+        header.appendChild(headerNode);
+
+        // Create <p> content
+        var para = document.createElement("p");
+        var paraNode = document.createTextNode(tooltipContent.text);
+        para.appendChild(paraNode);
+
+        // Add content to div
+        tooltip.appendChild(header);
+        tooltip.appendChild(para);
+
+        // Position tooltip to where the mouse clicked
         tooltip.style.display = "block";
         tooltip.style.left = evt.pageX + 10 + 'px';
-        tooltip.style.top = evt.pageY - 20 + 'px';
+        tooltip.style.top = evt.pageY - 25 + 'px';
       };
   
       const event = {
