@@ -28,19 +28,16 @@
   svg.setAttribute('width', width);
   svg.setAttribute('height', height);
 
-  const EDIT_MODE = false;
-  const KIOSK_MODE = true;
+  const EDIT_MODE = 0;
+  const KIOSK_MODE = 1;
+
+  /** The amount of time in seconds between views in kiosk mode. */
+  const VIEW_DURATION = 10;
 
   let eventsDict = {
     viewSwitcher: function(glyph){
-      const name = glyph.view.name;
-      const gauges = glyph.view.gauges;
-  
       let listener = function() {
-        for (let i = 0; i < gauges.length; i++) {
-          let $gauge = document.getElementById(`gauge-${i + 1}`);
-          $gauge.setAttributeNS('href', gauges[i]);
-        }
+        updateGauges(glyph.view)
       };
   
       const event = {
@@ -52,8 +49,12 @@
     }
   };
 
-
-
+  /**
+   * Creates an appropriate factory function from a database object that,
+   * when executed, produces a glyph object that can be added into the
+   * rendering engine.
+   * @param {glyph} glyph The database object from which to make an appropriate factory function.
+   */
   const factory = glyph => {
     const producePath = obj => {
       let state = obj.state || { graphic: {}, style: {} };
@@ -164,8 +165,8 @@
   };
 
   /**
-   * Update the gauges on the DOM with the links contained in `view`
-   * @param {JSON} view the view object within a viewController object
+   * Update the gauges on the DOM with the links contained in `view.gauges`.
+   * @param {JSON} view The view object within a viewController object.
    */
   const updateGauges = view => {
     const gauges = view.gauges;
@@ -177,20 +178,19 @@
   }
 
   /**
-   * Render the appropriate view
-   * @param {JSON[]} glyphsArr all glyphs
-   * @param {String} view view name
-   */
-  const renderView = (glyphsArr, view) => {
-
+   * Initializes a rendering engine and renders all of the glyphs in the array
+   * of database glyph objects.
+   * @param {JSON[]} glyphsArr All database objects to render as glyphs in the rendering engine.
+   */ 
+  const startEngine = glyphsArr => {
     let animationDriver = window.requestAnimationFrame.bind(window);
     let glyphs = JSON.parse(JSON.stringify(glyphsArr));
     let graphicsDriver = cwd.svgDriver(svg);
     let dash = cwd.engine(graphicsDriver, animationDriver);
 
-    glyphs.forEach(glyphObj => {
+    glyphs.forEach(obj => {
       // if (glyphObj.name === 'bird' || glyphObj.name === 'cloud' || glyphObj.name === 'powerline') return;
-      const glyph = factory(glyphObj)();
+      const glyph = factory(obj)();
       dash.addGlyph(glyph);
     });
 
@@ -203,16 +203,21 @@
     }
   };
 
-  const switchView = (glyphsArr, view) => {
+  /**
+   * Responsible for updating the necessary elements on the DOM to reflect
+   * the view specified.
+   * @param {String} view The name of the view to render.
+   */
+  const renderView = view => {
     console.log('view is ' + view)
-    let viewController = glyphsArr.find(glyph => glyph.view ? glyph.view.name === view : false);
+    let viewController = allGlyphs.find(glyph => glyph.view ? glyph.view.name === view : false);
+    if (!viewController) console.error(`Couldn't render view: ${view}`);
     updateGauges(viewController.view)
   }
 
   /**
    * Caches svgContent into each of the glyph objects
    * @param {JSON[]} glyphs array of glyph objects to cache svgContent
-   * @returns {Promise<JSON[]>}
    */
   async function cache(glyphs) {
     let promises = [];
@@ -242,9 +247,9 @@
   };
 
   /**
-   * 
-   * @param {JSON[]} objs Database objects from which to extract view names
-   * @returns {String[]} View names  
+   * Returns an array of view names that exist in a given set of database objects.
+   * @param {JSON[]} objs An array of database objects from which to extract view names.
+   * @returns {String[]} An array of view names.
    */
   const getViews = objs => {
     let views = [];
@@ -252,19 +257,27 @@
     return views;
   };
 
-  if (KIOSK_MODE) {
+  /**
+   * Responsible for starting and running kiosk mode by initializing a map 
+   * engine and switching views appropriately.
+   * @param {Number} duration The time in seconds between switching views. 
+   */
+  function startKiosk(duration) {
     let views = getViews(allGlyphs);
     let index = 0;
     cache(allGlyphs).then(allGlyphs => {
-      renderView(allGlyphs);
-      switchView(allGlyphs, views[index]);
+      startEngine(allGlyphs);
+      renderView(views[index]);
     });
     setInterval(function() {
       index++;
       if (index === views.length) index = 0;
-      // renderView(allGlyphs, views[index]);
-      switchView(allGlyphs, views[index]);
-    }, 10000);
+      renderView(views[index]);
+    }, duration * 1000);
+  }
+  
+  if (KIOSK_MODE) {
+    startKiosk(VIEW_DURATION);
   } else {
     console.error('Please enable Kiosk mode.');
   }
