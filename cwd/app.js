@@ -260,13 +260,6 @@
 
     glyphs.forEach(obj => {
       // if (glyphObj.name === 'bird' || glyphObj.name === 'cloud' || glyphObj.name === 'powerline') return;
-      if (obj.name === 'bird') {
-        obj.animators.pathMover.path.coords = 'M2000,350 L600,240 L340,160 L160,40 L80,80 L-600,100';
-        obj.animators.pathMover.duration = '7000';
-      }
-      if (obj.name === 'pipe') {
-        obj.animators = {};
-      }
       const glyph = factory(obj)();
       dash.addGlyph(glyph);
     });
