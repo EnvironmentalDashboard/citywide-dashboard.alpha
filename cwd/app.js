@@ -216,6 +216,7 @@
    * @param {JSON} view The view object within a viewController object.
    */
   const updateGauges = view => {
+    if (!view.gauges) return;
     const gauges = view.gauges;
     for (let i = 0; i < gauges.length; i++) {
       let $gauge = document.getElementById(`gauge-${i + 1}`);
@@ -225,6 +226,7 @@
   }
 
   const updateAnimations = view => {
+    if (!view.animations) return;
     if (view.animations.includes('pipes')) {
       const flowables = document.getElementsByClassName('flowable-inactive');
       Array.from(flowables).forEach(elmt => {
