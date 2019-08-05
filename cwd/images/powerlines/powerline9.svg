@@ -1,9 +1,8 @@
 <svg id="Layer_1" data-name="Layer 1" 
   xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2486.76 1876.89">
-  <title>powerline9</title>
   <path id="powerline9_path" d="M1731.57,0c5.64,324,172.74,1664.79,754.92,1770.94" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="3"/>
   <path d="M983.7,8.11C752.41,1438.61,276.71,1875.39,0,1875.39" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="3"/>
-    <g id="powerline9_electron">
+    <g class="electron" id="powerline9_electron">
     <circle style="fill:#FFFF00" r="20"/>
   </g>
 </svg>

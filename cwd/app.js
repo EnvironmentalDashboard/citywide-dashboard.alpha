@@ -37,6 +37,8 @@
   let eventsDict = {
     viewSwitcher: function(glyph) {
       let listener = function() {
+        // Stop animations
+        Array.from(document.getElementsByClassName("electron")).forEach(elm => elm.setAttribute("style", "display: none;"));
         renderView(glyph.view);
       };
 
