@@ -225,6 +225,11 @@
     return;
   }
 
+  /**
+   * Update the animations on the DOM according to the animations in
+   * `view.animations`.
+   * @param {JSON} view The view object within a viewController object.
+   */
   const updateAnimations = view => {
     if (!view.animations) return;
     if (view.animations.includes('pipes')) {
