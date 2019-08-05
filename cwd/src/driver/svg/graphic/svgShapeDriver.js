@@ -31,7 +31,7 @@ export const svgShapeDriver = () => {
       if (state.graphic.hoverEffect){
         switch(state.graphic.hoverEffect) {
           case 'glow':
-            state.$link.setAttribute('class', 'glow-on-hover');
+            state.$link.classList.add('glow-on-hover');
             break;
           default:
             console.log('Unknown hover effect: ' + state.graphic.hoverEffect)

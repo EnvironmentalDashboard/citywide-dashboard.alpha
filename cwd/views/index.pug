@@ -24,6 +24,37 @@ html
         cursor: pointer;
       }
 
+      #tooltip {
+        background: white;
+        border-radius: 30px;
+        padding: 15px;
+        width: 350px;
+        hyphens: auto;
+        font-family: Biko;
+      }
+
+      #tooltip p{
+        padding-top: 5px;
+        line-height: 20px;
+      }
+
+      #tooltip span{
+        float: right;
+        display: inline-block;
+        cursor: pointer;
+        font-weight: bold;
+      }
+
+      @font-face {
+        font-family: Biko;
+        src: url('./images/fonts/Biko_Regular.otf') format('opentype');
+      }
+      @font-face {
+        font-family: Biko;
+        src: url('./images/fonts/Biko_Bold.otf') format('opentype');
+        font-weight: bold;
+      }
+
   body
     div(id="page-wrap")
       div(id="dashboard-wrap")
@@ -40,6 +71,8 @@ html
                 feMerge
                   feMergeNode(in="softGlow_colored")
                   feMergeNode(in="SourceGraphic")
+            div(id="tooltip" display="none" style="position: absolute; display: none;")
+              span(id="close" onclick="document.getElementById('tooltip').style.display='none'") X
 
     script const activeGlyphs = !{activeGlyphsStr};
     script(src="./dist/cwd-bundle.js")
