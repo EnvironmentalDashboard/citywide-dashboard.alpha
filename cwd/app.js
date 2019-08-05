@@ -73,11 +73,6 @@
         var paraNode = document.createTextNode(tooltipContent.text);
         para.appendChild(paraNode);
 
-        // Create 'x' button to close window
-        // var closeButton = document.createElement("span");
-        // closeButton.innerHTML = 'X';
-        // closeButton.addEventListener('click', function(){document.getElementById('tooltip').style.display="none";});
-
         // Add content to div
         // tooltip.appendChild(closeButton);
         tooltip.appendChild(header);
