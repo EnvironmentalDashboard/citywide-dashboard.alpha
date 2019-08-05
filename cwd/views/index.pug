@@ -55,6 +55,24 @@ html
         font-weight: bold;
       }
 
+      .flowable-active path:last-of-type, .flowable-active line:last-of-type {
+        animation-name: water;
+        animation-duration: 5s;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+        animation-direction: reverse;
+
+        stroke-dasharray: 33 67;
+      }
+
+      .flowable-inactive path:last-of-type, .flowable-inactive line:last-of-type {
+        display: none;
+      }
+
+      @keyframes water {
+        to { stroke-dashoffset: 100 }
+      }
+
   body
     div(id="page-wrap")
       div(id="dashboard-wrap")
