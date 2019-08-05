@@ -222,6 +222,22 @@
     return;
   }
 
+  const updateAnimations = view => {
+    if (view.animations.includes('pipes')) {
+      const flowables = document.getElementsByClassName('flowable-inactive');
+      Array.from(flowables).forEach(elmt => {
+        elmt.classList.remove('flowable-inactive');
+        elmt.classList.add('flowable-active');
+      })
+    } else {
+      const flowables = document.getElementsByClassName('flowable-active');
+      Array.from(flowables).forEach(elmt => {
+        elmt.classList.remove('flowable-active');
+        elmt.classList.add('flowable-inactive');
+      })
+    }
+  }
+
   /**
    * Initializes a rendering engine and renders all of the glyphs in the array
    * of database glyph objects.
@@ -235,6 +251,13 @@
 
     glyphs.forEach(obj => {
       // if (glyphObj.name === 'bird' || glyphObj.name === 'cloud' || glyphObj.name === 'powerline') return;
+      if (obj.name === 'bird') {
+        obj.animators.pathMover.path.coords = 'M2000,350 L600,240 L340,160 L160,40 L80,80 L-600,100';
+        obj.animators.pathMover.duration = '7000';
+      }
+      if (obj.name === 'pipe') {
+        obj.animators = {};
+      }
       const glyph = factory(obj)();
       dash.addGlyph(glyph);
     });
@@ -256,6 +279,7 @@
   const renderView = view => {
     console.log(`Rendering view: ${view.name}`);
     updateGauges(view);
+    updateAnimations(view);
   };
 
   /**

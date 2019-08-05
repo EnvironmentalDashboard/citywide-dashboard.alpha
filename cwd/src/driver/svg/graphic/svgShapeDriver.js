@@ -28,6 +28,8 @@ export const svgShapeDriver = () => {
       state.$link.setAttribute('preserveAspectRatio', 'xMinYMin');
       state.$link.setAttribute('overflow', 'visible');
 
+      if (state.graphic.hasFlow) state.$link.classList.add('flowable-inactive');
+
       if (state.graphic.hoverEffect){
         switch(state.graphic.hoverEffect) {
           case 'glow':
