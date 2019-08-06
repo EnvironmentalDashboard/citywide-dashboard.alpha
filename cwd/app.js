@@ -37,8 +37,6 @@
   let eventsDict = {
     viewSwitcher: function(glyph) {
       let listener = function() {
-        // Stop animations
-        Array.from(document.getElementsByClassName("electron")).forEach(elm => elm.setAttribute("style", "display: none;"));
         renderView(glyph.view);
       };
 
@@ -234,11 +232,20 @@
    */
   const updateAnimations = view => {
     if (!view.animations) return;
+
     const flowables = Array.from(document.getElementsByClassName('flowable'));
+    const electrons = Array.from(document.getElementsByClassName('electron'));
+
     if (view.animations.includes('pipes')) {
       flowables.forEach(elmt => elmt.classList.add('flow-active'));
     } else {
       flowables.forEach(elmt => elmt.classList.remove('flow-active'));
+    }
+
+    if (view.animations.includes('electricity')) {
+      electrons.forEach(elmt => elmt.classList.add('electron-active'));
+    } else {
+      electrons.forEach(elmt => elmt.classList.remove('electron-active'));
     }
   };
 
