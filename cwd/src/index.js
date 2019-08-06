@@ -16,4 +16,6 @@ export { gradientChanger } from './animation/gradientChanger';
 export { bridge as svgDriver } from './driver/svg/bridge';
 export { engine } from './mapEngine';
 
+export { factory } from './factory';
+
 export { editorDriver } from './editor';

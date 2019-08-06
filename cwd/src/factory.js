@@ -1,0 +1,114 @@
+/**
+   * Creates an appropriate factory function from a database object that,
+   * when executed, produces a glyph object that can be added into the
+   * rendering engine.
+   * @param {glyph} glyph The database object from which to make an appropriate factory function.
+   */
+  export const factory = (glyph, eventsDict) => {
+    const producePath = obj => {
+      let state = obj.state || { graphic: {}, style: {} };
+
+      if (obj.pathId) {
+        return Object.assign(
+          state,
+          cwd.graphic(state).shape(cwd.pathShape().from(obj.pathId))
+        );
+      } else {
+        return Object.assign(
+          state,
+          cwd.graphic(state).shape(cwd.pathShape().coords(obj.coords || ''))
+        );
+      }
+    };
+
+    return function() {
+      // Set up variables
+      let state = glyph.state;
+      state._id = glyph._id;
+      let product = state;
+
+      // Glyph first
+      glyph.props.preventEdits
+        ? Object.assign(product, cwd.glyph(state).preventEdits())
+        : Object.assign(product, cwd.glyph(state));
+
+      let shape;
+      // Then graphic
+      switch (glyph.shape) {
+        case 'svg':
+          shape = cwd
+            .svgShape()
+            .url(glyph.url || '')
+            .size(glyph.props.size || '100%')
+            .content(glyph.state.graphic.svgContent);
+          break;
+
+        case 'svgImage':
+          shape = cwd
+            .svgImageShape()
+            .url(glyph.url || '')
+            .size(glyph.props.size || '100%');
+          break;
+
+        default:
+          shape = cwd
+            .svgShape()
+            .url(glyph.url || '')
+            .size(glyph.props.size || '100%');
+          break;
+      }
+
+      Object.assign(
+        product,
+        cwd
+          .graphic(state)
+          .shape(shape)
+          .props(glyph.props)
+      );
+
+      // Then events
+      const events = [];
+      if (glyph.props.clickEffect && eventsDict[glyph.props.clickEffect]) events.push(eventsDict[glyph.props.clickEffect](glyph));
+      Object.assign(product, cwd.events(state).addEvents(events));
+
+      // Then fx
+      const fxArray = [];
+      for (let animatorType in glyph.animators) {
+        const animator = glyph.animators[animatorType];
+        switch (animatorType) {
+          case 'frameChanger':
+            const frameShapes = [];
+            for (let frameURL of animator.frames) {
+              frameShapes.push(
+                cwd
+                  .svgImageShape()
+                  .url(frameURL)
+                  .size(glyph.props.size || '100%')
+              );
+            }
+            fxArray.push(
+              cwd
+                .frameChanger(state)
+                .duration(animator.duration)
+                .frames(frameShapes)
+            );
+            break;
+          case 'pathMover':
+            const path = producePath(animator.path);
+            fxArray.push(
+              cwd
+                .pathMover(state)
+                .duration(animator.duration)
+                .path(path)
+                .toSVGGroup(animator.group ? animator.group : null)
+            );
+          default:
+            break;
+        }
+        Object.assign(product, cwd.fx(fxArray));
+      }
+
+      // Then return the whole thing
+      return product;
+    };
+  };
