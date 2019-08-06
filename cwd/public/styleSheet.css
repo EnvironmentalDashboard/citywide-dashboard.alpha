@@ -68,3 +68,11 @@ body,
 @keyframes water {
   to { stroke-dashoffset: 100 }
 }
+
+.electron {
+  display: none;
+}
+
+.electron.electron-active {
+  display: inherit;
+}
