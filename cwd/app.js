@@ -232,20 +232,13 @@
    */
   const updateAnimations = view => {
     if (!view.animations) return;
+    const flowables = Array.from(document.getElementsByClassName('flowable'));
     if (view.animations.includes('pipes')) {
-      const flowables = document.getElementsByClassName('flowable-inactive');
-      Array.from(flowables).forEach(elmt => {
-        elmt.classList.remove('flowable-inactive');
-        elmt.classList.add('flowable-active');
-      })
+      flowables.forEach(elmt => elmt.classList.add('flow-active'));
     } else {
-      const flowables = document.getElementsByClassName('flowable-active');
-      Array.from(flowables).forEach(elmt => {
-        elmt.classList.remove('flowable-active');
-        elmt.classList.add('flowable-inactive');
-      })
+      flowables.forEach(elmt => elmt.classList.remove('flow-active'));
     }
-  }
+  };
 
   /**
    * Initializes a rendering engine and renders all of the glyphs in the array

@@ -48,7 +48,7 @@ body,
   font-weight: bold;
 }
 
-.flowable-active path:last-of-type, .flowable-active line:last-of-type {
+.flowable path:last-of-type, .flowable line:last-of-type {
   animation-name: water;
   animation-duration: 5s;
   animation-timing-function: linear;
@@ -57,10 +57,12 @@ body,
 
   stroke-dasharray: 33 67;
   stroke-linecap: square;
+
+  display: none;
 }
 
-.flowable-inactive path:last-of-type, .flowable-inactive line:last-of-type {
-  display: none;
+.flowable.flow-active path:last-of-type, .flowable.flow-active line:last-of-type {
+  display: inherit;
 }
 
 @keyframes water {
