@@ -52,26 +52,28 @@
 
     // Shows tooltip on click
     // Replaces div content with properly formatted text
-    showTooltip: function(glyph){
-
+    showTooltip: function(glyph) {
       // references the tooltip contents which are from the database
       var tooltipContent = glyph.props.tooltip; // TODO: verify this exists and has valid contents
 
       let listener = function(evt) {
-
         // Gets the div which exists in the svg-wrapper
-        let tooltip = document.getElementById("tooltip");
+        let tooltip = document.getElementById('tooltip');
 
         // Clear previous content
-        Array.from(tooltip.children).filter(child => child.tagName.toLowerCase() != "span").forEach(child => {tooltip.removeChild(child);});
+        Array.from(tooltip.children)
+          .filter(child => child.tagName.toLowerCase() != 'span')
+          .forEach(child => {
+            tooltip.removeChild(child);
+          });
 
         // Create header content
-        var header = document.createElement("h2");
+        var header = document.createElement('h2');
         var headerNode = document.createTextNode(tooltipContent.header);
         header.appendChild(headerNode);
 
         // Create <p> content
-        var para = document.createElement("p");
+        var para = document.createElement('p');
         var paraNode = document.createTextNode(tooltipContent.text);
         para.appendChild(paraNode);
 
@@ -79,19 +81,19 @@
         // tooltip.appendChild(closeButton);
         tooltip.appendChild(header);
         tooltip.appendChild(para);
-  
+
         // Position tooltip to where the mouse clicked
-        tooltip.style.display = "block";
+        tooltip.style.display = 'block';
         tooltip.style.left = evt.pageX + 10 + 'px';
         tooltip.style.top = evt.pageY - 100 + 'px';
       };
-  
+
       // Create event for events driver
       const event = {
         type: 'click',
         listener
       };
-  
+
       return event;
     }
   };
