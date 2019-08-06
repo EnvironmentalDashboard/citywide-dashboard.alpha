@@ -147,7 +147,7 @@
 
     glyphs.forEach(obj => {
       // if (glyphObj.name === 'bird' || glyphObj.name === 'cloud' || glyphObj.name === 'powerline') return;
-      const glyph = factory(obj)();
+      const glyph = cwd.factory(obj, eventsDict)();
       dash.addGlyph(glyph);
     });
 
