@@ -13,6 +13,7 @@ export const graphic = state => {
 
     props: function(props) {
       state.graphic.hoverEffect = props.hoverEffect;
+      state.graphic.hasFlow = props.hasFlow;
       state.id = props.id;
 
       return this;

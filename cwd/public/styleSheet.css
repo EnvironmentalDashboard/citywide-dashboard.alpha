@@ -1,0 +1,86 @@
+body,
+* {
+  padding: 0;
+  margin: 0;
+}
+
+#map {
+  height: 100vh;
+  width: 100vw;
+}
+
+.draggable {
+  cursor: move;
+}
+
+.glow-on-hover:hover {
+  filter: url(#whiteGlow);
+  cursor: pointer;
+}
+
+.currentView {
+  filter: url(#whiteGlow);
+}
+
+.currentView #background{
+  fill: turquoise;
+}
+
+#tooltip {
+  background: white;
+  border-radius: 30px;
+  padding: 15px;
+  width: 350px;
+  hyphens: auto;
+  font-family: Biko;
+}
+
+#tooltip p{
+  padding-top: 5px;
+  line-height: 20px;
+}
+
+#tooltip span{
+  float: right;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: Biko;
+  src: url('../images/fonts/Biko_Regular.otf') format('opentype');
+}
+@font-face {
+  font-family: Biko;
+  src: url('../images/fonts/Biko_Bold.otf') format('opentype');
+  font-weight: bold;
+}
+
+.flowable path:last-of-type, .flowable line:last-of-type {
+  animation-name: water;
+  animation-duration: 5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: reverse;
+
+  stroke-dasharray: 0 15 0 15 0 120;
+  stroke-linecap: round;
+
+  display: none;
+}
+
+.flowable.flow-active path:last-of-type, .flowable.flow-active line:last-of-type {
+  display: inherit;
+}
+
+@keyframes water {
+  to { stroke-dashoffset: 150 }
+}
+
+.electron {
+  display: none;
+}
+
+.electron.electron-active {
+  display: inherit;
+}
