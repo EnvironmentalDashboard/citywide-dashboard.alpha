@@ -37,7 +37,7 @@
   let eventsDict = {
     viewSwitcher: function(glyph) {
       let listener = function() {
-        renderView(glyph.view);
+        cwd.renderView(glyph.view);
       };
 
       const event = {
@@ -97,44 +97,6 @@
   };
 
   /**
-   * Update the gauges on the DOM with the links contained in `view.gauges`.
-   * @param {JSON} view The view object within a viewController object.
-   */
-  const updateGauges = view => {
-    if (!view.gauges) return;
-    const gauges = view.gauges;
-    for (let i = 0; i < gauges.length; i++) {
-      let $gauge = document.getElementById(`gauge-${i + 1}`);
-      $gauge.setAttribute('href', gauges[i]);
-    }
-    return;
-  }
-
-  /**
-   * Update the animations on the DOM according to the animations in
-   * `view.animations`.
-   * @param {JSON} view The view object within a viewController object.
-   */
-  const updateAnimations = view => {
-    if (!view.animations) return;
-
-    const flowables = Array.from(document.getElementsByClassName('flowable'));
-    const electrons = Array.from(document.getElementsByClassName('electron'));
-
-    if (view.animations.includes('pipes')) {
-      flowables.forEach(elmt => elmt.classList.add('flow-active'));
-    } else {
-      flowables.forEach(elmt => elmt.classList.remove('flow-active'));
-    }
-
-    if (view.animations.includes('electricity')) {
-      electrons.forEach(elmt => elmt.classList.add('electron-active'));
-    } else {
-      electrons.forEach(elmt => elmt.classList.remove('electron-active'));
-    }
-  };
-
-  /**
    * Initializes a rendering engine and renders all of the glyphs in the array
    * of database glyph objects.
    * @param {JSON[]} glyphsArr All database objects to render as glyphs in the rendering engine.
@@ -161,24 +123,6 @@
   };
 
   /**
-   * Responsible for updating the necessary elements on the DOM to reflect
-   * the view specified.
-   * @param {JSON} view The view object to render.
-   */
-  const renderView = view => {
-    console.log(`Rendering view: ${view.name}`);
-
-    // Remove highlight from previous view and highlight current one
-    Array.from(document.getElementsByClassName('currentView'))
-      .forEach(elm => elm.classList.remove('currentView'));
-      
-    document.getElementById(`${view.name}Button`).classList.add('currentView');
-
-    updateGauges(view);
-    updateAnimations(view);
-  };
-
-  /**
    * Caches svgContent into each of the glyph objects
    * @param {JSON[]} glyphs array of glyph objects to cache svgContent
    */
@@ -202,13 +146,6 @@
     return glyphs;
   }
 
-  const clearDash = () => {
-    const $wrap = document.getElementById('svg-wrap');
-    Array.from($wrap.children)
-      .filter(child => child.tagName != 'defs')
-      .forEach(child => $wrap.removeChild(child));
-  };
-
   /**
    * Responsible for starting and running kiosk mode by initializing a map 
    * engine and switching views appropriately.
@@ -219,12 +156,12 @@
     let index = 0;
     cache(allGlyphs).then(allGlyphs => {
       startEngine(allGlyphs);
-      renderView(views[index]);
+      cwd.renderView(views[index]);
     });
     setInterval(function() {
       index++;
       if (index === views.length) index = 0;
-      renderView(views[index]);
+      cwd.renderView(views[index]);
     }, duration * 1000);
   }
   

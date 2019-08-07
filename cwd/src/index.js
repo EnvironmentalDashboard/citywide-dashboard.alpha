@@ -16,4 +16,6 @@ export { engine } from './mapEngine';
 
 export { factory } from './factory';
 
+export { renderView } from './views';
+
 export { editorDriver } from './editor';
