@@ -9,6 +9,14 @@ export const graphic = state => {
       state.graphic = shape.graphic();
 
       return this;
+    },
+
+    props: function(props) {
+      state.graphic.hoverEffect = props.hoverEffect;
+      state.graphic.hasFlow = props.hasFlow;
+      state.id = props.id;
+
+      return this;
     }
   };
 };

@@ -1,6 +1,7 @@
 import { svgImageShapeDriver } from './graphic/svgImageShapeDriver';
 import { pathShapeDriver } from './graphic/pathShapeDriver';
 import { svgGradientDriver } from './graphic/svgGradientDriver';
+import { svgShapeDriver } from './graphic/svgShapeDriver';
 
 export const bridge = $svg => {
   let graphic = {};
@@ -8,7 +9,8 @@ export const bridge = $svg => {
   const elementDictionary = {
     svgImage: svgImageShapeDriver,
     path: pathShapeDriver,
-    linearGradient: svgGradientDriver
+    linearGradient: svgGradientDriver,
+    svg: svgShapeDriver
   };
 
   let strategyLookup = key => {
@@ -32,9 +34,14 @@ export const bridge = $svg => {
         .call()
         .create(state.path.graphic);
     }
+
+    if (state.id) {
+      state.$link.setAttribute('id', state.id);
+    }
+
     // event driver
-    if (state.events !== undefined) {
-      state.events.forEach(event => {
+    if (state.eventsArr !== undefined) {
+      state.eventsArr.forEach(event => {
         state.$link.addEventListener(event.type, event.listener);
       });
     }
@@ -65,9 +72,10 @@ export const bridge = $svg => {
     handleRender: state => {
       if (!state.hasOwnProperty('$link')) {
         register(state);
+        update(state);
+      } else {
+        update(state);
       }
-
-      update(state);
     }
   };
 };

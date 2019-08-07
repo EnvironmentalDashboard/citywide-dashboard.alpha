@@ -1,211 +1,236 @@
-
 (function(cwd, activeGlyphs) {
-    let svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  
+  let svg = document.getElementById('svg-wrap');
+
   const allGlyphs = activeGlyphs.arr;
-  var height = window.innerHeight
-  || document.documentElement.clientHeight
-  || document.body.clientHeight;
-  
-  var width = (16/9) * height;
-  
-    svg.setAttribute('width', width);
-    svg.setAttribute('height', height);
-    // svg.setAttribute('viewbox', '0 0 100 100');
-  
-    document.getElementById('map').appendChild(svg);
-  
-    let animationDriver = window.requestAnimationFrame.bind(window);
-    let graphicsDriver = cwd.svgDriver(svg);
-    let editorDriver = cwd.editorDriver;
-  
-    let dash = cwd.engine(graphicsDriver, animationDriver);
-    const EDIT_MODE = 0;
-  
-    const tempgauge = () => {
-      let content = cwd
-        .svgImageShape()
-        .url('./images/tempgauge.svg')
-        .size('18.2292%');
-  
-      let state = {
-        graphic: {},
-        style: {
-          x: '79.6875%',
-          y: '1.852%'
-        }
+
+  // This makes sure width isn't too big for the screen, and switches to calculate based off of full width
+  var height =
+    window.innerHeight ||
+    document.documentElement.clientHeight ||
+    document.body.clientHeight;
+
+  var width = (16 / 9) * height;
+
+  if (
+    width >
+    (window.innerWidth ||
+      document.documentElement.clientWidth ||
+      document.body.clientWidth)
+  ) {
+    width =
+      window.innerWidth ||
+      document.documentElement.clientWidth ||
+      document.body.clientWidth;
+
+    height = width * (9 / 16);
+  }
+
+  svg.setAttribute('width', width);
+  svg.setAttribute('height', height);
+
+  const EDIT_MODE = 0;
+  const KIOSK_MODE = 1;
+
+  /** The amount of time in seconds between views in kiosk mode. */
+  const VIEW_DURATION = 10;
+
+  let eventsDict = {
+    viewSwitcher: function(glyph) {
+      let listener = function() {
+        renderView(glyph.view);
       };
-  
-      return Object.assign(
-        state,
-        cwd.glyph(state),
-        cwd.graphic(state).shape(content)
-      );
-    };
-  
-    const wastewatertreatedgauge = () => {
-      let content = cwd
-        .svgImageShape()
-        .url('./images/wastewatertreatedgauge.svg')
-        .size('18.2292%');
-  
-      let state = {
-        graphic: {},
-        style: {
-          x: '79.6875%',
-          y: '25%'
-        }
+
+      const event = {
+        type: 'click',
+        listener
       };
-  
-      return Object.assign(
-        state,
-        cwd.glyph(state),
-        cwd.graphic(state).shape(content)
-      );
-    };
-  
-    const watertreatmentelectricgauge = () => {
-      let content = cwd
-        .svgImageShape()
-        .url('./images/watertreatmentelectricgauge.svg')
-        .size('18.2292%');
-  
-      let state = {
-        graphic: {},
-        style: {
-          x: '79.6875%',
-          y: '48.15%'
-        }
+
+      return event;
+    },
+
+    // Shows tooltip on click
+    // Replaces div content with properly formatted text
+    showTooltip: function(glyph) {
+      // references the tooltip contents which are from the database
+      var tooltipContent = glyph.props.tooltip; // TODO: verify this exists and has valid contents
+
+      let listener = function(evt) {
+        // Gets the div which exists in the svg-wrapper
+        let tooltip = document.getElementById('tooltip');
+
+        // Clear previous content
+        Array.from(tooltip.children)
+          .filter(child => child.tagName.toLowerCase() != 'span')
+          .forEach(child => {
+            tooltip.removeChild(child);
+          });
+
+        // Create header content
+        var header = document.createElement('h2');
+        var headerNode = document.createTextNode(tooltipContent.header);
+        header.appendChild(headerNode);
+
+        // Create <p> content
+        var para = document.createElement('p');
+        var paraNode = document.createTextNode(tooltipContent.text);
+        para.appendChild(paraNode);
+
+        // Add content to div
+        // tooltip.appendChild(closeButton);
+        tooltip.appendChild(header);
+        tooltip.appendChild(para);
+
+        // Position tooltip to where the mouse clicked
+        tooltip.style.display = 'block';
+        tooltip.style.left = evt.pageX + 10 + 'px';
+        tooltip.style.top = evt.pageY - 100 + 'px';
       };
-  
-    return Object.assign(
-      state,
-      cwd.glyph(state),
-      cwd.graphic(state).shape(content)
-    );
+
+      // Create event for events driver
+      const event = {
+        type: 'click',
+        listener
+      };
+
+      return event;
+    }
   };
-  
-    const drinkinggauge = () => {
-      let content = cwd
-        .svgImageShape()
-        .url('./images/drinkinggauge.svg')
-        .size('18.2292%');
-  
-      let state = {
-        graphic: {},
-        style: {
-          x: '79.6875%',
-          y: '71.2963%'
-        }
-      };
-  
-      return Object.assign(
-        state,
-        cwd.glyph(state),
-        cwd.graphic(state).shape(content)
-      );
-    };
-  
-    const factory = glyph => {
-      const producePath = obj => {
-        let state = obj.state || { graphic: {}, style: {} };
 
-        return Object.assign(
-          state,
-          cwd.graphic(state).shape(cwd.pathShape().coords(obj.coords || ''))
-        );
-      };
+  /**
+   * Update the gauges on the DOM with the links contained in `view.gauges`.
+   * @param {JSON} view The view object within a viewController object.
+   */
+  const updateGauges = view => {
+    if (!view.gauges) return;
+    const gauges = view.gauges;
+    for (let i = 0; i < gauges.length; i++) {
+      let $gauge = document.getElementById(`gauge-${i + 1}`);
+      $gauge.setAttribute('href', gauges[i]);
+    }
+    return;
+  }
 
-      return function() {
-        // Set up variables
-        let state = glyph.state;
-        let product = state;
+  /**
+   * Update the animations on the DOM according to the animations in
+   * `view.animations`.
+   * @param {JSON} view The view object within a viewController object.
+   */
+  const updateAnimations = view => {
+    if (!view.animations) return;
 
-        // Glyph first
-        glyph.props.preventEdits
-          ? Object.assign(product, cwd.glyph(state).preventEdits())
-          : Object.assign(product, cwd.glyph(state));
+    const flowables = Array.from(document.getElementsByClassName('flowable'));
+    const electrons = Array.from(document.getElementsByClassName('electron'));
 
-        // Then graphic
-        const shape = cwd
-          .svgImageShape()
-          .url(glyph.shape || '')
-          .size(glyph.props.size || '100%');
-        Object.assign(product, cwd.graphic(state).shape(shape));
+    if (view.animations.includes('pipes')) {
+      flowables.forEach(elmt => elmt.classList.add('flow-active'));
+    } else {
+      flowables.forEach(elmt => elmt.classList.remove('flow-active'));
+    }
 
-        // Then fx
-        const fxArray = [];
-        for (animatorType in glyph.animators) {
-          const animator = glyph.animators[animatorType];
-          switch (animatorType) {
-            case 'frameChanger':
-              const frameShapes = [];
-              for (frameURL of animator.frames) {
-                frameShapes.push(
-                  cwd
-                    .svgImageShape()
-                    .url(frameURL)
-                    .size(glyph.props.size || '100%')
-                );
-              }
-              fxArray.push(
-                cwd
-                  .frameChanger(state)
-                  .duration(animator.duration)
-                  .frames(frameShapes)
-              );
-              break;
-            case 'pathMover':
-              const path = producePath(animator.path);
-              fxArray.push(
-                cwd
-                  .pathMover(state)
-                  .duration(animator.duration)
-                  .path(path)
-              );
-            default:
-              break;
-          }
-          Object.assign(product, cwd.fx(fxArray));
-        }
+    if (view.animations.includes('electricity')) {
+      electrons.forEach(elmt => elmt.classList.add('electron-active'));
+    } else {
+      electrons.forEach(elmt => elmt.classList.remove('electron-active'));
+    }
+  };
 
-        // Then return the whole thing
-        return product;
-      };
-    };
-  
-    allGlyphs.forEach(glyphObj => {
-      const glyph = factory(glyphObj)();
+  /**
+   * Initializes a rendering engine and renders all of the glyphs in the array
+   * of database glyph objects.
+   * @param {JSON[]} glyphsArr All database objects to render as glyphs in the rendering engine.
+   */ 
+  const startEngine = glyphsArr => {
+    let animationDriver = window.requestAnimationFrame.bind(window);
+    let glyphs = JSON.parse(JSON.stringify(glyphsArr));
+    let graphicsDriver = cwd.svgDriver(svg);
+    let dash = cwd.engine(graphicsDriver, animationDriver);
+
+    glyphs.forEach(obj => {
+      // if (glyphObj.name === 'bird' || glyphObj.name === 'cloud' || glyphObj.name === 'powerline') return;
+      const glyph = cwd.factory(obj, eventsDict)();
       dash.addGlyph(glyph);
     });
 
-    // for (let obj of allGlyphs) {
-    //   // if (obj.length === 0) {
-    //     const glyph = obj();
-    //     dash.addGlyph(glyph);
-    //   // } else {
-    //     // const glyph = obj(paths[obj.name]());
-    //     // dash.addGlyph(glyph);
-    //   // }
-    // }
-  
-    // let tweetPath = zigPath();
-    // let tweet = bird(tweetPath);
-    // let rivers = background();
-    // let car = blueCar();
-    // dash.addGlyph(rivers);
-    // dash.addGlyph(tweet);
-    // dash.addGlyph(car);
-  
-    const bridgeCar = car();
-    bridgeCar.style.x = '29.167%';
-    bridgeCar.style.y = '33.7963%';
-    dash.addGlyph(bridgeCar);
     dash.render();
-  
-    if (EDIT_MODE) {
-      dash.edit(editorDriver);
-      console.log("In Edit mode");
-    }
 
-  })(window.cwd, activeGlyphs);  
+    if (EDIT_MODE) {
+      let editorDriver = cwd.editorDriver;
+      dash.edit(editorDriver);
+      console.log('In Edit mode');
+    }
+  };
+
+  /**
+   * Responsible for updating the necessary elements on the DOM to reflect
+   * the view specified.
+   * @param {JSON} view The view object to render.
+   */
+  const renderView = view => {
+    console.log(`Rendering view: ${view.name}`);
+
+    // Remove highlight from previous view and highlight current one
+    Array.from(document.getElementsByClassName('currentView'))
+      .forEach(elm => elm.classList.remove('currentView'));
+      
+    document.getElementById(`${view.name}Button`).classList.add('currentView');
+
+    updateGauges(view);
+    updateAnimations(view);
+  };
+
+  /**
+   * Caches svgContent into each of the glyph objects
+   * @param {JSON[]} glyphs array of glyph objects to cache svgContent
+   */
+  async function cache(glyphs) {
+    let promises = [];
+    glyphs
+      .filter(glyph => glyph.shape === 'svg')
+      .forEach(glyph => {
+        promises.push(
+          fetch(glyph.url)
+            .then(response => response.text())
+            .then(svgText => {
+              glyph.state.graphic.svgContent = svgText;
+              return glyph;
+            })
+        );
+      });
+    await Promise.all(promises).catch(err => {
+      console.error(`Error caching glyphs: ${err}`);
+    });
+    return glyphs;
+  }
+
+  const clearDash = () => {
+    const $wrap = document.getElementById('svg-wrap');
+    Array.from($wrap.children)
+      .filter(child => child.tagName != 'defs')
+      .forEach(child => $wrap.removeChild(child));
+  };
+
+  /**
+   * Responsible for starting and running kiosk mode by initializing a map 
+   * engine and switching views appropriately.
+   * @param {Number} duration The time in seconds between switching views. 
+   */
+  function startKiosk(duration) {
+    let views = allGlyphs.filter(obj => obj.view).map(obj => obj.view);
+    let index = 0;
+    cache(allGlyphs).then(allGlyphs => {
+      startEngine(allGlyphs);
+      renderView(views[index]);
+    });
+    setInterval(function() {
+      index++;
+      if (index === views.length) index = 0;
+      renderView(views[index]);
+    }, duration * 1000);
+  }
+  
+  if (KIOSK_MODE) {
+    startKiosk(VIEW_DURATION);
+  } else {
+    console.error('Please enable Kiosk mode.');
+  }
+})(window.cwd, activeGlyphs);

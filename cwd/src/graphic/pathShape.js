@@ -10,6 +10,12 @@ export const pathShape = () => {
 
       return this;
     },
+    
+    from: function(pathId) {
+      graphic.pathId = pathId;
+
+      return this;
+    },
 
     graphic: function() {
       return graphic;

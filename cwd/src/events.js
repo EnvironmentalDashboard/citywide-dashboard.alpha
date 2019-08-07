@@ -1,10 +1,10 @@
-export const listener = function(state) {
-  let needsRedraw = true,
-    events = [];
+export const events = function(state) {
+  // let needsRedraw = true,
+    // events = [];
 
   return {
-    events: evts => {
-      events = evts;
+    addEvents: function(evts) {
+      state.eventsArr = evts;
 
       return this;
     }
