@@ -74,6 +74,7 @@ export const engine = (gfxDriver, animationsDriver) => {
       );
       draggables.forEach(draggable => {
         draggable.addEventListener('load', driver);
+        draggable.dispatchEvent(new Event('load'));
       });
     }
   };

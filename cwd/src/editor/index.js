@@ -3,20 +3,21 @@ export const editorDriver = evt => {
 
   let element = null,
     dragX = 0,
-    dragY = 0;
+    dragY = 0,
+    parent = null;
 
   const translateRe = new RegExp(`translate\\([^\(\)]*\\)`, `i`);
 
   const startDrag = evt => {
-    if (evt.target.classList.contains('draggable')) {
-      element = evt.target;
-      element.parentNode.appendChild(element);
-      element.style.opacity = '0.75';
-    }
     evt.preventDefault();
+    element = evt.currentTarget;
+    parent = element.parentNode;
+    parent.appendChild(element);
+    element.style.opacity = '0.75';
 
     let transform = element.style.transform;
     let translate = translateRe.exec(transform);
+
     dragX = evt.clientX;
     dragY = evt.clientY;
 
@@ -24,6 +25,7 @@ export const editorDriver = evt => {
       const digits = translate[0].match(/(-?[0-9\.]+)/g);
       dragX -= parseFloat(digits[0] || 0);
       dragY -= parseFloat(digits[1] || 0);
+      console.log('had translate');
     } else {
       translate = 'translate(0px, 0px)';
       if (transform) {
@@ -31,19 +33,44 @@ export const editorDriver = evt => {
       } else {
         element.style.transform = 'translate(10px, 10px)';
       }
+      console.log('went in here!');
     }
   };
 
-  const drag = evt => {
-    if (element) {
-      evt.preventDefault();
-      let x = evt.clientX - dragX;
-      let y = evt.clientY - dragY;
-      let transform = element.style.transform;
-      transform = transform.replace(translateRe, `translate(${x}px, ${y}px)`);
+  const startDragSVG = evt => {
+    evt.preventDefault();
+    element = evt.currentTarget;
+    parent = element.parentNode;
+    parent.appendChild(element);
+    element.style.opacity = '0.75';
 
-      element.style.transform = transform;
-    }
+    dragX = evt.clientX;
+    dragY = evt.clientY;
+
+    dragX -= (parseFloat(element.getAttribute('x')) / 100) * parent.clientWidth;
+    dragY -=
+      (parseFloat(element.getAttribute('y')) / 100) * parent.clientHeight;
+  };
+
+  const drag = evt => {
+    if (!element) return;
+    evt.preventDefault();
+    let x = evt.clientX - dragX;
+    let y = evt.clientY - dragY;
+    let transform = element.style.transform;
+    transform = transform.replace(translateRe, `translate(${x}px, ${y}px)`);
+    element.style.transform = transform;
+  };
+
+  const dragSVG = evt => {
+    if (!element) return;
+    evt.preventDefault();
+    let x = evt.clientX - dragX;
+    let y = evt.clientY - dragY;
+    x = (x / parent.clientWidth) * 100;
+    y = (y / parent.clientHeight) * 100;
+    element.setAttribute('x', `${x}%`);
+    element.setAttribute('y', `${y}%`);
   };
 
   const endDrag = evt => {
@@ -51,10 +78,15 @@ export const editorDriver = evt => {
       element.style.opacity = '1.0';
     }
     element = null;
+    parent = null;
   };
 
-  svg.addEventListener('mousedown', startDrag);
-  svg.addEventListener('mousemove', drag);
+  if (svg.tagName.toUpperCase() === 'SVG')
+    svg.addEventListener('mousedown', startDragSVG);
+  else svg.addEventListener('mousedown', startDrag);
+  if (svg.tagName.toUpperCase() === 'SVG')
+    svg.addEventListener('mousemove', dragSVG);
+  else svg.addEventListener('mousemove', drag);
   svg.addEventListener('mouseup', endDrag);
   svg.addEventListener('mouseleave', endDrag);
 };
