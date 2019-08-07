@@ -1,6 +1,5 @@
 import { svgImageShapeDriver } from './graphic/svgImageShapeDriver';
 import { pathShapeDriver } from './graphic/pathShapeDriver';
-import { svgGradientDriver } from './graphic/svgGradientDriver';
 import { svgShapeDriver } from './graphic/svgShapeDriver';
 
 export const bridge = $svg => {
@@ -9,7 +8,6 @@ export const bridge = $svg => {
   const elementDictionary = {
     svgImage: svgImageShapeDriver,
     path: pathShapeDriver,
-    linearGradient: svgGradientDriver,
     svg: svgShapeDriver
   };
 
