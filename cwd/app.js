@@ -167,6 +167,13 @@
    */
   const renderView = view => {
     console.log(`Rendering view: ${view.name}`);
+
+    // Remove highlight from previous view and highlight current one
+    Array.from(document.getElementsByClassName('currentView'))
+      .forEach(elm => elm.classList.remove('currentView'));
+      
+    document.getElementById(`${view.name}Button`).classList.add('currentView');
+
     updateGauges(view);
     updateAnimations(view);
   };

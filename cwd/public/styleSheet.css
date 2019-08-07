@@ -18,6 +18,14 @@ body,
   cursor: pointer;
 }
 
+.currentView {
+  filter: url(#whiteGlow);
+}
+
+.currentView #background{
+  fill: turquoise;
+}
+
 #tooltip {
   background: white;
   border-radius: 30px;
