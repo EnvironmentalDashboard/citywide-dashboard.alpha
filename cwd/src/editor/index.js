@@ -85,14 +85,14 @@ export const editorDriver = glyph => {
     };
 
     if (tagName === 'SVG') {
-      svg.addEventListener('mousedown', startDragSVG);
-      svg.addEventListener('mousemove', dragSVG);
+      element.addEventListener('mousedown', startDragSVG);
+      element.addEventListener('mousemove', dragSVG);
     } else {
-      svg.addEventListener('mousedown', startDrag);
-      svg.addEventListener('mousemove', drag);
+      element.addEventListener('mousedown', startDrag);
+      element.addEventListener('mousemove', drag);
     }
-    svg.addEventListener('mouseup', endDrag);
-    svg.addEventListener('mouseleave', endDrag);
+    element.addEventListener('mouseup', endDrag);
+    element.addEventListener('mouseleave', endDrag);
   };
   return loadListener;
 };
