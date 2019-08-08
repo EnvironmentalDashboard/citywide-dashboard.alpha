@@ -9,7 +9,6 @@ export const editorDriver = evt => {
   const translateRe = new RegExp(`translate\\([^\(\)]*\\)`, `i`);
 
   const startDrag = evt => {
-    evt.preventDefault();
     element = evt.currentTarget;
     parent = element.parentNode;
     parent.appendChild(element);
@@ -25,7 +24,6 @@ export const editorDriver = evt => {
       const digits = translate[0].match(/(-?[0-9\.]+)/g);
       dragX -= parseFloat(digits[0] || 0);
       dragY -= parseFloat(digits[1] || 0);
-      console.log('had translate');
     } else {
       translate = 'translate(0px, 0px)';
       if (transform) {
@@ -33,12 +31,10 @@ export const editorDriver = evt => {
       } else {
         element.style.transform = 'translate(10px, 10px)';
       }
-      console.log('went in here!');
     }
   };
 
   const startDragSVG = evt => {
-    evt.preventDefault();
     element = evt.currentTarget;
     parent = element.parentNode;
     parent.appendChild(element);
@@ -54,7 +50,6 @@ export const editorDriver = evt => {
 
   const drag = evt => {
     if (!element) return;
-    evt.preventDefault();
     let x = evt.clientX - dragX;
     let y = evt.clientY - dragY;
     let transform = element.style.transform;
@@ -64,7 +59,6 @@ export const editorDriver = evt => {
 
   const dragSVG = evt => {
     if (!element) return;
-    evt.preventDefault();
     let x = evt.clientX - dragX;
     let y = evt.clientY - dragY;
     x = (x / parent.clientWidth) * 100;
