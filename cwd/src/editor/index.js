@@ -1,12 +1,14 @@
 export const editorDriver = glyph => {
-  const loadListener = evt => {
+  return evt => {
     const element = evt.target;
     const tagName = element.tagName.toUpperCase();
 
     let dragging = false,
       dragX = 0,
       dragY = 0,
-      parent = null;
+      parent = null,
+      originalX = element.style.x,
+      originalY = element.style.y;
 
     const translateRe = new RegExp(`translate\\([^\(\)]*\\)`, `i`);
 
@@ -60,9 +62,6 @@ export const editorDriver = glyph => {
       let transform = element.style.transform;
       transform = transform.replace(translateRe, `translate(${x}px, ${y}px)`);
       element.style.transform = transform;
-      glyph.state.style.x = `${x}%`;
-      glyph.state.style.y = `${y}%`;
-      glyph.state.wasUpdated = true;
     };
 
     const dragSVG = evt => {
@@ -71,14 +70,33 @@ export const editorDriver = glyph => {
       let y = evt.clientY - dragY;
       x = (x / parent.clientWidth) * 100;
       y = (y / parent.clientHeight) * 100;
-      element.setAttribute('x', (glyph.state.style.x = `${x}%`));
-      element.setAttribute('y', (glyph.state.style.y = `${y}%`));
+      element.setAttribute('x', `${x}%`);
+      element.setAttribute('y', `${y}%`);
     };
 
     const endDrag = evt => {
       if (dragging) {
         element.style.opacity = '1.0';
         glyph.state.wasUpdated = true;
+        let transform = element.style.transform;
+        let translate = translateRe
+          .exec(transform)[0]
+          .match(/(-?[0-9\.]+)/g);
+        glyph.state.style.x = `${parseFloat(originalX) +
+          (parseFloat(translate[0] || 0) / parent.clientWidth) * 100}%`;
+        glyph.state.style.y = `${parseFloat(originalY) +
+          (parseFloat(translate[1] || 0) / parent.clientHeight) * 100}%`;
+      }
+      dragging = false;
+      parent = null;
+    };
+
+    const endDragSVG = evt => {
+      if (dragging) {
+        element.style.opacity = '1.0';
+        glyph.state.wasUpdated = true;
+        glyph.state.style.x = element.getAttribute('x');
+        glyph.state.style.y = element.getAttribute('y');
       }
       dragging = false;
       parent = null;
@@ -87,12 +105,13 @@ export const editorDriver = glyph => {
     if (tagName === 'SVG') {
       element.addEventListener('mousedown', startDragSVG);
       element.addEventListener('mousemove', dragSVG);
+      element.addEventListener('mouseup', endDragSVG);
+      element.addEventListener('mouseleave', endDragSVG);
     } else {
       element.addEventListener('mousedown', startDrag);
       element.addEventListener('mousemove', drag);
+      element.addEventListener('mouseup', endDrag);
+      element.addEventListener('mouseleave', endDrag);
     }
-    element.addEventListener('mouseup', endDrag);
-    element.addEventListener('mouseleave', endDrag);
   };
-  return loadListener;
 };
