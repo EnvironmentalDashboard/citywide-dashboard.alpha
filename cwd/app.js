@@ -28,8 +28,8 @@
   svg.setAttribute('width', width);
   svg.setAttribute('height', height);
 
-  const EDIT_MODE = 0;
-  const KIOSK_MODE = 1;
+  const EDIT_MODE = 1;
+  const KIOSK_MODE = 0;
 
   /** The amount of time in seconds between views in kiosk mode. */
   const VIEW_DURATION = 10;
@@ -105,6 +105,14 @@
   
   if (KIOSK_MODE) {
     startKiosk(VIEW_DURATION);
+  } else if (EDIT_MODE) {
+    let views = allGlyphs.filter(obj => obj.view).map(obj => obj.view);
+    let index = 0;
+    cache(allGlyphs).then(allGlyphs => {
+      startEngine(allGlyphs);
+      cwd.renderView(views[index]);
+    });
+
   } else {
     console.error('Please enable Kiosk mode.');
   }
