@@ -50,6 +50,8 @@ export const editorDriver = glyph => {
         (parseFloat(element.getAttribute('y')) / 100) * parent.clientHeight;
     };
 
+    // TODO: Update the glyph object to represent accurate numbers of
+    // x +/- transform, y +/- transform for svgImage glyphs.
     const drag = evt => {
       if (!element) return;
       let x = evt.clientX - dragX;
@@ -57,6 +59,9 @@ export const editorDriver = glyph => {
       let transform = element.style.transform;
       transform = transform.replace(translateRe, `translate(${x}px, ${y}px)`);
       element.style.transform = transform;
+      glyph.state.style.x = `${x}%`;
+      glyph.state.style.y = `${y}%`;
+      glyph.state.wasUpdated = true;
     };
 
     const dragSVG = evt => {
@@ -69,6 +74,7 @@ export const editorDriver = glyph => {
       element.setAttribute('y', `${y}%`);
       glyph.state.style.x = `${x}%`;
       glyph.state.style.y = `${y}%`;
+      glyph.state.wasUpdated = true;
     };
 
     const endDrag = evt => {

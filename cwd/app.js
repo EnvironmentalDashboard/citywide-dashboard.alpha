@@ -54,9 +54,18 @@
     dash.render();
 
     if (EDIT_MODE) {
+      console.log('In Edit mode');
       let editorDriver = cwd.editorDriver;
       dash.edit(editorDriver);
-      console.log('In Edit mode');
+      let saveButton = document.createElement('button');
+      let map = document.getElementById('map');
+      map.appendChild(saveButton);
+      saveButton.innerText = 'Save Data';
+      saveButton.style.padding = '10px';
+      saveButton.style.border = '5px solid red';
+      saveButton.addEventListener('click', evt => {
+        dash.save();
+      })
     }
   };
 
@@ -114,6 +123,6 @@
     });
 
   } else {
-    console.error('Please enable Kiosk mode.');
-  }
+  console.error('Please enable Kiosk mode.');
+}
 })(window.cwd, activeGlyphs);
