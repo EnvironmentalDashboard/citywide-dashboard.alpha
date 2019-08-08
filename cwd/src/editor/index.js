@@ -1,6 +1,7 @@
 export const editorDriver = glyph => {
   const loadListener = evt => {
     const svg = evt.target;
+    const tagName = svg.tagName.toUpperCase();
 
     let element = null,
       dragX = 0,
@@ -70,27 +71,26 @@ export const editorDriver = glyph => {
       let y = evt.clientY - dragY;
       x = (x / parent.clientWidth) * 100;
       y = (y / parent.clientHeight) * 100;
-      element.setAttribute('x', `${x}%`);
-      element.setAttribute('y', `${y}%`);
-      glyph.state.style.x = `${x}%`;
-      glyph.state.style.y = `${y}%`;
-      glyph.state.wasUpdated = true;
+      element.setAttribute('x', (glyph.state.style.x = `${x}%`));
+      element.setAttribute('y', (glyph.state.style.y = `${y}%`));
     };
 
     const endDrag = evt => {
       if (element) {
         element.style.opacity = '1.0';
+        glyph.state.wasUpdated = true;
       }
       element = null;
       parent = null;
     };
 
-    if (svg.tagName.toUpperCase() === 'SVG')
+    if (tagName === 'SVG') {
       svg.addEventListener('mousedown', startDragSVG);
-    else svg.addEventListener('mousedown', startDrag);
-    if (svg.tagName.toUpperCase() === 'SVG')
       svg.addEventListener('mousemove', dragSVG);
-    else svg.addEventListener('mousemove', drag);
+    } else {
+      svg.addEventListener('mousedown', startDrag);
+      svg.addEventListener('mousemove', drag);
+    }
     svg.addEventListener('mouseup', endDrag);
     svg.addEventListener('mouseleave', endDrag);
   };
