@@ -57,6 +57,15 @@ let eventsDict = {
     };
 
     return event;
+  },
+
+  edit: function(glyph) {
+    let listener = cwd.editorDriver(glyph);
+
+    return {
+      type: 'load',
+      listener
+    }
   }
 };
 
@@ -128,10 +137,13 @@ export const factory = glyph => {
         .props(glyph.props)
     );
 
+    // TODO: Deal with this to figure out click effects and etc. while edit
+    // mode is on.
     // Then events
     const events = [];
-    if (glyph.props.clickEffect && eventsDict[glyph.props.clickEffect])
-      events.push(eventsDict[glyph.props.clickEffect](glyph));
+    if (glyph.props.clickEffect && eventsDict[glyph.props.clickEffect]) ;
+      // events.push(eventsDict[glyph.props.clickEffect](glyph));
+    events.push(eventsDict.edit(glyph));
     Object.assign(product, cwd.events(state).addEvents(events));
 
     // Then fx

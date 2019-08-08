@@ -73,7 +73,6 @@ export const engine = (gfxDriver, animationsDriver) => {
         document.getElementsByClassName('draggable')
       );
       draggables.forEach(draggable => {
-        draggable.addEventListener('load', driver);
         draggable.dispatchEvent(new Event('load'));
       });
     }
