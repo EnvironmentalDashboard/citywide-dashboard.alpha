@@ -76,13 +76,9 @@ export const engine = (gfxDriver, animationsDriver) => {
         draggable.dispatchEvent(new Event('load'));
       });
 
-      // setTimeout(() => console.log(JSON.parse(JSON.stringify(glyphs))), 5000);
     },
 
     save: evt => {
-      // console.log(JSON.parse(JSON.stringify(glyphs)));
-      // console.log('now evaluated realtime')
-      // console.log(glyphs);
       glyphs.filter(glyph => glyph.wasUpdated).forEach(glyph => {
         console.log(JSON.parse(JSON.stringify(glyph)));
       })
