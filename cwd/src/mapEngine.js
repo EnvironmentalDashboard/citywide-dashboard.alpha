@@ -73,7 +73,7 @@ export const engine = (gfxDriver, animationsDriver) => {
         document.getElementsByClassName('draggable')
       );
       draggables.forEach(draggable => {
-        draggable.dispatchEvent(new Event('load'));
+        if (draggable.tagName.toUpperCase() === 'SVG') draggable.dispatchEvent(new Event('load'));
       });
 
     },
