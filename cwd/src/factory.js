@@ -141,8 +141,8 @@ export const factory = glyph => {
     // mode is on.
     // Then events
     const events = [];
-    if (glyph.props.clickEffect && eventsDict[glyph.props.clickEffect]) ;
-      // events.push(eventsDict[glyph.props.clickEffect](glyph));
+    if (glyph.props.clickEffect && eventsDict[glyph.props.clickEffect])
+      events.push(eventsDict[glyph.props.clickEffect](glyph));
     events.push(eventsDict.edit(glyph));
     Object.assign(product, cwd.events(state).addEvents(events));
 
