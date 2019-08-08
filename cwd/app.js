@@ -53,8 +53,9 @@
 
     dash.render();
 
+    // TODO: Update hardcoded styles here and button placement
+    // for visual appeal.
     if (EDIT_MODE) {
-      console.log('In Edit mode');
       let editorDriver = cwd.editorDriver;
       dash.edit(editorDriver);
       let saveButton = document.createElement('button');
@@ -63,9 +64,7 @@
       saveButton.innerText = 'Save Data';
       saveButton.style.padding = '10px';
       saveButton.style.border = '5px solid red';
-      saveButton.addEventListener('click', evt => {
-        dash.save();
-      })
+      saveButton.addEventListener('click', evt => dash.save());
     }
   };
 
@@ -113,16 +112,17 @@
   }
   
   if (KIOSK_MODE) {
+    console.log('Starting Kiosk Mode');
     startKiosk(VIEW_DURATION);
   } else if (EDIT_MODE) {
+    console.log('Starting Edit Mode');
     let views = allGlyphs.filter(obj => obj.view).map(obj => obj.view);
     let index = 0;
     cache(allGlyphs).then(allGlyphs => {
       startEngine(allGlyphs);
       cwd.renderView(views[index]);
     });
-
   } else {
-  console.error('Please enable Kiosk mode.');
+  console.error('No mode selected. Please enable Kiosk Mode.');
 }
 })(window.cwd, activeGlyphs);
