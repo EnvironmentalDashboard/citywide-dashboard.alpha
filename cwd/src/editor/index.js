@@ -1,9 +1,9 @@
 export const editorDriver = glyph => {
   const loadListener = evt => {
-    const svg = evt.target;
-    const tagName = svg.tagName.toUpperCase();
+    const element = evt.target;
+    const tagName = element.tagName.toUpperCase();
 
-    let element = null,
+    let dragging = false,
       dragX = 0,
       dragY = 0,
       parent = null;
@@ -11,7 +11,7 @@ export const editorDriver = glyph => {
     const translateRe = new RegExp(`translate\\([^\(\)]*\\)`, `i`);
 
     const startDrag = evt => {
-      element = evt.currentTarget;
+      dragging = true;
       parent = element.parentNode;
       parent.appendChild(element);
       element.style.opacity = '0.75';
@@ -37,7 +37,7 @@ export const editorDriver = glyph => {
     };
 
     const startDragSVG = evt => {
-      element = evt.currentTarget;
+      dragging = true;
       parent = element.parentNode;
       parent.appendChild(element);
       element.style.opacity = '0.75';
@@ -54,7 +54,7 @@ export const editorDriver = glyph => {
     // TODO: Update the glyph object to represent accurate numbers of
     // x +/- transform, y +/- transform for svgImage glyphs.
     const drag = evt => {
-      if (!element) return;
+      if (!dragging) return;
       let x = evt.clientX - dragX;
       let y = evt.clientY - dragY;
       let transform = element.style.transform;
@@ -66,7 +66,7 @@ export const editorDriver = glyph => {
     };
 
     const dragSVG = evt => {
-      if (!element) return;
+      if (!dragging) return;
       let x = evt.clientX - dragX;
       let y = evt.clientY - dragY;
       x = (x / parent.clientWidth) * 100;
@@ -76,11 +76,11 @@ export const editorDriver = glyph => {
     };
 
     const endDrag = evt => {
-      if (element) {
+      if (dragging) {
         element.style.opacity = '1.0';
         glyph.state.wasUpdated = true;
       }
-      element = null;
+      dragging = false;
       parent = null;
     };
 
