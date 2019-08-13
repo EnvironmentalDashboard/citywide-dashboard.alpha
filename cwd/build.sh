@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker build -t citywide-dashboard .
+docker build --build-arg WEBPACK="npm run build-dev" -t citywide-dashboard .

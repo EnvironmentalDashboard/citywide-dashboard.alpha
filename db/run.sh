@@ -3,10 +3,10 @@
 # Read our password from our secret file.
 if [ -f "db.config" ]
 then
-	if [ -f "db.config" ]
-	then
-		. db.config
-	fi
+	. db.config
+else
+	echo "db.config not found"
+	exit 1
 fi
 
 # create cwd volume with `docker volume create cwd`
