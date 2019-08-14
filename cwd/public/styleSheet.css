@@ -46,6 +46,18 @@ body,
   font-weight: bold;
 }
 
+#characterText {
+  padding: 15px;
+  line-height: 20px;
+  width: 350px;
+  hyphens: auto;
+  font-family: Biko;
+  position: absolute; 
+  display: block; 
+  left: 10%; 
+  top: 5%;
+}
+
 @font-face {
   font-family: Biko;
   src: url('../images/fonts/Biko_Regular.otf') format('opentype');
