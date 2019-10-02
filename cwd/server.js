@@ -2,10 +2,13 @@
 
 const express = require('express');
 const handler = require('./handler');
+const router = express.Router();
 
 // Constants
 const PORT = 80;
 const HOST = '0.0.0.0';
+
+const PATH = '/' + (process.env.PATH_PREFIX || '');
 
 // App
 const app = express();
@@ -14,9 +17,10 @@ const app = express();
 app.set('view engine', 'pug');
 
 app.listen(PORT, HOST);
-console.log(`Running on http://${HOST}:${PORT}`);
+app.use(PATH, router);
+console.log(`Running on http://${HOST}:${PORT}${PATH}`);
 
-app.get('/', (req, res) => {
+router.get('/', (req, res) => {
   handler.getTheBird().then(arr => {
     const activeGlyphsStr = JSON.stringify({ arr });
     res.render('index', { activeGlyphsStr });
@@ -25,7 +29,7 @@ app.get('/', (req, res) => {
 
 app.use(express.static(__dirname));
 
-app.get('/editor', (req, res) => {
+router.get('/editor', (req, res) => {
   console.log('Received GET request at /editor');
   res.sendStatus(200);
 });
