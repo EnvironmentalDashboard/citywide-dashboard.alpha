@@ -21,7 +21,7 @@ app.use(PATH, router);
 console.log(`Running on http://${HOST}:${PORT}${PATH}`);
 
 router.get('/', (req, res) => {
-  res.redirect(PATH + '/index');
+  res.redirect(process.env.PATH_PREFIX ? (PATH + '/index') : '/index');
 });
 
 router.get('/index', (req, res) => {
