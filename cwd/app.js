@@ -138,7 +138,7 @@
    * Initializes a rendering engine and renders all of the glyphs in the array
    * of database glyph objects.
    * @param {JSON[]} glyphsArr All database objects to render as glyphs in the rendering engine.
-   */ 
+   */
   const startEngine = glyphsArr => {
     let animationDriver = window.requestAnimationFrame.bind(window);
     let glyphs = JSON.parse(JSON.stringify(glyphsArr));
@@ -171,7 +171,7 @@
     // Remove highlight from previous view and highlight current one
     Array.from(document.getElementsByClassName('currentView'))
       .forEach(elm => elm.classList.remove('currentView'));
-      
+
     document.getElementById(`${view.name}Button`).classList.add('currentView');
 
     updateGauges(view);
@@ -210,9 +210,9 @@
   };
 
   /**
-   * Responsible for starting and running kiosk mode by initializing a map 
+   * Responsible for starting and running kiosk mode by initializing a map
    * engine and switching views appropriately.
-   * @param {Number} duration The time in seconds between switching views. 
+   * @param {Number} duration The time in seconds between switching views.
    */
   function startKiosk(duration) {
     let views = allGlyphs.filter(obj => obj.view).map(obj => obj.view);
@@ -227,7 +227,7 @@
       renderView(views[index]);
     }, duration * 1000);
   }
-  
+
   if (KIOSK_MODE) {
     startKiosk(VIEW_DURATION);
   } else {
