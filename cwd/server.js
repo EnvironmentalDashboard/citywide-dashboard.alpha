@@ -21,13 +21,17 @@ app.use(PATH, router);
 console.log(`Running on http://${HOST}:${PORT}${PATH}`);
 
 router.get('/', (req, res) => {
+  res.redirect(PATH + '/index');
+});
+
+router.get('/index', (req, res) => {
   handler.getTheBird().then(arr => {
     const activeGlyphsStr = JSON.stringify({ arr });
     res.render('index', { activeGlyphsStr });
   });
 });
 
-app.use(express.static(__dirname));
+router.use(express.static(__dirname));
 
 router.get('/editor', (req, res) => {
   console.log('Received GET request at /editor');
