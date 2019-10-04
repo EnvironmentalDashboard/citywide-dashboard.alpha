@@ -3,3 +3,7 @@ node_modules
 .DS_Store
 \.vscode/
 db/db.config
+
+# Exclude files in the directory, but keep the directory.
+db/prod/*
+!db/prod/.gitkeep
