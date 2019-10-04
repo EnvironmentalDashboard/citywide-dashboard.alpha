@@ -149,6 +149,21 @@
       // if (glyphObj.name === 'bird' || glyphObj.name === 'cloud' || glyphObj.name === 'powerline') return;
       const glyph = cwd.factory(obj, eventsDict)();
       dash.addGlyph(glyph);
+
+      /**
+       * In order for our characterText to be like other elements on the page
+       * and not move when the page is resized, we need to calculate
+       * the necessary offsets on page load and store them.
+       */
+      if (obj.name === 'flash') {
+        let characterText = document.getElementById('characterText');
+
+        let xPercent = (parseFloat(glyph.style.x) + parseFloat(glyph.graphic.width)) / 100.0;
+        let yPercent = parseFloat(glyph.style.y) / 100.0;
+
+        characterText.style.left = ((width * xPercent) + 20) + 'px';
+        characterText.style.top = ((height * yPercent)) + 'px';
+      }
     });
 
     dash.render();
