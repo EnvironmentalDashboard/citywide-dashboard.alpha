@@ -37,6 +37,9 @@
   let eventsDict = {
     viewSwitcher: function(glyph) {
       let listener = function() {
+        if(window.location.hash) {
+          window.location.hash = glyph.view.name;
+        }
         renderView(glyph.view);
       };
 
@@ -217,15 +220,26 @@
   function startKiosk(duration) {
     let views = allGlyphs.filter(obj => obj.view).map(obj => obj.view);
     let index = 0;
+    let hashes = ['#glsc', '#lake', '#air'];
+    if (window.location.hash) {
+      if (!hashes.includes(window.location.hash)) {
+        console.error('Invalid hash: ' + window.location.hash);
+        window.location.hash = '';
+      } else {
+        index = hashes.indexOf(window.location.hash);
+      }
+    }
     cache(allGlyphs).then(allGlyphs => {
       startEngine(allGlyphs);
       renderView(views[index]);
     });
-    setInterval(function() {
-      index++;
-      if (index === views.length) index = 0;
-      renderView(views[index]);
-    }, duration * 1000);
+    if (!window.location.hash) {
+      setInterval(function() {
+        index++;
+        if (index === views.length) index = 0;
+        renderView(views[index]);
+      }, duration * 1000);
+    }
   }
 
   if (KIOSK_MODE) {
