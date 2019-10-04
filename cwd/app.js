@@ -163,6 +163,9 @@
 
         characterText.style.left = ((width * xPercent) + 20) + 'px';
         characterText.style.top = ((height * yPercent)) + 'px';
+
+        // Activate the display now that we have set the appropriate positioning.
+        characterText.style.display = 'block';
       }
     });
 
