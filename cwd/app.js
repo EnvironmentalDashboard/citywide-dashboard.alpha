@@ -154,6 +154,10 @@
        * In order for our characterText to be like other elements on the page
        * and not move when the page is resized, we need to calculate
        * the necessary offsets on page load and store them.
+       *
+       * Longer term, characterText should be linked to some attribute in
+       * the database, rather than a hardcoded name (this hardcoding is done
+       * due to the October 7 deadline currently).
        */
       if (obj.name === 'flash') {
         let characterText = document.getElementById('characterText');
