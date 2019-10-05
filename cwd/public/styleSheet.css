@@ -48,11 +48,12 @@ body,
 
 #characterText {
   padding: 15px;
-  line-height: 20px;
   hyphens: auto;
   font-family: Biko;
   position: absolute;
   display: block;
+  background: white;
+  border-radius: 30px;
 }
 
 #characterText p {
