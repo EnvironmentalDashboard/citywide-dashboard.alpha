@@ -49,11 +49,14 @@ body,
 #characterText {
   padding: 15px;
   line-height: 20px;
-  width: 350px;
   hyphens: auto;
   font-family: Biko;
   position: absolute;
   display: block;
+}
+
+#characterText p {
+  font-size: 28px;
 }
 
 @font-face {

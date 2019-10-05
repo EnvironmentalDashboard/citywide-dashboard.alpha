@@ -165,8 +165,14 @@
         let xPercent = (parseFloat(glyph.style.x) + parseFloat(glyph.graphic.width)) / 100.0;
         let yPercent = parseFloat(glyph.style.y) / 100.0;
 
-        characterText.style.left = ((width * xPercent) + 20) + 'px';
+        let leftOffset = (width * xPercent) + 20;
+
+        characterText.style.left = leftOffset + 'px';
         characterText.style.top = ((height * yPercent)) + 'px';
+        
+        // has to fill the area to the left of the gauges
+        // this would be better scalable as a maxCharacterWidth option in the database
+        characterText.style.width = (width - leftOffset - (width * 0.25)) + 'px';
 
         // Activate the display now that we have set the appropriate positioning.
         characterText.style.display = 'block';
