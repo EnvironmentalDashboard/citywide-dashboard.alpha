@@ -169,10 +169,10 @@
 
         characterText.style.left = leftOffset + 'px';
         characterText.style.top = ((height * yPercent)) + 'px';
-        
+
         // has to fill the area to the left of the gauges
         // this would be better scalable as a maxCharacterWidth option in the database
-        characterText.style.width = (width - leftOffset - (width * 0.25)) + 'px';
+        characterText.style.maxWidth = (width - leftOffset - (width * 0.25)) + 'px';
 
         // Activate the display now that we have set the appropriate positioning.
         characterText.style.display = 'block';
