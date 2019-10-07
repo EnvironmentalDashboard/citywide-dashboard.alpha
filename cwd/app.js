@@ -338,8 +338,6 @@
         renderView(views[index]);
       }, duration * 1000);
     }
-
-
   }
 
   if (KIOSK_MODE) {
