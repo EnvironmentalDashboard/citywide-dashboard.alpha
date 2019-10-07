@@ -30,7 +30,7 @@
 
   const EDIT_MODE = 0;
   const KIOSK_MODE = 1;
-  const SHOW_ONE_TITLE = 1;
+  const SHOW_ONE_TITLE = 0;
 
   /** The amount of time in seconds between views in kiosk mode. */
   const VIEW_DURATION = 10;
@@ -228,16 +228,16 @@
         }
         elt.setAttribute("x", "83%");
       }
-    }
 
-    for (let j = 1; j < 5; j++) {
-      document.getElementById(`gauge-${j}`).setAttribute("height", "22.5%");
-      if (j === 3) {
-        document.getElementById(`gauge-${j}`).style.y = "53.12%";
-      } else if (j === 2) {
-        document.getElementById(`gauge-${j}`).style.y = "29.56%";
-      } else if (j === 1) {
-        document.getElementById(`gauge-${j}`).style.y = "6%";
+      for (let j = 1; j < 5; j++) {
+        document.getElementById(`gauge-${j}`).setAttribute("height", "22.5%");
+        if (j === 3) {
+          document.getElementById(`gauge-${j}`).style.y = "53.12%";
+        } else if (j === 2) {
+          document.getElementById(`gauge-${j}`).style.y = "29.56%";
+        } else if (j === 1) {
+          document.getElementById(`gauge-${j}`).style.y = "6%";
+        }
       }
     }
 
@@ -255,7 +255,9 @@
     Array.from(document.getElementsByClassName('currentView'))
       .forEach(elm => {
         elm.classList.remove('currentView');
-        elm.style.display = "none";
+
+        if (SHOW_ONE_TITLE)
+          elm.style.display = "none";
       });
 
     let newView = document.getElementById(`${view.name}Button`);
