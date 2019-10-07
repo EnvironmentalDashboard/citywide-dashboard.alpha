@@ -30,7 +30,7 @@
 
   const EDIT_MODE = 0;
   const KIOSK_MODE = 1;
-  const SHOW_ONE_TITLE = 0;
+  const SHOW_ONE_TITLE = 1;
 
   /** The amount of time in seconds between views in kiosk mode. */
   const VIEW_DURATION = 10;
