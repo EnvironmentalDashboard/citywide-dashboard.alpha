@@ -30,6 +30,7 @@
 
   const EDIT_MODE = 0;
   const KIOSK_MODE = 1;
+  const SHOW_ONE_TITLE = 1;
 
   /** The amount of time in seconds between views in kiosk mode. */
   const VIEW_DURATION = 10;
@@ -37,7 +38,31 @@
   let eventsDict = {
     viewSwitcher: function(glyph) {
       let listener = function() {
-        renderView(glyph.view);
+
+        if(window.location.hash) {
+          window.location.hash = glyph.view.name;
+        }
+
+        if(SHOW_ONE_TITLE) {
+          var arr = Array.prototype.slice.call(document.getElementsByClassName("glow-on-hover"));
+          arr = arr.slice(0,3);
+          var index = arr.indexOf(document.getElementById(this.id));
+
+          arr[index].style.display = "none";
+          if (index != arr.length - 1) {
+            arr[index+1].style.display = "block";
+            renderView(views[index+1]);
+
+          } else {
+            arr[0].style.display = "block";
+            renderView(views[0]);
+
+          }
+
+        } else {
+            renderView(glyph.view);
+        }
+
       };
 
       const event = {
@@ -138,7 +163,7 @@
    * Initializes a rendering engine and renders all of the glyphs in the array
    * of database glyph objects.
    * @param {JSON[]} glyphsArr All database objects to render as glyphs in the rendering engine.
-   */ 
+   */
   const startEngine = glyphsArr => {
     let animationDriver = window.requestAnimationFrame.bind(window);
     let glyphs = JSON.parse(JSON.stringify(glyphsArr));
@@ -158,6 +183,28 @@
       dash.edit(editorDriver);
       console.log('In Edit mode');
     }
+
+    if (SHOW_ONE_TITLE) {
+      for (let i = 0; i < views.length; i++) {
+        var elt = document.getElementById(`${views[i].name}Button`);
+        if (i != 0) {
+          elt.style.display = "none";
+        }
+        elt.setAttribute("x", "83%");
+      }
+    }
+
+    for (let j = 1; j < 5; j++) {
+      document.getElementById(`gauge-${j}`).setAttribute("height", "22.5%");
+      if (j === 3) {
+        document.getElementById(`gauge-${j}`).style.y = "53.12%";
+      } else if (j === 2) {
+        document.getElementById(`gauge-${j}`).style.y = "29.56%";
+      } else if (j === 1) {
+        document.getElementById(`gauge-${j}`).style.y = "6%";
+      }
+    }
+
   };
 
   /**
@@ -170,9 +217,14 @@
 
     // Remove highlight from previous view and highlight current one
     Array.from(document.getElementsByClassName('currentView'))
-      .forEach(elm => elm.classList.remove('currentView'));
-      
-    document.getElementById(`${view.name}Button`).classList.add('currentView');
+      .forEach(elm => {
+        elm.classList.remove('currentView');
+        elm.style.display = "none";
+      });
+
+    let newView = document.getElementById(`${view.name}Button`);
+    newView.classList.add('currentView');
+    newView.style.display = "block";
 
     updateGauges(view);
     updateAnimations(view);
@@ -210,24 +262,48 @@
   };
 
   /**
-   * Responsible for starting and running kiosk mode by initializing a map 
+   * Responsible for starting and running kiosk mode by initializing a map
    * engine and switching views appropriately.
-   * @param {Number} duration The time in seconds between switching views. 
+   * @param {Number} duration The time in seconds between switching views.
    */
+
   function startKiosk(duration) {
-    let views = allGlyphs.filter(obj => obj.view).map(obj => obj.view);
+    views = allGlyphs.filter(obj => obj.view).map(obj => obj.view);
     let index = 0;
+    let hashes = views.map(getName);
+
+    function getName(view) {
+      return view.name;
+    }
+
+    if (window.location.hash) {
+
+      hash = window.location.hash.substr(1,);
+
+      if (!hashes.includes(hash)) {
+        console.error('Invalid hash: ' + window.location.hash);
+        window.location.hash = '';
+      } else {
+        index = hashes.indexOf(hash);
+      }
+    }
+
     cache(allGlyphs).then(allGlyphs => {
       startEngine(allGlyphs);
       renderView(views[index]);
     });
-    setInterval(function() {
-      index++;
-      if (index === views.length) index = 0;
-      renderView(views[index]);
-    }, duration * 1000);
+
+    if (!window.location.hash) {
+      setInterval(function() {
+        index++;
+        if (index === views.length) index = 0;
+        renderView(views[index]);
+      }, duration * 1000);
+    }
+
+
   }
-  
+
   if (KIOSK_MODE) {
     startKiosk(VIEW_DURATION);
   } else {
