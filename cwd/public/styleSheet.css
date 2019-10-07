@@ -48,14 +48,24 @@ body,
 
 #characterText {
   padding: 15px;
-  line-height: 20px;
-  width: 350px;
   hyphens: auto;
   font-family: Biko;
-  position: absolute; 
-  display: block; 
-  left: 10%; 
-  top: 5%;
+  position: absolute;
+  display: block;
+  background: white;
+  border-radius: 30px;
+}
+
+#characterTriangle {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-color: transparent transparent #ffffff transparent;
+}
+
+#characterText p {
+  font-size: 16px;
 }
 
 @font-face {
