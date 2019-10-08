@@ -49,20 +49,19 @@
           var index = arr.indexOf(document.getElementById(this.id));
 
           arr[index].style.display = "none";
+
           if (index != arr.length - 1) {
             arr[index+1].style.display = "block";
             renderView(views[index+1]);
-
+            if(window.location.hash)
+              window.location.hash = views[index+1].name;
           } else {
             arr[0].style.display = "block";
             renderView(views[0]);
-
+            if(window.location.hash)
+              window.location.hash = views[0].name;
           }
-
-        } else {
-            renderView(glyph.view);
-        }
-
+        } else (renderView(glyph.view));
       };
 
       const event = {
@@ -192,16 +191,16 @@
         }
         elt.setAttribute("x", "83%");
       }
-    }
 
-    for (let j = 1; j < 5; j++) {
-      document.getElementById(`gauge-${j}`).setAttribute("height", "22.5%");
-      if (j === 3) {
-        document.getElementById(`gauge-${j}`).style.y = "53.12%";
-      } else if (j === 2) {
-        document.getElementById(`gauge-${j}`).style.y = "29.56%";
-      } else if (j === 1) {
-        document.getElementById(`gauge-${j}`).style.y = "6%";
+      for (let j = 1; j < 5; j++) {
+        document.getElementById(`gauge-${j}`).setAttribute("height", "22.5%");
+        if (j === 3) {
+          document.getElementById(`gauge-${j}`).style.y = "53.12%";
+        } else if (j === 2) {
+          document.getElementById(`gauge-${j}`).style.y = "29.56%";
+        } else if (j === 1) {
+          document.getElementById(`gauge-${j}`).style.y = "6%";
+        }
       }
     }
 
@@ -219,7 +218,9 @@
     Array.from(document.getElementsByClassName('currentView'))
       .forEach(elm => {
         elm.classList.remove('currentView');
-        elm.style.display = "none";
+
+        if (SHOW_ONE_TITLE)
+          elm.style.display = "none";
       });
 
     let newView = document.getElementById(`${view.name}Button`);
