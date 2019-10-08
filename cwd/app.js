@@ -186,7 +186,7 @@
     if (SHOW_ONE_TITLE) {
       for (let i = 0; i < views.length; i++) {
         var elt = document.getElementById(`${views[i].name}Button`);
-        if (i != 0) {
+        if (i != hashes.indexOf(window.location.hash)) {
           elt.style.display = "none";
         }
         elt.setAttribute("x", "83%");
@@ -271,7 +271,7 @@
   function startKiosk(duration) {
     views = allGlyphs.filter(obj => obj.view).map(obj => obj.view);
     let index = 0;
-    let hashes = views.map(getName);
+    hashes = views.map(getName);
 
     function getName(view) {
       return view.name;
