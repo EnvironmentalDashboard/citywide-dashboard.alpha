@@ -264,6 +264,13 @@
     newView.classList.add('currentView');
     newView.style.display = "block";
 
+    // Update character text.
+    let characterText = document.getElementById('characterTextP');
+
+    if (view.message) {
+      characterText.textContent = view.message;
+    }
+
     updateGauges(view);
     updateAnimations(view);
   };
