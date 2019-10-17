@@ -2,7 +2,7 @@
 var MongoClient = require('mongodb').MongoClient;
 
 // Constants
-const dburl = 'mongodb://clevelandCwdEditor:password123@159.89.232.129:52000/cleveland-cwd';
+const dburl = process.env.DATABASE_URL || 'mongodb://cwd-mongo:27017/cleveland-cwd';
 
 function getTheBird() {
   return new Promise((resolve, reject) => {

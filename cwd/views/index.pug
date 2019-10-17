@@ -2,7 +2,7 @@ doctype html
 html
   head
     title Citywide Dashboard
-    link(href="../public/styleSheet.css" rel="stylesheet" type="text/css")
+    link(href="./public/styleSheet.css" rel="stylesheet" type="text/css")
 
   body
     div(id="page-wrap")
@@ -13,7 +13,7 @@ html
               filter(id="blur" x="0" y="0")
                 feGaussianBlur(in="SourceGraphic" stdDeviation="15")
               filter(id="whiteGlow" x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" overflow="auto")
-                feMorphology(operator="dilate" radius="25" in="SourceAlpha" result="thicken")
+                feMorphology(operator="dilate" radius="50" in="SourceAlpha" result="thicken")
                 feGaussianBlur(in="thicken" stdDeviation="40" result="blurred")
                 feFlood(flood-color="rgb(235,235,235)" result="glowColor")
                 feComposite(in="glowColor" in2="blurred" operator="in" result="softGlow_colored")
@@ -22,7 +22,9 @@ html
                   feMergeNode(in="SourceGraphic")
             div(id="tooltip" display="none" style="position: absolute; display: none;")
               span(id="close" onclick="document.getElementById('tooltip').style.display='none'") X
-            div(id="characterText") This is a test this is a test this is a text
+            div(id="characterTriangle")
+            div(id="characterText" style="display: none")
+              p(id="characterTextP") Good day and welcome to Citywide Dashboard!
 
     script const activeGlyphs = !{activeGlyphsStr};
     script(src="./dist/cwd-bundle.js")

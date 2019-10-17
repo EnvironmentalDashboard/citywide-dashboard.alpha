@@ -173,6 +173,42 @@
       // if (glyphObj.name === 'bird' || glyphObj.name === 'cloud' || glyphObj.name === 'powerline') return;
       const glyph = cwd.factory(obj, eventsDict)();
       dash.addGlyph(glyph);
+
+      /**
+       * In order for our characterText to be like other elements on the page
+       * and not move when the page is resized, we need to calculate
+       * the necessary offsets on page load and store them.
+       *
+       * Longer term, characterText should be linked to some attribute in
+       * the database, rather than a hardcoded name (this hardcoding is done
+       * due to the October 7 deadline currently).
+       */
+      if (obj.name === 'flash') {
+        let characterText = document.getElementById('characterText');
+        let characterTriangle = document.getElementById('characterTriangle');
+
+        let xPercent = (parseFloat(glyph.style.x) + parseFloat(glyph.graphic.width)) / 100.0;
+        let yPercent = parseFloat(glyph.style.y) / 100.0;
+
+        let leftOffset = (width * xPercent) + 20;
+
+        characterText.style.left = leftOffset + 'px';
+        characterText.style.top = (height * yPercent) + 'px';
+
+        characterTriangle.style.left = (leftOffset * 0.79) + 'px';
+
+        // This function can possibly be trained with more data points.
+        characterTriangle.style.top = (height * (0.118049 - 0.0000411079 * height)) + 'px';
+
+        characterTriangle.style.borderWidth = `0 0 ${height * 0.02}px ${width * 0.028}px`;
+
+        // has to fill the area to the left of the gauges
+        // this would be better scalable as a maxCharacterWidth option in the database
+        characterText.style.maxWidth = (width - leftOffset - (width * 0.25)) + 'px';
+
+        // Activate the display now that we have set the appropriate positioning.
+        characterText.style.display = 'block';
+      }
     });
 
     dash.render();
@@ -226,6 +262,13 @@
     let newView = document.getElementById(`${view.name}Button`);
     newView.classList.add('currentView');
     newView.style.display = "block";
+
+    // Update character text.
+    let characterText = document.getElementById('characterTextP');
+
+    if (view.message) {
+      characterText.textContent = view.message;
+    }
 
     updateGauges(view);
     updateAnimations(view);
@@ -301,8 +344,6 @@
         renderView(views[index]);
       }, duration * 1000);
     }
-
-
   }
 
   if (KIOSK_MODE) {
