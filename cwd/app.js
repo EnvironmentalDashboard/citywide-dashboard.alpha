@@ -2,6 +2,8 @@
   let svg = document.getElementById('svg-wrap');
 
   const allGlyphs = activeGlyphs.arr;
+  views = allGlyphs.filter(obj => obj.view).map(obj => obj.view);
+  hashes = views.map(v => v.name);
 
   // This makes sure width isn't too big for the screen, and switches to calculate based off of full width
   var height =
@@ -55,13 +57,17 @@
             renderView(views[index+1]);
             if(window.location.hash)
               window.location.hash = views[index+1].name;
+
           } else {
             arr[0].style.display = "block";
             renderView(views[0]);
             if(window.location.hash)
               window.location.hash = views[0].name;
+
           }
-        } else (renderView(glyph.view));
+        } else {
+          (renderView(glyph.view));
+        }
       };
 
       const event = {
@@ -312,13 +318,7 @@
    */
 
   function startKiosk(duration) {
-    views = allGlyphs.filter(obj => obj.view).map(obj => obj.view);
     let index = 0;
-    hashes = views.map(getName);
-
-    function getName(view) {
-      return view.name;
-    }
 
     if (window.location.hash) {
 
