@@ -3,7 +3,9 @@
 
   const allGlyphs = activeGlyphs.arr;
   views = allGlyphs.filter(obj => obj.view).map(obj => obj.view);
+  console.log(views)
   hashes = views.map(v => v.name);
+  let index = 0;
 
   // This makes sure width isn't too big for the screen, and switches to calculate based off of full width
   var height =
@@ -46,27 +48,28 @@
         }
 
         if(SHOW_ONE_TITLE) {
-          var arr = Array.prototype.slice.call(document.getElementsByClassName("glow-on-hover"));
-          arr = arr.slice(0,3);
-          var index = arr.indexOf(document.getElementById(this.id));
+          let buttons = Array.prototype.slice.call(document.getElementsByClassName("glow-on-hover"));
+          buttons = buttons.filter(obj => obj.id.includes("Button"));
 
-          arr[index].style.display = "none";
+          const index = buttons.indexOf(document.getElementById(this.id));
 
-          if (index != arr.length - 1) {
-            arr[index+1].style.display = "block";
+          buttons[index].style.display = "none";
+
+          if (index != buttons.length - 1) {
+            buttons[index+1].style.display = "block";
             renderView(views[index+1]);
             if(window.location.hash)
               window.location.hash = views[index+1].name;
 
-          } else {
-            arr[0].style.display = "block";
+          } else if (buttons.length > 0) {
+            buttons[0].style.display = "block";
             renderView(views[0]);
             if(window.location.hash)
               window.location.hash = views[0].name;
 
           }
         } else {
-          (renderView(glyph.view));
+          renderView(glyph.view);
         }
       };
 
@@ -318,8 +321,6 @@
    */
 
   function startKiosk(duration) {
-    let index = 0;
-
     if (window.location.hash) {
 
       hash = window.location.hash.substr(1,);
