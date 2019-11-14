@@ -138,7 +138,22 @@
       let probMessages = messages.map(m => {
         let messagesArray = [];
 
-        for (let i = 0; i < m.probability; i++) {
+        // If probability is an array, the array corresponds with bin #s.
+        // When we do not have support for this, we will fall back to the
+        // first value of the array.
+        let addCount = 0;
+
+        if (Array.isArray(m.probability)) {
+          // Query API, then put the appropriate value here.
+          const binNum = 0;
+
+          // addCount becomes the average of the array.
+          addCount = m.probability[binNum];
+        } else {
+          addCount = m.probability;
+        }
+
+        for (let i = 0; i < addCount; i++) {
           messagesArray.push(m.text);
         }
 
