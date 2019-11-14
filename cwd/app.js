@@ -134,7 +134,6 @@
 
       // Maps each message into an array containing it probability times,
       // then selects a random message from this list.
-      // Note that this does not account for probability being an array.
       let probMessages = messages.map(m => {
         let messagesArray = [];
 
