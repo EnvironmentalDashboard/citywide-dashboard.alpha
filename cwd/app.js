@@ -3,6 +3,9 @@
 
   const allGlyphs = activeGlyphs.arr;
 
+  gaugeIndex = 0;
+  index = 0;
+
   // This makes sure width isn't too big for the screen, and switches to calculate based off of full width
   var height =
     window.innerHeight ||
@@ -294,6 +297,32 @@
 
   };
 
+  const rotateDisplay = views => {
+    const currentView = views[index];
+
+    if (Array.isArray(currentView.gauges)) {
+      // Switch to the next gauge.
+      gaugeIndex++;
+
+      if (gaugeIndex === currentView.gauges.length) {
+        gaugeIndex = 0;
+      } else {
+        // some code to switch the highlighting, etc.
+        console.log(gaugeIndex);
+
+        // Prevent us from running the bottom code of the function
+        // that switches to the next view.
+        return;
+      }
+    }
+
+    // Switch to the next view.
+    // This code will get run if we run out of gauges or if we have no gauges.
+    index++;
+    if (index === views.length) index = 0;
+    renderView(views[index]);
+  };
+
   /**
    * Responsible for updating the necessary elements on the DOM to reflect
    * the view specified.
@@ -359,7 +388,6 @@
 
   function startKiosk(duration) {
     views = allGlyphs.filter(obj => obj.view).map(obj => obj.view);
-    let index = 0;
     let hashes = views.map(getName);
 
     function getName(view) {
@@ -384,11 +412,7 @@
     });
 
     if (!window.location.hash) {
-      setInterval(function() {
-        index++;
-        if (index === views.length) index = 0;
-        renderView(views[index]);
-      }, duration * 1000);
+      setInterval(() => rotateDisplay(views), duration * 1000);
     }
   }
 
