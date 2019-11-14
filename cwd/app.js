@@ -173,10 +173,16 @@
    */
   const updateGauges = view => {
     if (!view.gauges) return;
+
     const gauges = view.gauges;
+
     for (let i = 0; i < gauges.length; i++) {
-      let $gauge = document.getElementById(`gauge-${i + 1}`);
-      $gauge.setAttribute('href', gauges[i]);
+      // gauges[i] is the view gauges object,
+      // gauge becomes the DOM element
+      let gauge = document.getElementById(`gauge-${i + 1}`);
+      gauge.setAttribute('href', gauges[i].url);
+
+      updateCharacterText(gauges[i]);
     }
     return;
   }
