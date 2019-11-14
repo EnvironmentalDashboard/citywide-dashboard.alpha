@@ -301,14 +301,18 @@
     const currentView = views[index];
 
     if (Array.isArray(currentView.gauges)) {
+      // Remove highlight from current gauge.
+      const gauge = document.getElementById(`gauge-${gaugeIndex + 1}`);
+      gauge.classList.remove('currentGauge');
+
       // Switch to the next gauge.
       gaugeIndex++;
 
       if (gaugeIndex === currentView.gauges.length) {
         gaugeIndex = 0;
       } else {
-        // some code to switch the highlighting, etc.
-        console.log(gaugeIndex);
+        const gauge = document.getElementById(`gauge-${gaugeIndex + 1}`);
+        gauge.classList.add('currentGauge');
 
         // Prevent us from running the bottom code of the function
         // that switches to the next view.

@@ -26,6 +26,10 @@ body,
   fill: turquoise;
 }
 
+.currentGauge {
+  filter: url(#whiteGlow);
+}
+
 #tooltip {
   background: white;
   border-radius: 30px;
