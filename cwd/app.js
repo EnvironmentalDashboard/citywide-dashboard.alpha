@@ -122,6 +122,37 @@
   };
 
   /**
+   * Takes a messageable, i.e. some object that could have a `messages`
+   * attribute that corresponds to a messages array, and
+   * assigns a relevant message to the character message box.
+   */
+  const updateCharacterText = messageable => {
+    let characterText = document.getElementById('characterTextP');
+
+    if (messageable.messages) {
+      let messages = messageable.messages;
+
+      // Maps each message into an array containing it probability times,
+      // then selects a random message from this list.
+      // Note that this does not account for probability being an array.
+      let probMessages = messages.map(m => {
+        let messagesArray = [];
+
+        for (let i = 0; i < m.probability; i++) {
+          messagesArray.push(m.text);
+        }
+
+        return messagesArray;
+      }).flat();
+
+      // Gets a random message from the list of messages.
+      let message = probMessages[Math.floor(Math.random() * probMessages.length)];
+
+      characterText.textContent = message;
+    }
+  };
+
+  /**
    * Update the gauges on the DOM with the links contained in `view.gauges`.
    * @param {JSON} view The view object within a viewController object.
    */
@@ -264,13 +295,7 @@
     newView.classList.add('currentView');
     newView.style.display = "block";
 
-    // Update character text.
-    let characterText = document.getElementById('characterTextP');
-
-    if (view.message) {
-      characterText.textContent = view.message;
-    }
-
+    updateCharacterText(view);
     updateGauges(view);
     updateAnimations(view);
   };
