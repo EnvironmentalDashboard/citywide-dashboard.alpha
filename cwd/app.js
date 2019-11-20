@@ -2,7 +2,7 @@
   let svg = document.getElementById('svg-wrap');
 
   const allGlyphs = activeGlyphs.arr;
-  views = allGlyphs.filter(obj => obj.view).map(obj => obj.view).map(v => ({ view: v, hash: v.name}));
+  views = allGlyphs.filter(obj => obj.view).map(obj => ({ view: obj.view, hash: obj.view.name}));
 
   // This makes sure width isn't too big for the screen, and switches to calculate based off of full width
   var height =
