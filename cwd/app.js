@@ -2,6 +2,7 @@
   let svg = document.getElementById('svg-wrap');
 
   const allGlyphs = activeGlyphs.arr;
+  views = allGlyphs.filter(obj => obj.view).map(obj => ({ view: obj.view, hash: obj.view.name}));
 
   // This makes sure width isn't too big for the screen, and switches to calculate based off of full width
   var height =
@@ -44,25 +45,26 @@
         }
 
         if(SHOW_ONE_TITLE) {
-          var arr = Array.prototype.slice.call(document.getElementsByClassName("glow-on-hover"));
-          arr = arr.slice(0,3);
-          var index = arr.indexOf(document.getElementById(this.id));
+          const buttons = Array.prototype.slice.call(document.getElementsByClassName("glow-on-hover")).filter(obj => obj.id.includes("Button"));
+          const index = buttons.indexOf(document.getElementById(this.id));
+          buttons[index].style.display = "none";
 
-          arr[index].style.display = "none";
-          if (index != arr.length - 1) {
-            arr[index+1].style.display = "block";
-            renderView(views[index+1]);
+          if (index != buttons.length - 1) {
+            buttons[index+1].style.display = "block";
+            renderView(views[index+1].view);
+            if(window.location.hash)
+              window.location.hash = views[index+1].hash;
 
-          } else {
-            arr[0].style.display = "block";
-            renderView(views[0]);
+          } else if (buttons.length > 0) {
+            buttons[0].style.display = "block";
+            renderView(views[0].view);
+            if(window.location.hash)
+              window.location.hash = views[0].hash;
 
           }
-
         } else {
-            renderView(glyph.view);
+          renderView(glyph.view);
         }
-
       };
 
       const event = {
@@ -222,8 +224,8 @@
 
     if (SHOW_ONE_TITLE) {
       for (let i = 0; i < views.length; i++) {
-        var elt = document.getElementById(`${views[i].name}Button`);
-        if (i != 0) {
+        var elt = document.getElementById(`${views[i].hash}Button`);
+        if (i !== views.findIndex(i => i.hash === window.location.hash)) {
           elt.style.display = "none";
         }
         elt.setAttribute("x", "83%");
@@ -313,36 +315,30 @@
    */
 
   function startKiosk(duration) {
-    views = allGlyphs.filter(obj => obj.view).map(obj => obj.view);
     let index = 0;
-    let hashes = views.map(getName);
-
-    function getName(view) {
-      return view.name;
-    }
 
     if (window.location.hash) {
 
       hash = window.location.hash.substr(1,);
 
-      if (!hashes.includes(hash)) {
+      if (!views.find(v => v.hash === hash)) {
         console.error('Invalid hash: ' + window.location.hash);
         window.location.hash = '';
       } else {
-        index = hashes.indexOf(hash);
+        index = views.findIndex(i => i.hash === hash);
       }
     }
 
     cache(allGlyphs).then(allGlyphs => {
       startEngine(allGlyphs);
-      renderView(views[index]);
+      renderView(views[index].view);
     });
 
     if (!window.location.hash) {
       setInterval(function() {
         index++;
         if (index === views.length) index = 0;
-        renderView(views[index]);
+        renderView(views[index].view);
       }, duration * 1000);
     }
   }
