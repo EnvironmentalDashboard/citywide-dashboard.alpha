@@ -3,9 +3,7 @@
 
   const allGlyphs = activeGlyphs.arr;
   views = allGlyphs.filter(obj => obj.view).map(obj => obj.view);
-  console.log(views)
-  hashes = views.map(v => v.name);
-  let index = 0;
+  views = views.map(v => ({ view: v, hash: v.name}))
 
   // This makes sure width isn't too big for the screen, and switches to calculate based off of full width
   var height =
@@ -48,24 +46,21 @@
         }
 
         if(SHOW_ONE_TITLE) {
-          let buttons = Array.prototype.slice.call(document.getElementsByClassName("glow-on-hover"));
-          buttons = buttons.filter(obj => obj.id.includes("Button"));
-
+          let buttons = Array.prototype.slice.call(document.getElementsByClassName("glow-on-hover")).filter(obj => obj.id.includes("Button"));
           const index = buttons.indexOf(document.getElementById(this.id));
-
           buttons[index].style.display = "none";
 
           if (index != buttons.length - 1) {
             buttons[index+1].style.display = "block";
-            renderView(views[index+1]);
+            renderView(views[index+1].view);
             if(window.location.hash)
-              window.location.hash = views[index+1].name;
+              window.location.hash = views[index+1].hash;
 
           } else if (buttons.length > 0) {
             buttons[0].style.display = "block";
-            renderView(views[0]);
+            renderView(views[0].view);
             if(window.location.hash)
-              window.location.hash = views[0].name;
+              window.location.hash = views[0].hash;
 
           }
         } else {
@@ -230,8 +225,8 @@
 
     if (SHOW_ONE_TITLE) {
       for (let i = 0; i < views.length; i++) {
-        var elt = document.getElementById(`${views[i].name}Button`);
-        if (i != hashes.indexOf(window.location.hash)) {
+        var elt = document.getElementById(`${views[i].hash}Button`);
+        if (i != views.findIndex(i => i.hash === window.location.hash)) {
           elt.style.display = "none";
         }
         elt.setAttribute("x", "83%");
@@ -321,28 +316,31 @@
    */
 
   function startKiosk(duration) {
+
+    let index = 0;
+
     if (window.location.hash) {
 
       hash = window.location.hash.substr(1,);
 
-      if (!hashes.includes(hash)) {
+      if (!(views.filter(v => v.hash === hash).length > 0)) {
         console.error('Invalid hash: ' + window.location.hash);
         window.location.hash = '';
       } else {
-        index = hashes.indexOf(hash);
+        index = views.findIndex(i => i.hash === hash);
       }
     }
 
     cache(allGlyphs).then(allGlyphs => {
       startEngine(allGlyphs);
-      renderView(views[index]);
+      renderView(views[index].view);
     });
 
     if (!window.location.hash) {
       setInterval(function() {
         index++;
         if (index === views.length) index = 0;
-        renderView(views[index]);
+        renderView(views[index].view);
       }, duration * 1000);
     }
   }
