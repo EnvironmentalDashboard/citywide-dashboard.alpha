@@ -337,6 +337,10 @@
   const renderView = view => {
     console.log(`Rendering view: ${view.name}`);
 
+    // Highlights the first gauge of each view
+    const gauge = document.getElementById(`gauge-${gaugeIndex + 1}`);
+    gauge.classList.add('currentGauge');
+
     // Remove highlight from previous view and highlight current one
     Array.from(document.getElementsByClassName('currentView'))
       .forEach(elm => {
