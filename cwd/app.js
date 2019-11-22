@@ -174,6 +174,16 @@
 
     glyphs.forEach(obj => {
       // if (glyphObj.name === 'bird' || glyphObj.name === 'cloud' || glyphObj.name === 'powerline') return;
+
+      // The data will arrive after the object has already been fully added to the
+      // render engine.  It is worth considering if this is okay or if
+      // the object should only arrive when its corresponding data has arrived.
+      if (obj.data_url) {
+        fetch(obj.data_url)
+        .then(r => r.json())
+        .then(j => obj.data = j);
+      }
+
       const glyph = cwd.factory(obj, eventsDict)();
       dash.addGlyph(glyph);
 
