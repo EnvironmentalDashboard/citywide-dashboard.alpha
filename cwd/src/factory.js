@@ -25,6 +25,9 @@
       // Set up variables
       let state = glyph.state;
       state._id = glyph._id;
+
+      if (glyph.data) state.data = glyph.data;
+
       let product = state;
 
       // Glyph first
