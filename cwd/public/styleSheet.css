@@ -27,7 +27,7 @@ body,
 }
 
 .currentGauge {
-  filter: url(#whiteGlow);
+  filter: url(#gaugeGlow);
 }
 
 #tooltip {
