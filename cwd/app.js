@@ -299,6 +299,8 @@
 
   };
 
+  prevGauge = 0;
+
   const rotateDisplay = views => {
     const currentView = views[index];
 
@@ -309,6 +311,7 @@
 
       // Switch to the next gauge.
       gaugeIndex++;
+      prevGauge = gaugeIndex;
 
       if (gaugeIndex === currentView.gauges.length) {
         gaugeIndex = 0;
@@ -337,8 +340,13 @@
   const renderView = view => {
     console.log(`Rendering view: ${view.name}`);
 
+    // Removes highlight from previous gauge if any
+    gauge = document.getElementById(`gauge-${prevGauge + 1}`);
+    if(gauge) gauge.classList.remove('currentGauge');
+
     // Highlights the first gauge of each view
-    const gauge = document.getElementById(`gauge-${gaugeIndex + 1}`);
+    gaugeIndex = 0;
+    gauge = document.getElementById(`gauge-${gaugeIndex + 1}`);
     gauge.classList.add('currentGauge');
 
     // Remove highlight from previous view and highlight current one
