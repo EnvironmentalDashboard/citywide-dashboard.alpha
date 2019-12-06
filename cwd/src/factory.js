@@ -42,6 +42,10 @@
         .then(j => {
           state.data = j;
 
+          // Update the glyph's data itself.
+          // Consideration: maybe the factory shouldn't modify the provided glyph?
+          glyph.data = j;
+
           // Then make call to store the new data into the database.
         });
       }
