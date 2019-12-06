@@ -26,6 +26,16 @@
       let state = glyph.state;
       state._id = glyph._id;
 
+      /**
+       * If our glyph includes cached data, we will load this data into the object.
+       * Then, we will possibly query the provided data url and override this cached
+       * data.
+       * This allows us to have the cached data in case anything goes wrong in the query.
+       */
+      if (glyph.data) {
+        state.data = glyph.data;
+      }
+
       if (glyph.data_url) {
         fetch(glyph.data_url)
         .then(r => r.json())
