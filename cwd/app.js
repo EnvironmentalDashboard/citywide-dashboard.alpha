@@ -179,6 +179,26 @@
       dash.addGlyph(glyph);
 
       /**
+       * Unfortunately, gauges are not their own glyphs.
+       * This makes it so that the factory cannot work to add data to gauges.
+       * Instead, we need to add the data while handling the view object.
+       */
+      if (obj.view && obj.view.gauges) {
+        obj.view.gauges.forEach(g => {
+          if (g.data_url) {
+            fetch(g.data_url)
+            .then(r => r.json())
+            .then(j => {
+              g.data = j;
+
+              // Then make call to store the new data into the database.
+              // This could become hard due to the nesting of gauges.
+            });
+          }
+        });
+      }
+
+      /**
        * In order for our characterText to be like other elements on the page
        * and not move when the page is resized, we need to calculate
        * the necessary offsets on page load and store them.
