@@ -26,7 +26,15 @@
       let state = glyph.state;
       state._id = glyph._id;
 
-      if (glyph.data) state.data = glyph.data;
+      if (glyph.data_url) {
+        fetch(glyph.data_url)
+        .then(r => r.json())
+        .then(j => {
+          state.data = j;
+
+          // Then make call to store the new data into the database.
+        });
+      }
 
       let product = state;
 

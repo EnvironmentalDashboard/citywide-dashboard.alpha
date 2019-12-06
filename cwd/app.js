@@ -176,19 +176,6 @@
       // if (glyphObj.name === 'bird' || glyphObj.name === 'cloud' || glyphObj.name === 'powerline') return;
 
       const glyph = cwd.factory(obj, eventsDict)();
-
-      // Remember to store the data into the database as well.
-      if (obj.data_url) {
-        fetch(obj.data_url)
-        .then(r => r.json())
-        .then(j => {
-          obj.data = j;
-          //glyph.data = j;
-        });
-
-        console.log(glyph);
-      }
-
       dash.addGlyph(glyph);
 
       /**
