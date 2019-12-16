@@ -124,66 +124,15 @@
   };
 
   /**
-   * Takes a messageable, i.e. some object that could have a `messages`
-   * attribute that corresponds to a messages array, and
-   * assigns a relevant message to the character message box.
-   */
-  const updateCharacterText = messageable => {
-    let characterText = document.getElementById('characterTextP');
-
-    if (messageable.messages) {
-      let messages = messageable.messages;
-
-      // Maps each message into an array containing it probability times,
-      // then selects a random message from this list.
-      let probMessages = messages.map(m => {
-        let messagesArray = [];
-
-        // If probability is an array, the array corresponds with bin #s.
-        // When we do not have support for this, we will fall back to the
-        // first value of the array.
-        let addCount = 0;
-
-        if (Array.isArray(m.probability)) {
-          // Query API, then put the appropriate value here.
-          const binNum = 0;
-
-          // addCount becomes the average of the array.
-          addCount = m.probability[binNum];
-        } else {
-          addCount = m.probability;
-        }
-
-        for (let i = 0; i < addCount; i++) {
-          messagesArray.push(m.text);
-        }
-
-        return messagesArray;
-      }).flat();
-
-      // Gets a random message from the list of messages.
-      let message = probMessages[Math.floor(Math.random() * probMessages.length)];
-
-      characterText.textContent = message;
-    }
-  };
-
-  /**
    * Update the gauges on the DOM with the links contained in `view.gauges`.
    * @param {JSON} view The view object within a viewController object.
    */
   const updateGauges = view => {
     if (!view.gauges) return;
-
     const gauges = view.gauges;
-
     for (let i = 0; i < gauges.length; i++) {
-      // gauges[i] is the view gauges object,
-      // gauge becomes the DOM element
-      let gauge = document.getElementById(`gauge-${i + 1}`);
-      gauge.setAttribute('href', gauges[i].url);
-
-      updateCharacterText(gauges[i]);
+      let $gauge = document.getElementById(`gauge-${i + 1}`);
+      $gauge.setAttribute('href', gauges[i]);
     }
     return;
   }
@@ -317,7 +266,13 @@
     newView.classList.add('currentView');
     newView.style.display = "block";
 
-    updateCharacterText(view);
+    // Update character text.
+    let characterText = document.getElementById('characterTextP');
+
+    if (view.message) {
+      characterText.textContent = view.message;
+    }
+
     updateGauges(view);
     updateAnimations(view);
   };
