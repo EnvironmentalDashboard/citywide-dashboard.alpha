@@ -36,6 +36,13 @@
   /** The amount of time in seconds between views in kiosk mode. */
   const VIEW_DURATION = 10;
 
+  /**
+   * Example of accessing API:
+   * fetch(`http://${API_URL}/glyphs`)
+   * .then(response => response.json())
+   * .then(j => console.log(j));
+   */
+
   let eventsDict = {
     viewSwitcher: function(glyph) {
       let listener = function() {
