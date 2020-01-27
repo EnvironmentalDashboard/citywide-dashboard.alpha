@@ -27,7 +27,7 @@ router.get('/', (req, res) => {
 router.get('/index', (req, res) => {
   handler.getTheBird().then(arr => {
     const activeGlyphsStr = JSON.stringify({ arr });
-    res.render('index', { activeGlyphsStr });
+    res.render('index', { activeGlyphsStr, api_url: process.env.API_URL });
   });
 });
 

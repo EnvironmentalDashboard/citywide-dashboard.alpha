@@ -369,4 +369,4 @@
   } else {
     console.error('Please enable Kiosk mode.');
   }
-})(window.cwd, activeGlyphs);
+})(window.cwd, activeGlyphs, API_URL);
