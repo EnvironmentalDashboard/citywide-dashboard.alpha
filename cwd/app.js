@@ -282,7 +282,7 @@
 
     }
     else if (messageLength <= 115) {
-      messageSize = (.015 * screenSize);
+      messageSize = (.0145 * screenSize);
     }
     else {
       messageSize = (.01 * screenSize);
