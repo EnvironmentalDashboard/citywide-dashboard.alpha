@@ -273,18 +273,22 @@
       characterText.textContent = view.message;
     }
 
-    // Testing functionality of length based font sized
-    let messageLength = characterText.innerText.trim().length;
+    const messageLength = characterText.innerText.trim().length;
+    const screenSize = document.getElementById('svg-wrap').width.baseVal.value;
+    var messageSize;
 
     if (messageLength < 70) {
-      characterText.style.fontSize = (.020 * document.getElementById('svg-wrap').width.baseVal.value) + 'px';
+      messageSize =  (.020 * screenSize);
+
     }
     else if (messageLength <= 115) {
-      characterText.style.fontSize = (.015 * document.getElementById('svg-wrap').width.baseVal.value) + 'px';
+      messageSize = (.015 * screenSize);
     }
     else {
-      characterText.style.fontSize = (.01 * document.getElementById('svg-wrap').width.baseVal.value) + 'px';
+      messageSize = (.01 * screenSize);
     }
+
+    characterText.style.fontSize = messageSize + 'px';
 
     updateGauges(view);
     updateAnimations(view);
