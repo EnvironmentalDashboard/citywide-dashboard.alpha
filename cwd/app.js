@@ -273,6 +273,23 @@
       characterText.textContent = view.message;
     }
 
+    const messageLength = characterText.innerText.trim().length;
+    const screenSize = document.getElementById('svg-wrap').width.baseVal.value;
+    var messageSize;
+
+    if (messageLength < 70) {
+      messageSize =  (.020 * screenSize);
+
+    }
+    else if (messageLength <= 115) {
+      messageSize = (.0145 * screenSize);
+    }
+    else {
+      messageSize = (.01 * screenSize);
+    }
+
+    characterText.style.fontSize = messageSize + 'px';
+
     updateGauges(view);
     updateAnimations(view);
   };
