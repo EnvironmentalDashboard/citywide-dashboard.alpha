@@ -39,6 +39,13 @@
   /** The amount of time in seconds between views in kiosk mode. */
   const VIEW_DURATION = 2;
 
+  /**
+   * Example of accessing API:
+   * fetch(`http://${API_URL}/glyphs`)
+   * .then(response => response.json())
+   * .then(j => console.log(j));
+   */
+
   let eventsDict = {
     viewSwitcher: function(glyph) {
       let listener = function() {
@@ -244,8 +251,29 @@
 
     glyphs.forEach(obj => {
       // if (glyphObj.name === 'bird' || glyphObj.name === 'cloud' || glyphObj.name === 'powerline') return;
+
       const glyph = cwd.factory(obj, eventsDict)();
       dash.addGlyph(glyph);
+
+      /**
+       * Unfortunately, gauges are not their own glyphs.
+       * This makes it so that the factory cannot work to add data to gauges.
+       * Instead, we need to add the data while handling the view object.
+       */
+      if (obj.view && obj.view.gauges) {
+        obj.view.gauges.forEach(g => {
+          if (g.data_url) {
+            fetch(g.data_url)
+            .then(r => r.json())
+            .then(j => {
+              g.data = j;
+
+              // Then make call to store the new data into the database.
+              // This could become hard due to the nesting of gauges.
+            });
+          }
+        });
+      }
 
       /**
        * In order for our characterText to be like other elements on the page
@@ -452,4 +480,4 @@
   } else {
     console.error('Please enable Kiosk mode.');
   }
-})(window.cwd, activeGlyphs);
+})(window.cwd, activeGlyphs, API_URL);

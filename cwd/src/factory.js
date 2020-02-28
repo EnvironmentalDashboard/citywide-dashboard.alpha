@@ -25,6 +25,31 @@
       // Set up variables
       let state = glyph.state;
       state._id = glyph._id;
+
+      /**
+       * If our glyph includes cached data, we will load this data into the object.
+       * Then, we will possibly query the provided data url and override this cached
+       * data.
+       * This allows us to have the cached data in case anything goes wrong in the query.
+       */
+      if (glyph.data) {
+        state.data = glyph.data;
+      }
+
+      if (glyph.data_url) {
+        fetch(glyph.data_url)
+        .then(r => r.json())
+        .then(j => {
+          state.data = j;
+
+          // Update the glyph's data itself.
+          // Consideration: maybe the factory shouldn't modify the provided glyph?
+          glyph.data = j;
+
+          // Then make call to store the new data into the database.
+        });
+      }
+
       let product = state;
 
       // Glyph first
