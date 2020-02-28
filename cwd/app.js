@@ -134,6 +134,21 @@
   const updateCharacterText = messageable => {
     let characterText = document.getElementById('characterTextP');
 
+    const messageLength = characterText.innerText.trim().length;
+    const screenSize = document.getElementById('svg-wrap').width.baseVal.value;
+    var messageSize;
+
+    if (messageLength < 70) {
+      messageSize =  (.020 * screenSize);
+
+    }
+    else if (messageLength <= 115) {
+      messageSize = (.0145 * screenSize);
+    }
+    else {
+      messageSize = (.01 * screenSize);
+    }
+
     if (messageable.messages) {
       let messages = messageable.messages;
 
@@ -168,6 +183,7 @@
       let message = probMessages[Math.floor(Math.random() * probMessages.length)];
 
       characterText.textContent = message;
+      characterText.fontSize = messageSize = 'px';
     }
   };
 
