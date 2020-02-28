@@ -4,6 +4,9 @@
   const allGlyphs = activeGlyphs.arr;
   views = allGlyphs.filter(obj => obj.view).map(obj => ({ view: obj.view, hash: obj.view.name}));
 
+  gaugeIndex = 0;
+  index = 0;
+
   // This makes sure width isn't too big for the screen, and switches to calculate based off of full width
   var height =
     window.innerHeight ||
@@ -34,7 +37,7 @@
   const SHOW_ONE_TITLE = 1;
 
   /** The amount of time in seconds between views in kiosk mode. */
-  const VIEW_DURATION = 10;
+  const VIEW_DURATION = 2;
 
   /**
    * Example of accessing API:
@@ -131,15 +134,82 @@
   };
 
   /**
+   * Takes a messageable, i.e. some object that could have a `messages`
+   * attribute that corresponds to a messages array, and
+   * assigns a relevant message to the character message box.
+   */
+  const updateCharacterText = messageable => {
+    let characterText = document.getElementById('characterTextP');
+
+    const messageLength = characterText.innerText.trim().length;
+    const screenSize = document.getElementById('svg-wrap').width.baseVal.value;
+    var messageSize;
+
+    if (messageLength < 70) {
+      messageSize =  (.020 * screenSize);
+
+    }
+    else if (messageLength <= 115) {
+      messageSize = (.0145 * screenSize);
+    }
+    else {
+      messageSize = (.01 * screenSize);
+    }
+
+    if (messageable.messages) {
+      let messages = messageable.messages;
+
+      // Maps each message into an array containing it probability times,
+      // then selects a random message from this list.
+      let probMessages = messages.map(m => {
+        let messagesArray = [];
+
+        // If probability is an array, the array corresponds with bin #s.
+        // When we do not have support for this, we will fall back to the
+        // first value of the array.
+        let addCount = 0;
+
+        if (Array.isArray(m.probability)) {
+          // Query API, then put the appropriate value here.
+          const binNum = 0;
+
+          // addCount becomes the average of the array.
+          addCount = m.probability[binNum];
+        } else {
+          addCount = m.probability;
+        }
+
+        for (let i = 0; i < addCount; i++) {
+          messagesArray.push(m.text);
+        }
+
+        return messagesArray;
+      }).flat();
+
+      // Gets a random message from the list of messages.
+      let message = probMessages[Math.floor(Math.random() * probMessages.length)];
+
+      characterText.textContent = message;
+      characterText.fontSize = messageSize = 'px';
+    }
+  };
+
+  /**
    * Update the gauges on the DOM with the links contained in `view.gauges`.
    * @param {JSON} view The view object within a viewController object.
    */
   const updateGauges = view => {
     if (!view.gauges) return;
+
     const gauges = view.gauges;
+
     for (let i = 0; i < gauges.length; i++) {
-      let $gauge = document.getElementById(`gauge-${i + 1}`);
-      $gauge.setAttribute('href', gauges[i]);
+      // gauges[i] is the view gauges object,
+      // gauge becomes the DOM element
+      let gauge = document.getElementById(`gauge-${i + 1}`);
+      gauge.setAttribute('href', gauges[i].url);
+
+      updateCharacterText(gauges[i]);
     }
     return;
   }
@@ -273,6 +343,42 @@
 
   };
 
+  const rotateDisplay = views => {
+    const currentView = views[index];
+
+    if (Array.isArray(currentView.gauges)) {
+      // Remove highlight from current gauge.
+      const gauge = document.getElementById(`gauge-${gaugeIndex + 1}`);
+      gauge.classList.remove('currentGauge');
+
+      // Switch to the next gauge.
+      gaugeIndex++;
+
+      if (gaugeIndex === currentView.gauges.length) {
+        gaugeIndex = 0;
+        const gauge = document.getElementById(`gauge-${gaugeIndex + 1}`);
+        gauge.classList.add('currentGauge');
+      } else {
+        const gauge = document.getElementById(`gauge-${gaugeIndex + 1}`);
+        gauge.classList.add('currentGauge');
+
+        // Prevent us from running the bottom code of the function
+        // that switches to the next view.
+        return;
+      }
+    }
+
+    // Switch to the next view.
+    // This code will get run if we run out of gauges or if we have no gauges.
+    if (!window.location.hash) {
+      index++;
+      if (index === views.length) index = 0;
+      renderView(views[index]);
+    } else {
+      gaugeIndex = 0;
+    }
+  };
+
   /**
    * Responsible for updating the necessary elements on the DOM to reflect
    * the view specified.
@@ -280,6 +386,15 @@
    */
   const renderView = view => {
     console.log(`Rendering view: ${view.name}`);
+
+    // Removes highlight from previous gauge if any
+    const previous = document.getElementById(`gauge-${gaugeIndex + 1}`);
+    if (previous) previous.classList.remove('currentGauge');
+
+    // The first gauge of the current view gets highlighted
+    gaugeIndex = 0;
+    const current = document.getElementById(`gauge-${gaugeIndex + 1}`);
+    current.classList.add('currentGauge');
 
     // Remove highlight from previous view and highlight current one
     Array.from(document.getElementsByClassName('currentView'))
@@ -294,13 +409,7 @@
     newView.classList.add('currentView');
     newView.style.display = "block";
 
-    // Update character text.
-    let characterText = document.getElementById('characterTextP');
-
-    if (view.message) {
-      characterText.textContent = view.message;
-    }
-
+    updateCharacterText(view);
     updateGauges(view);
     updateAnimations(view);
   };
@@ -362,13 +471,8 @@
       renderView(views[index].view);
     });
 
-    if (!window.location.hash) {
-      setInterval(function() {
-        index++;
-        if (index === views.length) index = 0;
-        renderView(views[index].view);
-      }, duration * 1000);
-    }
+    setInterval(() => rotateDisplay(views.map(v => v.view)), duration * 1000);
+
   }
 
   if (KIOSK_MODE) {

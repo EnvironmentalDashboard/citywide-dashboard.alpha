@@ -20,6 +20,14 @@ html
                 feMerge
                   feMergeNode(in="softGlow_colored")
                   feMergeNode(in="SourceGraphic")
+              filter(id="gaugeGlow" x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" overflow="auto")
+                feMorphology(operator="dilate" radius="7" in="SourceAlpha" result="thicken")
+                feGaussianBlur(in="thicken" stdDeviation="7" result="blurred")
+                feFlood(flood-color="rgb(255,140,0)" result="glowColor")
+                feComposite(in="glowColor" in2="blurred" operator="in" result="softGlow_colored")
+                feMerge
+                  feMergeNode(in="softGlow_colored")
+                  feMergeNode(in="SourceGraphic")
             div(id="tooltip" display="none" style="position: absolute; display: none;")
               span(id="close" onclick="document.getElementById('tooltip').style.display='none'") X
             div(id="characterTriangle")
