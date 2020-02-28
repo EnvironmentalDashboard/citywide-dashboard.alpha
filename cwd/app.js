@@ -4,6 +4,9 @@
   const allGlyphs = activeGlyphs.arr;
   views = allGlyphs.filter(obj => obj.view).map(obj => ({ view: obj.view, hash: obj.view.name}));
 
+  gaugeIndex = 0;
+  index = 0;
+
   // This makes sure width isn't too big for the screen, and switches to calculate based off of full width
   var height =
     window.innerHeight ||
@@ -34,7 +37,7 @@
   const SHOW_ONE_TITLE = 1;
 
   /** The amount of time in seconds between views in kiosk mode. */
-  const VIEW_DURATION = 10;
+  const VIEW_DURATION = 2;
 
   let eventsDict = {
     viewSwitcher: function(glyph) {
@@ -312,6 +315,42 @@
 
   };
 
+  const rotateDisplay = views => {
+    const currentView = views[index];
+
+    if (Array.isArray(currentView.gauges)) {
+      // Remove highlight from current gauge.
+      const gauge = document.getElementById(`gauge-${gaugeIndex + 1}`);
+      gauge.classList.remove('currentGauge');
+
+      // Switch to the next gauge.
+      gaugeIndex++;
+
+      if (gaugeIndex === currentView.gauges.length) {
+        gaugeIndex = 0;
+        const gauge = document.getElementById(`gauge-${gaugeIndex + 1}`);
+        gauge.classList.add('currentGauge');
+      } else {
+        const gauge = document.getElementById(`gauge-${gaugeIndex + 1}`);
+        gauge.classList.add('currentGauge');
+
+        // Prevent us from running the bottom code of the function
+        // that switches to the next view.
+        return;
+      }
+    }
+
+    // Switch to the next view.
+    // This code will get run if we run out of gauges or if we have no gauges.
+    if (!window.location.hash) {
+      index++;
+      if (index === views.length) index = 0;
+      renderView(views[index]);
+    } else {
+      gaugeIndex = 0;
+    }
+  };
+
   /**
    * Responsible for updating the necessary elements on the DOM to reflect
    * the view specified.
@@ -319,6 +358,15 @@
    */
   const renderView = view => {
     console.log(`Rendering view: ${view.name}`);
+
+    // Removes highlight from previous gauge if any
+    const previous = document.getElementById(`gauge-${gaugeIndex + 1}`);
+    if (previous) previous.classList.remove('currentGauge');
+
+    // The first gauge of the current view gets highlighted
+    gaugeIndex = 0;
+    const current = document.getElementById(`gauge-${gaugeIndex + 1}`);
+    current.classList.add('currentGauge');
 
     // Remove highlight from previous view and highlight current one
     Array.from(document.getElementsByClassName('currentView'))
@@ -395,13 +443,8 @@
       renderView(views[index].view);
     });
 
-    if (!window.location.hash) {
-      setInterval(function() {
-        index++;
-        if (index === views.length) index = 0;
-        renderView(views[index].view);
-      }, duration * 1000);
-    }
+    setInterval(() => rotateDisplay(views.map(v => v.view)), duration * 1000);
+
   }
 
   if (KIOSK_MODE) {
