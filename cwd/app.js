@@ -261,15 +261,24 @@
        * Instead, we need to add the data while handling the view object.
        */
       if (obj.view && obj.view.gauges) {
-        obj.view.gauges.forEach(g => {
+        obj.view.gauges.forEach((g, index) => {
           if (g.data_url) {
             fetch(g.data_url)
             .then(r => r.json())
             .then(j => {
+              console.log('trying to store');
               g.data = j;
 
               // Then make call to store the new data into the database.
               // This could become hard due to the nesting of gauges.
+              fetch(`http://${API_URL}/${obj._id}/gauges/${index + 1}`, {
+                method: 'post',
+                body: JSON.stringify({
+                  data: j
+                })
+              })
+              .then(response => response.json())
+              .then(j => console.log(j));
             });
           }
         });
