@@ -169,11 +169,13 @@
         // first value of the array.
         let addCount = 0;
 
+        // This handling is CH API specific.
+        // I wonder if the flavor of API should be specified?
         if (Array.isArray(m.probability)) {
-          // Query API, then put the appropriate value here.
-          const binNum = 0;
+          const binNum = messageable.data && Number.isInteger(messageable.data)
+            ? Math.floor(messageable.data / 20)
+            : 0;
 
-          // addCount becomes the average of the array.
           addCount = m.probability[binNum];
         } else {
           addCount = m.probability;
