@@ -4,7 +4,7 @@
    * rendering engine.
    * @param {glyph} glyph The database object from which to make an appropriate factory function.
    */
-  export const factory = (glyph, eventsDict) => {
+  export const factory = (glyph, eventsDict, API_URL) => {
     const producePath = obj => {
       let state = obj.state || { graphic: {}, style: {} };
 

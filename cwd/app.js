@@ -252,7 +252,7 @@
     glyphs.forEach(obj => {
       // if (glyphObj.name === 'bird' || glyphObj.name === 'cloud' || glyphObj.name === 'powerline') return;
 
-      const glyph = cwd.factory(obj, eventsDict)();
+      const glyph = cwd.factory(obj, eventsDict, API_URL)();
       dash.addGlyph(glyph);
 
       /**
