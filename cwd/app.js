@@ -270,8 +270,7 @@
               g.data = j;
 
               // Then make call to store the new data into the database.
-              // This could become hard due to the nesting of gauges.
-              fetch(`http://${API_URL}/${obj._id}/gauges/${index + 1}`, {
+              fetch(`http://${API_URL}/${obj._id}/gauges/${index + 1}/cache`, {
                 method: 'post',
                 body: JSON.stringify({
                   data: j
