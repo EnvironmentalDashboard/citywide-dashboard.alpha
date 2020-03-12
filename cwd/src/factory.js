@@ -47,8 +47,11 @@
           glyph.data = j;
 
           // Then make call to store the new data into the database.
-          fetch(`http://${API_URL}/${glyph._id}/cache`, {
+          fetch(`http://${API_URL}/glyphs/${glyph._id}/cache`, {
             method: 'post',
+            headers: {
+              'Content-Type': 'application/json'
+            },
             body: JSON.stringify({
               data: j
             })

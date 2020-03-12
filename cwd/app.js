@@ -268,12 +268,14 @@
             fetch(g.data_url)
             .then(r => r.json())
             .then(j => {
-              console.log('trying to store');
               g.data = j;
 
               // Then make call to store the new data into the database.
-              fetch(`http://${API_URL}/${obj._id}/gauges/${index + 1}/cache`, {
+              fetch(`http://${API_URL}/glyphs/${obj._id}/gauges/${index + 1}/cache`, {
                 method: 'post',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
                 body: JSON.stringify({
                   data: j
                 })
