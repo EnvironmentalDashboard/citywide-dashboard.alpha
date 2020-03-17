@@ -169,11 +169,13 @@
         // first value of the array.
         let addCount = 0;
 
+        // This handling is CH API specific.
+        // I wonder if the flavor of API should be specified?
         if (Array.isArray(m.probability)) {
-          // Query API, then put the appropriate value here.
-          const binNum = 0;
+          const binNum = messageable.data && Number.isInteger(messageable.data)
+            ? Math.floor(messageable.data / 20)
+            : 0;
 
-          // addCount becomes the average of the array.
           addCount = m.probability[binNum];
         } else {
           addCount = m.probability;
@@ -252,7 +254,7 @@
     glyphs.forEach(obj => {
       // if (glyphObj.name === 'bird' || glyphObj.name === 'cloud' || glyphObj.name === 'powerline') return;
 
-      const glyph = cwd.factory(obj, eventsDict)();
+      const glyph = cwd.factory(obj, eventsDict, API_URL)();
       dash.addGlyph(glyph);
 
       /**
@@ -261,7 +263,7 @@
        * Instead, we need to add the data while handling the view object.
        */
       if (obj.view && obj.view.gauges) {
-        obj.view.gauges.forEach(g => {
+        obj.view.gauges.forEach((g, index) => {
           if (g.data_url) {
             fetch(g.data_url)
             .then(r => r.json())
@@ -269,7 +271,17 @@
               g.data = j;
 
               // Then make call to store the new data into the database.
-              // This could become hard due to the nesting of gauges.
+              fetch(`http://${API_URL}/glyphs/${obj._id}/gauges/${index + 1}/cache`, {
+                method: 'post',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  data: j
+                })
+              })
+              .then(response => response.json())
+              .then(j => console.log(j));
             });
           }
         });

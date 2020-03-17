@@ -4,7 +4,7 @@
    * rendering engine.
    * @param {glyph} glyph The database object from which to make an appropriate factory function.
    */
-  export const factory = (glyph, eventsDict) => {
+  export const factory = (glyph, eventsDict, API_URL) => {
     const producePath = obj => {
       let state = obj.state || { graphic: {}, style: {} };
 
@@ -47,6 +47,17 @@
           glyph.data = j;
 
           // Then make call to store the new data into the database.
+          fetch(`http://${API_URL}/glyphs/${glyph._id}/cache`, {
+            method: 'post',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              data: j
+            })
+          })
+          .then(response => response.json())
+          .then(j => console.log(j));
         });
       }
 
