@@ -34,6 +34,5 @@ router.get('/index', (req, res) => {
 router.use(express.static(__dirname));
 
 router.get('/editor', (req, res) => {
-  console.log('Received GET request at /editor');
-  res.sendStatus(200);
+  res.render('editor.pug');
 });
