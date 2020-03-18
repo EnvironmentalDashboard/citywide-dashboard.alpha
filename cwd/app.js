@@ -321,6 +321,10 @@
 
         // Activate the display now that we have set the appropriate positioning.
         characterText.style.display = 'block';
+
+        let characterTextP = document.getElementById('characterTextP')
+        characterTextP.style.fontSize = document.body.clientHeight * 0.017708333 + 'px';
+
       }
     });
 
