@@ -15,8 +15,9 @@ const makeTextInput = (id, div, text) => {
   div.appendChild(messageText);
 };
 
-const makeNumInput = (div, num) => {
+const makeNumInput = (id, div, num) => {
   let messageProb = document.createElement("INPUT");
+  messageProb.setAttribute("id", id);
   messageProb.setAttribute("type", "number");
   messageProb.setAttribute("value", num);
   messageProb.setAttribute("size", 1);
@@ -38,7 +39,7 @@ views.forEach(view => {$.getJSON(view, function(data) {
     const currentDiv = document.getElementById(data.name);
 
     makeTextInput("input-" + viewItr + "-" + viewMsgItr, currentDiv, element.text);
-    makeNumInput(currentDiv, element.probability);
+    makeNumInput("prob-" + viewItr + "-" + viewMsgItr + "-1", currentDiv, element.probability);
 
     // Create an update button and set it to post on click
     makeButton('post-btn' + viewItr + "-" + viewMsgItr, currentDiv, "Update");
@@ -46,7 +47,6 @@ views.forEach(view => {$.getJSON(view, function(data) {
     $('#post-btn' + viewItr + "-" + viewMsgItr).click(function(){
       const viewNum = this.id.substring(8,9);
       const msgNum = this.id.substring(10,11);
-      console.log(views[viewNum - 1] + "messages/" + msgNum)
 
       const settings = {
         "url": views[viewNum - 1] + "messages/" + msgNum,
@@ -80,8 +80,10 @@ views.forEach(view => {$.getJSON(view, function(data) {
 
         makeTextInput("input-" + viewItr + "-" + gaugeItr + "-" + messageItr, currentDiv, message.text);
 
+        let numItr = 0;
         message.probability.forEach(prob => {
-          makeNumInput(currentDiv, prob);
+          numItr++;
+          makeNumInput("prob-" + viewItr + "-" + viewMsgItr + "-" + messageItr + "-" + numItr, currentDiv, prob);
         })
 
 
@@ -92,6 +94,11 @@ views.forEach(view => {$.getJSON(view, function(data) {
           const gaugeNum = this.id.substring(10,11);
           const msgNum = this.id.substring(12,);
 
+          const prob = [];
+          for (const x of Array(5).keys()) {
+            prob.push($('#prob-' + (this.id.substring(8,)) + "-" + (x+1) ).val());
+          }
+
           const settings = {
             "url": views[viewNum - 1] + "gauges/" + gaugeNum + "/messages/" + msgNum,
             "type": "POST",
@@ -100,7 +107,8 @@ views.forEach(view => {$.getJSON(view, function(data) {
               "Content-Type": "application/x-www-form-urlencoded"
             },
             "data": {
-              "message":"\"" + $('#input-' + (this.id.substring(8,))).val() + "\""
+              "message":"\"" + $('#input-' + (this.id.substring(8,))).val() + "\"",
+              "prob": `\[${prob}\]`
             }
           };
 
