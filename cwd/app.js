@@ -37,7 +37,7 @@
   const SHOW_ONE_TITLE = 1;
 
   /** The amount of time in seconds between views in kiosk mode. */
-  const VIEW_DURATION = 2;
+  const VIEW_DURATION = 10;
 
   /**
    * Example of accessing API:
