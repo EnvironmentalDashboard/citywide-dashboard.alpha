@@ -6,6 +6,20 @@ const makeButton = (id, div, text) => {
   div.appendChild(upBtn);
 };
 
+const makeRadioButton = (id, div, text) => {
+  let radBtn = document.createElement("INPUT");
+  radBtn.setAttribute("type", "radio");
+  radBtn.setAttribute("id", id);
+  radBtn.setAttribute("name", "upload");
+
+  let label = document.createElement("LABEL");
+  label.setAttribute("for", id);
+  label.innerHTML = text;
+
+  div.appendChild(label);
+  div.appendChild(radBtn);
+};
+
 const makeTextInput = (id, div, text) => {
   let messageText = document.createElement("INPUT");
   messageText.setAttribute("id", id);
@@ -126,5 +140,10 @@ views.forEach(view => {$.getJSON(view, function(data) {
 });
 
 currentDiv = document.getElementById('finalButtons');
-makeButton("update-all", currentDiv, "Update All");
 makeButton("get-csv", currentDiv, "Upload CSV");
+$('#get-csv').on('click', function() {
+    $('#file-input').trigger('click');
+});
+
+makeRadioButton("overwrite", currentDiv, "Overwrite");
+makeRadioButton("append", currentDiv, "Append");
