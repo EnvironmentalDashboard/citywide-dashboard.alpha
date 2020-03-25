@@ -97,7 +97,7 @@ views.forEach(view => {$.getJSON(view, function(data) {
         let numItr = 0;
         message.probability.forEach(prob => {
           numItr++;
-          makeNumInput("prob-" + viewItr + "-" + viewMsgItr + "-" + messageItr + "-" + numItr, currentDiv, prob);
+          makeNumInput("prob-" + viewItr + "-" + gaugeItr + "-" + messageItr + "-" + numItr, currentDiv, prob);
         })
 
 
