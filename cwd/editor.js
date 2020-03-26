@@ -62,6 +62,9 @@ views.forEach(view => {$.getJSON(view, function(data) {
       const viewNum = this.id.substring(8,9);
       const msgNum = this.id.substring(10,11);
 
+      const prob = [];
+      prob.push($('#prob-' + (this.id.substring(8,)) + "-" + 1 ).val());
+
       const settings = {
         "url": views[viewNum - 1] + "messages/" + msgNum,
         "type": "POST",
@@ -70,7 +73,8 @@ views.forEach(view => {$.getJSON(view, function(data) {
           "Content-Type": "application/x-www-form-urlencoded"
         },
         "data": {
-          "message":"\"" + $('#input-' + (this.id.substring(8,))).val() + "\""
+          "message":"\"" + $('#input-' + (this.id.substring(8,))).val() + "\"",
+          "probability": `\[${prob}\]`
         }
       };
 
@@ -122,7 +126,7 @@ views.forEach(view => {$.getJSON(view, function(data) {
             },
             "data": {
               "message":"\"" + $('#input-' + (this.id.substring(8,))).val() + "\"",
-              "prob": `\[${prob}\]`
+              "probability": `\[${prob}\]`
             }
           };
 
