@@ -5,4 +5,4 @@ RUN npm install
 COPY . .
 EXPOSE 80
 RUN npm run build-dev
-CMD npm start
+CMD npm run start-dev
