@@ -66,7 +66,7 @@ views.forEach(view => {$.getJSON(view, function(data) {
       prob.push($('#prob-' + (this.id.substring(8,)) + "-" + 1 ).val());
 
       const settings = {
-        "url": views[viewNum - 1] + "messages/" + msgNum,
+        "url": views[viewNum - 1] + "gauges/0/messages/" + msgNum,
         "type": "POST",
         "timeout": 0,
         "headers": {
