@@ -1,9 +1,14 @@
-const makeButton = (id, div, text) => {
+const makeButton = (id, div, text, ref) => {
   let upBtn = document.createElement("BUTTON");
   upBtn.setAttribute("type", "button");
   upBtn.setAttribute("id", id)
   upBtn.innerHTML = text
-  div.appendChild(upBtn);
+
+  if (ref) {
+    div.insertBefore(upBtn, ref)
+  } else {
+    div.appendChild(upBtn);
+  }
 };
 
 const makeRadioButton = (id, div, text) => {
@@ -20,22 +25,32 @@ const makeRadioButton = (id, div, text) => {
   div.appendChild(radBtn);
 };
 
-const makeTextInput = (id, div, text) => {
+const makeTextInput = (id, div, text, ref) => {
   let messageText = document.createElement("INPUT");
   messageText.setAttribute("id", id);
   messageText.setAttribute("type", "text");
   messageText.setAttribute("value", text);
   messageText.setAttribute("size", 85);
-  div.appendChild(messageText);
+
+  if (ref) {
+    div.insertBefore(messageText, ref)
+  } else {
+    div.appendChild(messageText);
+  }
 };
 
-const makeNumInput = (id, div, num) => {
+const makeNumInput = (id, div, num, ref) => {
   let messageProb = document.createElement("INPUT");
   messageProb.setAttribute("id", id);
   messageProb.setAttribute("type", "number");
   messageProb.setAttribute("value", num);
   messageProb.setAttribute("size", 1);
-  div.appendChild(messageProb);
+
+  if (ref) {
+    div.insertBefore(messageProb, ref)
+  } else {
+    div.appendChild(messageProb);
+  }
 }
 
 let viewItr = 0;
@@ -52,11 +67,11 @@ views.forEach(view => {$.getJSON(view, function(data) {
 
     const currentDiv = document.getElementById(data.name);
 
-    makeTextInput("input-" + viewItr + "-" + viewMsgItr, currentDiv, element.text);
-    makeNumInput("prob-" + viewItr + "-" + viewMsgItr + "-1", currentDiv, element.probability);
+    makeTextInput("input-" + viewItr + "-" + viewMsgItr, currentDiv, element.text, null);
+    makeNumInput("prob-" + viewItr + "-" + viewMsgItr + "-1", currentDiv, element.probability, null);
 
     // Create an update button and set it to post on click
-    makeButton('post-btn' + viewItr + "-" + viewMsgItr, currentDiv, "Update");
+    makeButton('post-btn' + viewItr + "-" + viewMsgItr, currentDiv, "Update", null);
 
     $('#post-btn' + viewItr + "-" + viewMsgItr).click(function(){
       const viewNum = this.id.substring(8,9);
@@ -74,7 +89,8 @@ views.forEach(view => {$.getJSON(view, function(data) {
         },
         "data": {
           "message":"\"" + $('#input-' + (this.id.substring(8,))).val() + "\"",
-          "probability": `\[${prob}\]`
+          "probability": `\[${prob}\]`,
+          "pass": "\"" + $('#passIn').val() + "\""
         }
       };
 
@@ -96,16 +112,16 @@ views.forEach(view => {$.getJSON(view, function(data) {
 
         currentDiv.appendChild(document.createElement("BR"));
 
-        makeTextInput("input-" + viewItr + "-" + gaugeItr + "-" + messageItr, currentDiv, message.text);
+        makeTextInput("input-" + viewItr + "-" + gaugeItr + "-" + messageItr, currentDiv, message.text, null);
 
         let numItr = 0;
         message.probability.forEach(prob => {
           numItr++;
-          makeNumInput("prob-" + viewItr + "-" + gaugeItr + "-" + messageItr + "-" + numItr, currentDiv, prob);
+          makeNumInput("prob-" + viewItr + "-" + gaugeItr + "-" + messageItr + "-" + numItr, currentDiv, prob, null);
         })
 
 
-        makeButton('post-btn' + viewItr + "-" + gaugeItr + "-" + messageItr, currentDiv, "Update");
+        makeButton('post-btn' + viewItr + "-" + gaugeItr + "-" + messageItr, currentDiv, "Update", null);
 
         $('#post-btn' + viewItr + "-" + gaugeItr + "-" + messageItr).click(function(){
           const viewNum = this.id.substring(8,9);
@@ -126,7 +142,8 @@ views.forEach(view => {$.getJSON(view, function(data) {
             },
             "data": {
               "message":"\"" + $('#input-' + (this.id.substring(8,))).val() + "\"",
-              "probability": `\[${prob}\]`
+              "probability": `\[${prob}\]`,
+              "pass": "\"" + $('#passIn').val() + "\""
             }
           };
 
@@ -136,15 +153,22 @@ views.forEach(view => {$.getJSON(view, function(data) {
         });
 
       })
+      currentDiv.appendChild(document.createElement("BR"));
+      makeButton('add-btn' + viewItr + '-' + gaugeItr, currentDiv, "Add", null);
 
+      $('#add-btn' + viewItr + '-' + gaugeItr).click(function() {
+        messageItr++;
+        makeTextInput("input-" + viewItr + "-" + gaugeItr + "-" + messageItr, currentDiv, "", this);
+        makeButton('post-btn' + viewItr + "-" + gaugeItr + "-" + messageItr, currentDiv, "Update", this);
+        currentDiv.insertBefore(document.createElement("BR"), this)
+      })
     })
-
   })
 });
 });
 
 currentDiv = document.getElementById('finalButtons');
-makeButton("get-csv", currentDiv, "Upload CSV");
+makeButton("get-csv", currentDiv, "Upload CSV", null);
 $('#get-csv').on('click', function() {
     $('#file-input').trigger('click');
 });
