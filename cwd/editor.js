@@ -1,3 +1,60 @@
+const update = (btn) => {
+  const viewNum = btn.id.substring(8, 9);
+  const gaugeNum = btn.id.substring(10, 11);
+  const msgNum = btn.id.substring(12, );
+
+  const prob = [];
+  for (const x of Array(5).keys()) {
+    prob.push($('#prob-' + (btn.id.substring(8, )) + "-" + (x + 1)).val());
+  }
+
+  const settings = {
+    "url": views[viewNum - 1] + "gauges/" + gaugeNum + "/messages/" + msgNum,
+    "type": "POST",
+    "timeout": 0,
+    "headers": {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "data": {
+      "message": "\"" + $('#input-' + (btn.id.substring(8, ))).val() + "\"",
+      "probability": `\[${prob}\]`,
+      "pass": "\"" + $('#passIn').val() + "\""
+    }
+  };
+
+  $.ajax(settings).done(function(response) {
+    console.log(response);
+  });
+}
+
+const updateView = (btn) => {
+  const viewNum = btn.id.substring(8, 9);
+  const msgNum = btn.id.substring(10, 11);
+
+  const prob = [];
+  for (const x of Array(1).keys()) {
+    prob.push($('#prob-' + (btn.id.substring(8, )) + "-" + (x + 1)).val());
+  }
+
+  const settings = {
+    "url": views[viewNum - 1] + "gauges/0/messages/" + msgNum,
+    "type": "POST",
+    "timeout": 0,
+    "headers": {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "data": {
+      "message": "\"" + $('#input-' + (btn.id.substring(8, ))).val() + "\"",
+      "probability": `\[${prob}\]`,
+      "pass": "\"" + $('#passIn').val() + "\""
+    }
+  };
+
+  $.ajax(settings).done(function(response) {
+    console.log(response);
+  });
+}
+
 const makeButton = (id, div, text, ref) => {
   let upBtn = document.createElement("BUTTON");
   upBtn.setAttribute("type", "button");
@@ -55,53 +112,56 @@ const makeNumInput = (id, div, num, ref) => {
 
 let viewItr = 0;
 const views = ['http://localhost:3006/glyphs/5d3744e584687c30ef9e5b47/', 'http://localhost:3006/glyphs/5d37452784687c30ef9e5b48/',
-'http://localhost:3006/glyphs/5d4885f18227675bc73b98ac/']
+  'http://localhost:3006/glyphs/5d4885f18227675bc73b98ac/'
+]
 
-views.forEach(view => {$.getJSON(view, function(data) {
-  let viewMsgItr = 0;
-
-  data.view.messages.forEach(element => {
+views.forEach(view => {
+  $.getJSON(view, function(data) {
+    let viewMsgItr = 0;
     viewItr++;
-    viewMsgItr++;
-    let gaugeItr = 0;
 
-    const currentDiv = document.getElementById(data.name);
+    data.view.messages.forEach(element => {
+      viewMsgItr++;
 
-    makeTextInput("input-" + viewItr + "-" + viewMsgItr, currentDiv, element.text, null);
-    makeNumInput("prob-" + viewItr + "-" + viewMsgItr + "-1", currentDiv, element.probability, null);
+      const currentDiv = document.getElementById(data.name);
 
-    // Create an update button and set it to post on click
-    makeButton('post-btn' + viewItr + "-" + viewMsgItr, currentDiv, "Update", null);
+      makeTextInput("input-" + viewItr + "-" + viewMsgItr, currentDiv, element.text, null);
+      makeNumInput("prob-" + viewItr + "-" + viewMsgItr + "-1", currentDiv, element.probability, null);
 
-    $('#post-btn' + viewItr + "-" + viewMsgItr).click(function(){
-      const viewNum = this.id.substring(8,9);
-      const msgNum = this.id.substring(10,11);
+      // Create an update button and set it to post on click
+      makeButton('post-btn' + viewItr + "-" + viewMsgItr, currentDiv, "Update", null);
 
-      const prob = [];
-      prob.push($('#prob-' + (this.id.substring(8,)) + "-" + 1 ).val());
-
-      const settings = {
-        "url": views[viewNum - 1] + "gauges/0/messages/" + msgNum,
-        "type": "POST",
-        "timeout": 0,
-        "headers": {
-          "Content-Type": "application/x-www-form-urlencoded"
-        },
-        "data": {
-          "message":"\"" + $('#input-' + (this.id.substring(8,))).val() + "\"",
-          "probability": `\[${prob}\]`,
-          "pass": "\"" + $('#passIn').val() + "\""
-        }
-      };
-
-      $.ajax(settings).done(function (response) {
-        console.log(response);
+      $('#post-btn' + viewItr + "-" + viewMsgItr).click(function() {
+        updateView(this);
       });
-    });
 
+      if (data.view.messages.indexOf(element) === data.view.messages.length - 1) {
+        currentDiv.appendChild(document.createElement("BR"));
+        makeButton('add-btn' + viewItr, currentDiv, "Add", null);
+        viewMsgItr++;
+
+        $('#add-btn' + viewItr).click(function() {
+          const id = (this.id.substring(7, 8)) + "-" + (this.id.substring(9, ));
+
+          makeTextInput("input-" + id + viewMsgItr, currentDiv, "", this);
+          makeNumInput("prob-" + id + viewMsgItr + "-" + 1, currentDiv, 0, this);
+          makeButton("post-btn" + id + viewMsgItr, currentDiv, "Update", this);
+
+          document.getElementById("post-btn" + id + viewMsgItr).addEventListener("click", function() {
+            updateView(this);
+          });
+
+          currentDiv.insertBefore(document.createElement("BR"), this);
+        });
+      }
+      currentDiv.appendChild(document.createElement("BR"));
+    });
     data.view.gauges.forEach(gauge => {
+      let gaugeItr = 0;
       gaugeItr++;
       let messageItr = 0;
+
+      currentDiv = document.getElementById(data.name);
 
       if (typeof(gauge.messages) == 'undefined') {
         return
@@ -123,33 +183,8 @@ views.forEach(view => {$.getJSON(view, function(data) {
 
         makeButton('post-btn' + viewItr + "-" + gaugeItr + "-" + messageItr, currentDiv, "Update", null);
 
-        $('#post-btn' + viewItr + "-" + gaugeItr + "-" + messageItr).click(function(){
-          const viewNum = this.id.substring(8,9);
-          const gaugeNum = this.id.substring(10,11);
-          const msgNum = this.id.substring(12,);
-
-          const prob = [];
-          for (const x of Array(5).keys()) {
-            prob.push($('#prob-' + (this.id.substring(8,)) + "-" + (x+1) ).val());
-          }
-
-          const settings = {
-            "url": views[viewNum - 1] + "gauges/" + gaugeNum + "/messages/" + msgNum,
-            "type": "POST",
-            "timeout": 0,
-            "headers": {
-              "Content-Type": "application/x-www-form-urlencoded"
-            },
-            "data": {
-              "message":"\"" + $('#input-' + (this.id.substring(8,))).val() + "\"",
-              "probability": `\[${prob}\]`,
-              "pass": "\"" + $('#passIn').val() + "\""
-            }
-          };
-
-          $.ajax(settings).done(function (response) {
-            console.log(response);
-          });
+        $('#post-btn' + viewItr + "-" + gaugeItr + "-" + messageItr).click(function() {
+          update(this);
         });
 
       })
@@ -158,19 +193,30 @@ views.forEach(view => {$.getJSON(view, function(data) {
 
       $('#add-btn' + viewItr + '-' + gaugeItr).click(function() {
         messageItr++;
-        makeTextInput("input-" + viewItr + "-" + gaugeItr + "-" + messageItr, currentDiv, "", this);
-        makeButton('post-btn' + viewItr + "-" + gaugeItr + "-" + messageItr, currentDiv, "Update", this);
-        currentDiv.insertBefore(document.createElement("BR"), this)
-      })
-    })
-  })
-});
+        const id = (this.id.substring(7, 8)) + "-" + (this.id.substring(9, )) + "-" + messageItr;
+
+        makeTextInput("input-" + id, currentDiv, "", this);
+
+        for (const x of Array(5).keys()) {
+          makeNumInput("prob-" + id + "-" + (x + 1), currentDiv, 0, this);
+        }
+
+        makeButton("post-btn" + id, currentDiv, "Update", this);
+
+        document.getElementById("post-btn" + id).addEventListener("click", function() {
+          update(this);
+        });
+
+        currentDiv.insertBefore(document.createElement("BR"), this);
+      });
+    });
+  });
 });
 
 currentDiv = document.getElementById('finalButtons');
 makeButton("get-csv", currentDiv, "Upload CSV", null);
 $('#get-csv').on('click', function() {
-    $('#file-input').trigger('click');
+  $('#file-input').trigger('click');
 });
 
 makeRadioButton("overwrite", currentDiv, "Overwrite");
