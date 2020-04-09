@@ -56,7 +56,7 @@ const updateView = (btn) => {
 }
 
 const makeButton = (id, div, text, ref) => {
-  let upBtn = document.createElement("BUTTON");
+  let upBtn = document.createElement("button");
   upBtn.setAttribute("type", "button");
   upBtn.setAttribute("id", id)
   upBtn.innerHTML = text
@@ -137,7 +137,7 @@ views.forEach(view => {
 
       if (data.view.messages.indexOf(element) === data.view.messages.length - 1) {
         currentDiv.appendChild(document.createElement("BR"));
-        makeButton('add-btn' + viewItr, currentDiv, "Add", null);
+        makeButton('add-btn' + viewItr, currentDiv, "Add to View", null);
         viewMsgItr++;
 
         $('#add-btn' + viewItr).click(function() {
@@ -189,7 +189,7 @@ views.forEach(view => {
 
       })
       currentDiv.appendChild(document.createElement("BR"));
-      makeButton('add-btn' + viewItr + '-' + gaugeItr, currentDiv, "Add", null);
+      makeButton('add-btn' + viewItr + '-' + gaugeItr, currentDiv, "Add to Gauge", null);
 
       $('#add-btn' + viewItr + '-' + gaugeItr).click(function() {
         messageItr++;
