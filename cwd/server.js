@@ -34,5 +34,5 @@ router.get('/index', (req, res) => {
 router.use(express.static(__dirname));
 
 router.get('/editor', (req, res) => {
-  res.render('editor.pug');
+  res.render('editor.pug', { api_url: process.env.API_URL });
 });
