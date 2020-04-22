@@ -115,7 +115,6 @@ const makeNumInput = (id, div, num, ref) => {
 }
 
 let viewItr = 0;
-console.log(API_URL)
 
 $.getJSON(`http://${API_URL}/views`, function(views) {views.forEach(view => {
   $.getJSON(`http://${API_URL}/glyphs/${view._id}`, function(data) {
