@@ -115,12 +115,10 @@ const makeNumInput = (id, div, num, ref) => {
 }
 
 let viewItr = 0;
-const views = ['http://localhost:3006/glyphs/5d3744e584687c30ef9e5b47/', 'http://localhost:3006/glyphs/5d37452784687c30ef9e5b48/',
-  'http://localhost:3006/glyphs/5d4885f18227675bc73b98ac/'
-]
+console.log(API_URL)
 
-views.forEach(view => {
-  $.getJSON(view, function(data) {
+$.getJSON(`http://${API_URL}/views`, function(views) {views.forEach(view => {
+  $.getJSON(`http://${API_URL}/glyphs/${view._id}`, function(data) {
     let viewMsgItr = 0;
     viewItr++;
 
@@ -215,4 +213,5 @@ views.forEach(view => {
       });
     });
   });
+});
 });
