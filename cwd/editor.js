@@ -4,12 +4,12 @@ const update = (btn) => {
   const msgNum = btn.id.substring(12, );
 
   const prob = [];
-  for (const x of Array(5).keys()) {
+  for (let x = 0; x <= 15; x++) {
     prob.push($('#prob-' + (btn.id.substring(8, )) + "-" + (x + 1)).val());
   }
 
-  const settings = {
-    "url": views[viewNum - 1] + "gauges/" + gaugeNum + "/messages/" + msgNum,
+  const request = {
+    "url": `${views[viewNum - 1]}gauges/${gaugeNum}/messages/${msgNum}`,
     "type": "POST",
     "timeout": 0,
     "headers": {
@@ -22,7 +22,10 @@ const update = (btn) => {
     }
   };
 
-  $.ajax(settings).done(function(response) {
+  $.ajax(request).done(function(response) {
+    if (response.errors){
+      alert(response.errors + " Please try again.");
+    }
     console.log(response);
   });
 }
@@ -32,12 +35,10 @@ const updateView = (btn) => {
   const msgNum = btn.id.substring(10, 11);
 
   const prob = [];
-  for (const x of Array(1).keys()) {
-    prob.push($('#prob-' + (btn.id.substring(8, )) + "-" + (x + 1)).val());
-  }
+  prob.push($('#prob-' + (btn.id.substring(8, )) + "-" + (1)).val());
 
-  const settings = {
-    "url": views[viewNum - 1] + "gauges/0/messages/" + msgNum,
+  const request = {
+    "url": `${views[viewNum - 1]}gauges/0/messages/${msgNum}`,
     "type": "POST",
     "timeout": 0,
     "headers": {
@@ -50,7 +51,10 @@ const updateView = (btn) => {
     }
   };
 
-  $.ajax(settings).done(function(response) {
+  $.ajax(request).done(function(response) {
+    if (response.errors){
+      alert(response.errors + " Please try again.");
+    }
     console.log(response);
   });
 }
@@ -212,12 +216,3 @@ views.forEach(view => {
     });
   });
 });
-
-currentDiv = document.getElementById('finalButtons');
-makeButton("get-csv", currentDiv, "Upload CSV", null);
-$('#get-csv').on('click', function() {
-  $('#file-input').trigger('click');
-});
-
-makeRadioButton("overwrite", currentDiv, "Overwrite");
-makeRadioButton("append", currentDiv, "Append");
