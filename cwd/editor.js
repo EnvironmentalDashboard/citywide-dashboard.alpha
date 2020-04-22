@@ -46,7 +46,7 @@ const updateView = (btn) => {
     },
     "data": {
       "message": "\"" + $('#input-' + (btn.id.substring(8, ))).val() + "\"",
-      "probability": `\[${prob}\]`,
+      "probability": `${prob}`,
       "pass": "\"" + $('#passIn').val() + "\""
     }
   };
