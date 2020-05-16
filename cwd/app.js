@@ -278,7 +278,7 @@
                 },
                 body: JSON.stringify({
                   // data is expected to be a JSON string
-                  data: JSON.strinigfy(j)
+                  data: JSON.stringify(j)
                 })
               })
               .then(response => response.json())
