@@ -53,7 +53,8 @@
               'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-              data: j
+              // data is expected to be a JSON string
+              data: JSON.stringify(j)
             })
           })
           .then(response => response.json())
