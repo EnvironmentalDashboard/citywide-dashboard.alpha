@@ -210,8 +210,6 @@
       // gauge becomes the DOM element
       let gauge = document.getElementById(`gauge-${i + 1}`);
       gauge.setAttribute('href', gauges[i].url);
-
-      updateCharacterText(gauges[i]);
     }
     return;
   }
@@ -356,9 +354,8 @@
 
   };
 
-  const rotateDisplay = views => {
+  const rotateDisplay = (views, rotator) => {
     const currentView = views[index];
-
     if (Array.isArray(currentView.gauges)) {
       // Remove highlight from current gauge.
       const gauge = document.getElementById(`gauge-${gaugeIndex + 1}`);
@@ -374,6 +371,7 @@
       } else {
         const gauge = document.getElementById(`gauge-${gaugeIndex + 1}`);
         gauge.classList.add('currentGauge');
+        updateCharacterText(currentView.gauges[gaugeIndex]);
 
         // Prevent us from running the bottom code of the function
         // that switches to the next view.
@@ -386,6 +384,7 @@
     if (!window.location.hash) {
       index++;
       if (index === views.length) index = 0;
+      clearInterval(rotator);
       renderView(views[index]);
     } else {
       gaugeIndex = 0;
@@ -407,7 +406,11 @@
     // The first gauge of the current view gets highlighted
     gaugeIndex = 0;
     const current = document.getElementById(`gauge-${gaugeIndex + 1}`);
-    current.classList.add('currentGauge');
+    setTimeout(function() {
+      current.classList.add('currentGauge');
+      updateCharacterText(view.gauges[gaugeIndex]);
+      const displayRotator = setInterval(() => rotateDisplay(views.map(v => v.view), displayRotator), VIEW_DURATION * 1000);
+    }, VIEW_DURATION * 1000);
 
     // Remove highlight from previous view and highlight current one
     Array.from(document.getElementsByClassName('currentView'))
@@ -483,9 +486,6 @@
       startEngine(allGlyphs);
       renderView(views[index].view);
     });
-
-    setInterval(() => rotateDisplay(views.map(v => v.view)), duration * 1000);
-
   }
 
   if (KIOSK_MODE) {
