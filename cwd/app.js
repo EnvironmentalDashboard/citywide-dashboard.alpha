@@ -354,7 +354,7 @@
 
   };
 
-  const rotateDisplay = (views, rotator) => {
+  const rotateDisplay = views => {
     const currentView = views[index];
     if (Array.isArray(currentView.gauges)) {
       // Remove highlight from current gauge.
@@ -384,7 +384,7 @@
     if (!window.location.hash) {
       index++;
       if (index === views.length) index = 0;
-      clearInterval(rotator);
+      clearInterval(displayRotator);
       renderView(views[index]);
     } else {
       gaugeIndex = 0;
@@ -409,7 +409,7 @@
     setTimeout(function() {
       current.classList.add('currentGauge');
       updateCharacterText(view.gauges[gaugeIndex]);
-      displayRotator = setInterval(() => rotateDisplay(views.map(v => v.view), displayRotator), VIEW_DURATION * 1000);
+      displayRotator = setInterval(() => rotateDisplay(views.map(v => v.view)), VIEW_DURATION * 1000);
     }, VIEW_DURATION * 1000);
 
     // Remove highlight from previous view and highlight current one
