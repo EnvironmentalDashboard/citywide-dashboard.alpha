@@ -57,24 +57,21 @@
 
         if(SHOW_ONE_TITLE) {
           const buttons = Array.prototype.slice.call(document.getElementsByClassName("glow-on-hover")).filter(obj => obj.id.includes("Button"));
-          const index = buttons.indexOf(document.getElementById(this.id));
+          index = buttons.indexOf(document.getElementById(this.id));
           buttons[index].style.display = "none";
 
           if (displayRotator) clearInterval(displayRotator);
 
           if (index != buttons.length - 1) {
-            buttons[index+1].style.display = "block";
-            renderView(views[index+1].view);
-            if(window.location.hash)
-              window.location.hash = views[index+1].hash;
-
+            index++;
           } else if (buttons.length > 0) {
-            buttons[0].style.display = "block";
-            renderView(views[0].view);
-            if(window.location.hash)
-              window.location.hash = views[0].hash;
-
+            index = 0;
           }
+
+          buttons[index].style.display = "block";
+          renderView(views[index].view);
+          if(window.location.hash) window.location.hash = views[index].hash;
+
         } else {
           renderView(glyph.view);
         }
