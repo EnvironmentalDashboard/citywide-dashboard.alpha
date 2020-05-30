@@ -6,6 +6,7 @@
 
   gaugeIndex = 0;
   index = 0;
+  displayRotator = null;
 
   // This makes sure width isn't too big for the screen, and switches to calculate based off of full width
   var height =
@@ -58,6 +59,8 @@
           const buttons = Array.prototype.slice.call(document.getElementsByClassName("glow-on-hover")).filter(obj => obj.id.includes("Button"));
           const index = buttons.indexOf(document.getElementById(this.id));
           buttons[index].style.display = "none";
+
+          if (displayRotator) clearInterval(displayRotator);
 
           if (index != buttons.length - 1) {
             buttons[index+1].style.display = "block";
@@ -409,7 +412,7 @@
     setTimeout(function() {
       current.classList.add('currentGauge');
       updateCharacterText(view.gauges[gaugeIndex]);
-      const displayRotator = setInterval(() => rotateDisplay(views.map(v => v.view), displayRotator), VIEW_DURATION * 1000);
+      displayRotator = setInterval(() => rotateDisplay(views.map(v => v.view), displayRotator), VIEW_DURATION * 1000);
     }, VIEW_DURATION * 1000);
 
     // Remove highlight from previous view and highlight current one
