@@ -398,6 +398,7 @@
    */
   const renderView = view => {
     console.log(`Rendering view: ${view.name}`);
+    const duration = VIEW_DURATION * 1000;
 
     // Removes highlight from previous gauge if any
     const previous = document.getElementById(`gauge-${gaugeIndex + 1}`);
@@ -409,8 +410,8 @@
     setTimeout(function() {
       current.classList.add('currentGauge');
       updateCharacterText(view.gauges[gaugeIndex]);
-      displayRotator = setInterval(() => rotateDisplay(views.map(v => v.view)), VIEW_DURATION * 1000);
-    }, VIEW_DURATION * 1000);
+      displayRotator = setInterval(() => rotateDisplay(views.map(v => v.view)), duration);
+    }, duration);
 
     // Remove highlight from previous view and highlight current one
     Array.from(document.getElementsByClassName('currentView'))
