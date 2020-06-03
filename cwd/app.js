@@ -138,7 +138,7 @@
    * attribute that corresponds to a messages array, and
    * assigns a relevant message to the character message box.
    */
-  const updateCharacterText = messageable => {
+  const updateCharacterText = (messageable, view) => {
     let characterText = document.getElementById('characterTextP');
 
     const messageLength = characterText.innerText.trim().length;
@@ -190,6 +190,13 @@
 
       // Gets a random message from the list of messages.
       let message = probMessages[Math.floor(Math.random() * probMessages.length)];
+
+      if (!message && view) {
+        updateCharacterText(view);
+        return;
+      } else if (!message && !view) {
+        message = "Welcome to Citywide Dashboard!"
+      }
 
       characterText.textContent = message;
       characterText.fontSize = messageSize = 'px';
@@ -371,7 +378,7 @@
       } else {
         const gauge = document.getElementById(`gauge-${gaugeIndex + 1}`);
         gauge.classList.add('currentGauge');
-        updateCharacterText(currentView.gauges[gaugeIndex]);
+        updateCharacterText(currentView.gauges[gaugeIndex], currentView);
 
         // Prevent us from running the bottom code of the function
         // that switches to the next view.
@@ -409,7 +416,7 @@
     const current = document.getElementById(`gauge-${gaugeIndex + 1}`);
     setTimeout(function() {
       current.classList.add('currentGauge');
-      updateCharacterText(view.gauges[gaugeIndex]);
+      updateCharacterText(view.gauges[gaugeIndex], view);
       displayRotator = setInterval(() => rotateDisplay(views.map(v => v.view)), duration);
     }, duration);
 
