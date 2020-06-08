@@ -40,6 +40,9 @@
   /** The amount of time in seconds between views in kiosk mode. */
   const VIEW_DURATION = 2;
 
+  /** Default message to be shown only if the DB has no messages. */
+  const DEFAULT_MESSAGE = "Welcome to Citywide Dashboard!";
+
   /**
    * Example of accessing API:
    * fetch(`http://${API_URL}/glyphs`)
@@ -195,7 +198,7 @@
         updateCharacterText(view);
         return;
       } else if (!message && !view) {
-        message = "Welcome to Citywide Dashboard!"
+        message = DEFAULT_MESSAGE;
       }
 
       characterText.textContent = message;
