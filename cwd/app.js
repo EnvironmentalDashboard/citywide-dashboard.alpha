@@ -195,8 +195,7 @@
       let message = probMessages[Math.floor(Math.random() * probMessages.length)];
 
       if (!message && view) {
-        updateCharacterText(view);
-        return;
+        return updateCharacterText(view);
       } else if (!message && !view) {
         message = DEFAULT_MESSAGE;
       }
