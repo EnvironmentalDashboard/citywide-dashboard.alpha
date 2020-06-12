@@ -58,7 +58,6 @@
           const buttons = Array.prototype.slice.call(document.getElementsByClassName("glow-on-hover")).filter(obj => obj.id.includes("Button"));
           const index = buttons.indexOf(document.getElementById(this.id));
           buttons[index].style.display = "none";
-
           if (index != buttons.length - 1) {
             buttons[index+1].style.display = "block";
             renderView(views[index+1].view);
@@ -90,6 +89,8 @@
     showTooltip: function(glyph) {
       // references the tooltip contents which are from the database
       var tooltipContent = glyph.props.tooltip; // TODO: verify this exists and has valid contents
+      if (!tooltipContent || typeof tooltipContent.text != 'string')                      // return if it does not exist?
+        return;
 
       let listener = function(evt) {
         // Gets the div which exists in the svg-wrapper
@@ -339,7 +340,7 @@
         if (i !== views.findIndex(i => i.hash === window.location.hash)) {
           elt.style.display = "none";
         }
-        elt.setAttribute("x", "83%");
+          elt.setAttribute("x", "79%");
       }
 
       for (let j = 1; j < 5; j++) {
