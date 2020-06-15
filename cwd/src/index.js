@@ -1,6 +1,7 @@
 export { glyph } from './glyph';
 
 export { graphic } from './graphic';
+export { buttonTextDriver } from './graphic/buttonTextDriver';
 export { pathShape } from './graphic/pathShape';
 export { svgImageShape } from './graphic/svgImageShape';
 export { svgShape } from './graphic/svgShape';

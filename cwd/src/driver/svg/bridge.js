@@ -6,6 +6,7 @@ export const bridge = $svg => {
   let graphic = {};
 
   const elementDictionary = {
+    buttonText: buttonTextDriver,
     svgImage: svgImageShapeDriver,
     path: pathShapeDriver,
     svg: svgShapeDriver
@@ -44,6 +45,8 @@ export const bridge = $svg => {
       });
     }
 
+    // important! this is where we are adding to the svg-wrap
+    //
     return $svg.appendChild(state.$link);
   };
 
