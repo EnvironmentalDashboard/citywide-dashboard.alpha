@@ -1,4 +1,4 @@
-eexport const svgImageShapeDriver = () => {
+export const svgImageShapeDriver = () => {
   return {
     create: function(state) {
       let $image = document.createElementNS(
