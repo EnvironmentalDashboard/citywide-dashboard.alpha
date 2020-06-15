@@ -1,3 +1,4 @@
+import { buttonTextDriver } from './graphic/buttonTextDriver';
 import { svgImageShapeDriver } from './graphic/svgImageShapeDriver';
 import { pathShapeDriver } from './graphic/pathShapeDriver';
 import { svgShapeDriver } from './graphic/svgShapeDriver';

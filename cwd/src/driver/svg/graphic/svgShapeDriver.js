@@ -30,7 +30,7 @@ export const svgShapeDriver = () => {
 
       if (state.graphic.hasFlow) state.$link.classList.add('flowable');
 
-      if (state.graphic.hoverEffect){
+      if (state.graphic.hoverEffect) {
         switch(state.graphic.hoverEffect) {
           case 'glow':
             state.$link.classList.add('glow-on-hover');

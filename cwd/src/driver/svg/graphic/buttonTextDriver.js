@@ -1,4 +1,4 @@
-export const buttonDriver = () => {
+export const buttonTextDriver = () => {
   return {
     create: function(state) {
       var newDiv = document.createElement("div");
@@ -26,5 +26,5 @@ export const buttonDriver = () => {
       for (var key in state.style)
         state.$link.style = state.style[key];
     }
-  }
-}
+  };
+};
