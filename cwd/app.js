@@ -58,6 +58,8 @@
           window.location.hash = glyph.view.name;
         }
 
+        fetch(`http://${API_URL}/glyphs`)
+
         if(SHOW_ONE_TITLE) {
           const buttons = Array.prototype.slice.call(document.getElementsByClassName("glow-on-hover")).filter(obj => obj.id.includes("Button"));
           index = buttons.indexOf(document.getElementById(this.id));
@@ -210,7 +212,10 @@
    * @param {JSON} view The view object within a viewController object.
    */
   const updateGauges = view => {
-    if (!view.gauges) return;
+    if (!view.gauges) {
+      console.log("detected error 500");
+      return;
+    }
 
     const gauges = view.gauges;
 
@@ -346,7 +351,7 @@
         if (i !== views.findIndex(i => i.hash === window.location.hash)) {
           elt.style.display = "none";
         }
-        elt.setAttribute("x", "83%");
+        elt.setAttribute("x", "79%");
       }
 
       for (let j = 1; j < 5; j++) {
