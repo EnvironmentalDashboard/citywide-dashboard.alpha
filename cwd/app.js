@@ -290,6 +290,9 @@
               })
               .then(response => response.json())
               .then(j => console.log(j));
+            })
+            .catch(function(error) {
+              console.log(`500 ERROR: fetching ${error}`);
             });
           }
         });
