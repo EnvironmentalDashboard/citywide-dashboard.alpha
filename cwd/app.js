@@ -6,6 +6,7 @@
 
   gaugeIndex = 0;
   index = 0;
+  displayRotator = null;
 
   // This makes sure width isn't too big for the screen, and switches to calculate based off of full width
   var height =
@@ -39,6 +40,9 @@
   /** The amount of time in seconds between views in kiosk mode. */
   const VIEW_DURATION = 2;
 
+  /** Default message to be shown only if the DB has no messages. */
+  const DEFAULT_MESSAGE = "Welcome to Citywide Dashboard!";
+
   /**
    * Example of accessing API:
    * fetch(`http://${API_URL}/glyphs`)
@@ -56,21 +60,21 @@
 
         if(SHOW_ONE_TITLE) {
           const buttons = Array.prototype.slice.call(document.getElementsByClassName("glow-on-hover")).filter(obj => obj.id.includes("Button"));
-          const index = buttons.indexOf(document.getElementById(this.id));
+          index = buttons.indexOf(document.getElementById(this.id));
           buttons[index].style.display = "none";
+
+          if (displayRotator) clearInterval(displayRotator);
+
           if (index != buttons.length - 1) {
-            buttons[index+1].style.display = "block";
-            renderView(views[index+1].view);
-            if(window.location.hash)
-              window.location.hash = views[index+1].hash;
-
+            index++;
           } else if (buttons.length > 0) {
-            buttons[0].style.display = "block";
-            renderView(views[0].view);
-            if(window.location.hash)
-              window.location.hash = views[0].hash;
-
+            index = 0;
           }
+
+          buttons[index].style.display = "block";
+          renderView(views[index].view);
+          if(window.location.hash) window.location.hash = views[index].hash;
+
         } else {
           renderView(glyph.view);
         }
@@ -89,8 +93,6 @@
     showTooltip: function(glyph) {
       // references the tooltip contents which are from the database
       var tooltipContent = glyph.props.tooltip; // TODO: verify this exists and has valid contents
-      if (!tooltipContent || typeof tooltipContent.text != 'string')                      // return if it does not exist?
-        return;
 
       let listener = function(evt) {
         // Gets the div which exists in the svg-wrapper
@@ -139,7 +141,7 @@
    * attribute that corresponds to a messages array, and
    * assigns a relevant message to the character message box.
    */
-  const updateCharacterText = messageable => {
+  const updateCharacterText = (messageable, view) => {
     let characterText = document.getElementById('characterTextP');
 
     const messageLength = characterText.innerText.trim().length;
@@ -192,6 +194,12 @@
       // Gets a random message from the list of messages.
       let message = probMessages[Math.floor(Math.random() * probMessages.length)];
 
+      if (!message && view) {
+        return updateCharacterText(view);
+      } else if (!message && !view) {
+        message = DEFAULT_MESSAGE;
+      }
+
       characterText.textContent = message;
       characterText.fontSize = messageSize = 'px';
     }
@@ -211,8 +219,6 @@
       // gauge becomes the DOM element
       let gauge = document.getElementById(`gauge-${i + 1}`);
       gauge.setAttribute('href', gauges[i].url);
-
-      updateCharacterText(gauges[i]);
     }
     return;
   }
@@ -340,7 +346,7 @@
         if (i !== views.findIndex(i => i.hash === window.location.hash)) {
           elt.style.display = "none";
         }
-          elt.setAttribute("x", "79%");
+        elt.setAttribute("x", "83%");
       }
 
       for (let j = 1; j < 5; j++) {
@@ -359,7 +365,6 @@
 
   const rotateDisplay = views => {
     const currentView = views[index];
-
     if (Array.isArray(currentView.gauges)) {
       // Remove highlight from current gauge.
       const gauge = document.getElementById(`gauge-${gaugeIndex + 1}`);
@@ -375,6 +380,7 @@
       } else {
         const gauge = document.getElementById(`gauge-${gaugeIndex + 1}`);
         gauge.classList.add('currentGauge');
+        updateCharacterText(currentView.gauges[gaugeIndex], currentView);
 
         // Prevent us from running the bottom code of the function
         // that switches to the next view.
@@ -387,6 +393,7 @@
     if (!window.location.hash) {
       index++;
       if (index === views.length) index = 0;
+      clearInterval(displayRotator);
       renderView(views[index]);
     } else {
       gaugeIndex = 0;
@@ -400,6 +407,7 @@
    */
   const renderView = view => {
     console.log(`Rendering view: ${view.name}`);
+    const duration = VIEW_DURATION * 1000;
 
     // Removes highlight from previous gauge if any
     const previous = document.getElementById(`gauge-${gaugeIndex + 1}`);
@@ -408,7 +416,11 @@
     // The first gauge of the current view gets highlighted
     gaugeIndex = 0;
     const current = document.getElementById(`gauge-${gaugeIndex + 1}`);
-    current.classList.add('currentGauge');
+    setTimeout(function() {
+      current.classList.add('currentGauge');
+      updateCharacterText(view.gauges[gaugeIndex], view);
+      displayRotator = setInterval(() => rotateDisplay(views.map(v => v.view)), duration);
+    }, duration);
 
     // Remove highlight from previous view and highlight current one
     Array.from(document.getElementsByClassName('currentView'))
@@ -484,9 +496,6 @@
       startEngine(allGlyphs);
       renderView(views[index].view);
     });
-
-    setInterval(() => rotateDisplay(views.map(v => v.view)), duration * 1000);
-
   }
 
   if (KIOSK_MODE) {
