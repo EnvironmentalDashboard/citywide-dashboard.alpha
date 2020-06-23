@@ -2,7 +2,7 @@ export const svgShapeDriver = () => {
   return {
     create: function(graphic) {
       // Insert svg into state.$link
-      const $svg = new DOMParser().parseFromString(graphic.svgContent, "image/svg+xml").firstElementChild;
+      let $svg = new DOMParser().parseFromString(graphic.svgContent, "image/svg+xml").firstElementChild;
       return $svg;
     },
 

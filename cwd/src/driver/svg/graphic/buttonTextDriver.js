@@ -1,15 +1,15 @@
 export const buttonTextDriver = () => {
+  const defaultText  = "DEFAULT BUTTON TEXT";
   return {
     create: function(state) {
-      var newDiv = document.createElement("div");
-      var newContent = document.CreateTextNode("DEFAULT BUTTON TEXT");
+      let newDiv = document.createElement("div");
+      let newContent = document.CreateTextNode(defaulText);
       newDiv.appendChild(newContent);
 
       return newDiv;
     },
     update: function(state) {
     state.$link.setAttribute('href', state.graphic.url);
-
 
     //sets the height and width of the text box to the left of the buttons
     if (state.graphic.width || state.graphic.height) {

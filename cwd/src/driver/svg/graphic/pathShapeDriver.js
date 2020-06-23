@@ -9,9 +9,9 @@ export const pathShapeDriver = () => {
       return $image;
     },
 
-    // TODO: Shouldn't need to create a new path that clones one that already exists. 
+    // TODO: Shouldn't need to create a new path that clones one that already exists.
     // pathMover should be able to just reference state's own path. see `app.factory`
-    
+
     update: function(state) {
       if (state.graphic.pathId) {
         const $refPath = document.getElementById(state.graphic.pathId);
