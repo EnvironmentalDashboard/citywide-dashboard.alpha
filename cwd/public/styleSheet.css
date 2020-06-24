@@ -89,7 +89,7 @@ body,
   animation-iteration-count: infinite;
   animation-direction: reverse;
 
-  stroke-dasharray: 0 15 0 15 0 120;
+  stroke-dasharray: 0 120;
   stroke-linecap: round;
 
   display: none;
