@@ -412,6 +412,7 @@
    */
   const renderView = view => {
     console.log(`Rendering view: ${view.name}`);
+    document.getElementById('buttonTextP').innerText = view.buttonText;
     const duration = VIEW_DURATION * 1000;
 
     // Removes highlight from previous gauge if any
