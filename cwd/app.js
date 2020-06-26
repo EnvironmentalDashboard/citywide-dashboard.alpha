@@ -351,7 +351,7 @@
         if (i !== views.findIndex(i => i.hash === window.location.hash)) {
           elt.style.display = "none";
         }
-        elt.setAttribute("x", "79%");
+        elt.setAttribute("x", "80%");
       }
 
       for (let j = 1; j < 5; j++) {
@@ -412,7 +412,14 @@
    */
   const renderView = view => {
     console.log(`Rendering view: ${view.name}`);
-    document.getElementById('buttonTextP').innerText = view.buttonText;
+    const buttonTextDiv = document.getElementById('buttonText');
+    buttonTextDiv.style.left = view.buttonText.x;
+    buttonTextDiv.style.top = view.buttonText.y;
+    const buttonTextP = document.getElementById('buttonTextP');
+    buttonText.innerText = view.buttonText.text;
+
+//  document.getElementById('buttonTextP').innerText = view.buttonText;
+
     const duration = VIEW_DURATION * 1000;
 
     // Removes highlight from previous gauge if any
