@@ -234,6 +234,8 @@
     const flowables = Array.from(document.getElementsByClassName('flowable'));
     const electrons = Array.from(document.getElementsByClassName('electron'));
 
+    //Water droplets need to be set to the right value in the database
+
     if (view.animations.includes('pipes')) {
       flowables.forEach(elmt => elmt.classList.add('flow-active'));
     } else {
@@ -269,16 +271,18 @@
        * This makes it so that the factory cannot work to add data to gauges.
        * Instead, we need to add the data while handling the view object.
        */
+      let resStatus = 0;
       if (obj.view && obj.view.gauges) {
         obj.view.gauges.forEach((g, index) => {
-          if (g.data_url) {
+           if (g.data_url) {
             fetch(g.data_url)
-            .then(r => r.json())
+            .then(r => {
+              r.json();
+            })
             .then(j => {
               g.data = j;
-
               // Then make call to store the new data into the database.
-              fetch(`http://${API_URL}/glyphs/${obj._id}/gauges/${index + 1}/cache`, {
+              /*fetch(`http://${API_URL}/glyphs/${obj._id}/gauges/${index + 1}/cache`, {
                 method: 'post',
                 headers: {
                   'Content-Type': 'application/json'
@@ -289,10 +293,10 @@
                 })
               })
               .then(response => response.json())
-              .then(j => console.log(j));
+              .then(j => console.log(j));*/
             })
             .catch(function(error) {
-              console.log(`500 ERROR: fetching ${error}`);
+              console.log(error.status);
             });
           }
         });
