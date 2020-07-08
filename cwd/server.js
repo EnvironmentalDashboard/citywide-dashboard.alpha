@@ -18,7 +18,7 @@ app.set('view engine', 'pug');
 
 app.listen(PORT, HOST);
 app.use(PATH, router);
-console.log(`Running on http://${HOST}:${PORT}${PATH}`);
+console.log(`Running on ${HOST}:${PORT}${PATH}`);
 
 router.get('/', (req, res) => {
   res.redirect(process.env.PATH_PREFIX ? (PATH + '/index') : '/index');

@@ -45,7 +45,7 @@
 
   /**
    * Example of accessing API:
-   * fetch(`http://${API_URL}/glyphs`)
+   * fetch(`${API_URL}/glyphs`)
    * .then(response => response.json())
    * .then(j => console.log(j));
    */
@@ -278,7 +278,7 @@
               g.data = j;
 
               // Then make call to store the new data into the database.
-              fetch(`http://${API_URL}/glyphs/${obj._id}/gauges/${index + 1}/cache`, {
+              fetch(`${API_URL}/glyphs/${obj._id}/gauges/${index + 1}/cache`, {
                 method: 'post',
                 headers: {
                   'Content-Type': 'application/json'
