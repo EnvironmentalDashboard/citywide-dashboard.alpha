@@ -409,6 +409,12 @@
     console.log(`Rendering view: ${view.name}`);
     const duration = VIEW_DURATION * 1000;
 
+
+    //Switches to show Wally if on 'lake' view
+    const currentMascot = document.getElementById('flash');
+    if (view.name === "lake") currentMascot.setAttribute('href', './images/wally/HappyWally.gif');
+    else currentMascot.setAttribute('href', './images/flash/neutral-flash.gif');
+
     // Removes highlight from previous gauge if any
     const previous = document.getElementById(`gauge-${gaugeIndex + 1}`);
     if (previous) previous.classList.remove('currentGauge');
