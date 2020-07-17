@@ -412,7 +412,7 @@
 
     //Switches to show Wally if on 'lake' view
     const currentMascot = document.getElementById('flash');
-    if (view.name === "lake") currentMascot.setAttribute('href', './images/wally/HappyWally.gif');
+    if (view.name === "lake") currentMascot.setAttribute('href', './images/wally/HappyWallyMain.gif');
     else currentMascot.setAttribute('href', './images/flash/neutral-flash.gif');
 
     // Removes highlight from previous gauge if any
