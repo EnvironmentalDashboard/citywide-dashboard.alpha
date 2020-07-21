@@ -409,6 +409,10 @@
     console.log(`Rendering view: ${view.name}`);
     const duration = VIEW_DURATION * 1000;
 
+    // Set our CSS on the pipes from num_droplets in database. If num_droplets doesn't exist the default will be 1 droplet.
+    if (view.num_droplets)
+      $('.flowable path:last-of-type, .flowable line:last-of-type').css('stroke-dasharray', `${'0 15 '.repeat(view.num_droplets-1)}0 120`);
+
     // Removes highlight from previous gauge if any
     const previous = document.getElementById(`gauge-${gaugeIndex + 1}`);
     if (previous) previous.classList.remove('currentGauge');

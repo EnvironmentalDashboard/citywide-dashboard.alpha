@@ -89,7 +89,7 @@ body,
   animation-iteration-count: infinite;
   animation-direction: reverse;
 
-  stroke-dasharray: 0 15 0 15 0 120;
+  stroke-dasharray: 0 120;
   stroke-linecap: round;
 
   display: none;
@@ -100,7 +100,7 @@ body,
 }
 
 @keyframes water {
-  to { stroke-dashoffset: 150 }
+  to { stroke-dashoffset: 240 }
 }
 
 .electron {
