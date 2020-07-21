@@ -221,6 +221,7 @@
       $.ajax({
         url: gauges[i].url,
         success: function(returnData){
+
           gauge.setAttribute('href', gauges[i].url);
         },
         error: function(xhr, status, error){
@@ -290,7 +291,7 @@
             .then(j => {
               g.data = j;
               // Then make call to store the new data into the database.
-              /*fetch(`http://${API_URL}/glyphs/${obj._id}/gauges/${index + 1}/cache`, {
+              fetch(`http://${API_URL}/glyphs/${obj._id}/gauges/${index + 1}/cache`, {
                 method: 'post',
                 headers: {
                   'Content-Type': 'application/json'
