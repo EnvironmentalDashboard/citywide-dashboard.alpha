@@ -218,7 +218,15 @@
       // gauges[i] is the view gauges object,
       // gauge becomes the DOM element
       let gauge = document.getElementById(`gauge-${i + 1}`);
-      gauge.setAttribute('href', gauges[i].url);
+      $.ajax({
+        url: gauges[i].url,
+        success: function(returnData){
+          gauge.setAttribute('href', gauges[i].url);
+        },
+        error: function(xhr, status, error){
+          gauge.setAttribute('href', "./images/errorgauge.jpg");
+        }
+      });
     }
     return;
   }
