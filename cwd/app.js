@@ -193,6 +193,7 @@
 
       // Gets a random message from the list of messages.
       let message = probMessages[Math.floor(Math.random() * probMessages.length)];
+      console.log(probMessages);
 
       if (!message && view) {
         return updateCharacterText(view);
