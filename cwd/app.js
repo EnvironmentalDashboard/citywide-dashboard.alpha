@@ -38,14 +38,14 @@
   const SHOW_ONE_TITLE = 1;
 
   /** The amount of time in seconds between views in kiosk mode. */
-  const VIEW_DURATION = 2;
+  const VIEW_DURATION = 10;
 
   /** Default message to be shown only if the DB has no messages. */
   const DEFAULT_MESSAGE = "Welcome to Citywide Dashboard!";
 
   /**
    * Example of accessing API:
-   * fetch(`http://${API_URL}/glyphs`)
+   * fetch(`${API_URL}/glyphs`)
    * .then(response => response.json())
    * .then(j => console.log(j));
    */
@@ -278,7 +278,7 @@
               g.data = j;
 
               // Then make call to store the new data into the database.
-              fetch(`http://${API_URL}/glyphs/${obj._id}/gauges/${index + 1}/cache`, {
+              fetch(`${API_URL}/glyphs/${obj._id}/gauges/${index + 1}/cache`, {
                 method: 'post',
                 headers: {
                   'Content-Type': 'application/json'
