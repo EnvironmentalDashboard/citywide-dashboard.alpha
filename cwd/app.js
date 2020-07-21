@@ -409,6 +409,9 @@
     console.log(`Rendering view: ${view.name}`);
     const duration = VIEW_DURATION * 1000;
 
+    // Set our CSS on the pipes to be 3 dots.
+    $('.flowable path:last-of-type, .flowable line:last-of-type').css('stroke-dasharray', '0 15 0 15 0 120');
+
     // Removes highlight from previous gauge if any
     const previous = document.getElementById(`gauge-${gaugeIndex + 1}`);
     if (previous) previous.classList.remove('currentGauge');
