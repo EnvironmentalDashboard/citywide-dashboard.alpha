@@ -218,17 +218,17 @@
       // gauges[i] is the view gauges object,
       // gauge becomes the DOM element
       let gauge = document.getElementById(`gauge-${i + 1}`);
-      $.ajax({
-        url: gauges[i].url,
-        success: function(returnData){
-
-          gauge.setAttribute('href', gauges[i].url);
-        },
-        error: function(xhr, status, error){
+      fetch(gauges[i].url)
+        .then(function(response) {
+            if(response.ok)
+              gauge.setAttribute('href', gauges[i].url);
+            else throw new Error("Unsuccessful response");
+        })
+        .catch(function(error) {
+          console.log(`Failed to load ${gauges[i].name} gauge`);
           gauge.setAttribute('href', "./images/errorgauge.jpg");
-        }
-      });
-    }
+        });
+      }
     return;
   }
 
@@ -242,8 +242,6 @@
 
     const flowables = Array.from(document.getElementsByClassName('flowable'));
     const electrons = Array.from(document.getElementsByClassName('electron'));
-
-    //Water droplets need to be set to the right value in the database
 
     if (view.animations.includes('pipes')) {
       flowables.forEach(elmt => elmt.classList.add('flow-active'));
@@ -285,9 +283,7 @@
         obj.view.gauges.forEach((g, index) => {
            if (g.data_url) {
             fetch(g.data_url)
-            .then(r => {
-              r.json();
-            })
+            .then(r => r.json())
             .then(j => {
               g.data = j;
               // Then make call to store the new data into the database.
@@ -304,9 +300,6 @@
               .then(response => response.json())
               .then(j => console.log(j));
             })
-            .catch(function(error) {
-              console.log(error.status);
-            });
           }
         });
       }

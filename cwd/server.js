@@ -35,9 +35,5 @@ router.use(express.static(__dirname));
 
 router.get('/editor', (req, res) => {
   console.log('Received GET request at /editor');
-  res.send("okay");
-});
-
-router.get('/errorgauge', (req, res) => {
-  res.sendFile(__dirname + '/images/errorgauge.html');
+  res.send(200);
 });
