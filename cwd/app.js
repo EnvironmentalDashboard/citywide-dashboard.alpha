@@ -218,8 +218,17 @@
       // gauges[i] is the view gauges object,
       // gauge becomes the DOM element
       let gauge = document.getElementById(`gauge-${i + 1}`);
-      gauge.setAttribute('href', gauges[i].url);
-    }
+      fetch(gauges[i].url)
+        .then(function(response) {
+            if(response.ok)
+              gauge.setAttribute('href', gauges[i].url);
+            else throw new Error("Unsuccessful response");
+        })
+        .catch(function(error) {
+          console.log(`Failed to load ${gauges[i].name} gauge`);
+          gauge.setAttribute('href', "./images/errorgauge.jpg");
+        });
+      }
     return;
   }
 
@@ -269,14 +278,14 @@
        * This makes it so that the factory cannot work to add data to gauges.
        * Instead, we need to add the data while handling the view object.
        */
+      let resStatus = 0;
       if (obj.view && obj.view.gauges) {
         obj.view.gauges.forEach((g, index) => {
-          if (g.data_url) {
+           if (g.data_url) {
             fetch(g.data_url)
             .then(r => r.json())
             .then(j => {
               g.data = j;
-
               // Then make call to store the new data into the database.
               fetch(`${API_URL}/glyphs/${obj._id}/gauges/${index + 1}/cache`, {
                 method: 'post',
@@ -290,7 +299,7 @@
               })
               .then(response => response.json())
               .then(j => console.log(j));
-            });
+            })
           }
         });
       }
