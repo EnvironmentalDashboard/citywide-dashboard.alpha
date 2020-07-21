@@ -302,7 +302,7 @@
                 })
               })
               .then(response => response.json())
-              .then(j => console.log(j));*/
+              .then(j => console.log(j));
             })
             .catch(function(error) {
               console.log(error.status);
