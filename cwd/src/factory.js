@@ -132,8 +132,12 @@
             break;
           case 'pathMover':
             let animationDur = animator.duration;
+
+            const MAX_DURATION = 5000;
+
             if (glyph.name === 'powerline')
-              animationDur = (glyph.data / 100) * 5000;
+              animationDur = (glyph.data / 100) * MAX_DURATION;
+
             const path = producePath(animator.path);
             fxArray.push(
               cwd
