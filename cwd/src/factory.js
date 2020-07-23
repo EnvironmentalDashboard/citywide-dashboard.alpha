@@ -131,11 +131,14 @@
             );
             break;
           case 'pathMover':
+            let animationDur = animator.duration;
+            if (glyph.name === 'powerline')
+              animationDur = (glyph.data / 100) * 5000;
             const path = producePath(animator.path);
             fxArray.push(
               cwd
                 .pathMover(state)
-                .duration(animator.duration)
+                .duration(animationDur)
                 .path(path)
                 .toSVGGroup(animator.group ? animator.group : null)
             );
