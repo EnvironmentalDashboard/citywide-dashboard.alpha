@@ -132,8 +132,12 @@
             break;
           case 'pathMover':
             let animationDur = animator.duration;
-            if (glyph.name === 'powerline') {
+            if (animator.ratio && glyph.data) {
              let target = glyph.data;
+             if (animator.min_duration && animator.min_duration < animator.duration) {
+               //Scale linearly between the two
+               animatorDur = ((100 - target) / 100) * animation.duration + animator.min_duration;
+             } else
              animationDur = ((100 - target) / 100) * animator.duration;
             }
             const path = producePath(animator.path);
