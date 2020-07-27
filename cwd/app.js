@@ -412,9 +412,8 @@
 
 
     //Switches to show Wally if on 'lake' view
-    const currentMascot = document.getElementById('flash');
-    if (view.name === "lake") currentMascot.setAttribute('href', './images/wally/HappyWallyMain.gif');
-    else currentMascot.setAttribute('href', './images/flash/neutral-flash.gif');
+    const currentMascot = document.getElementById('mascot'); // Will require DB glyph ID to change to Mascot
+    currentMascot.setAttribute('href', view.mascot.url);    // Will also require for the DB to add a mascot field with url for each view
 
     // Removes highlight from previous gauge if any
     const previous = document.getElementById(`gauge-${gaugeIndex + 1}`);
