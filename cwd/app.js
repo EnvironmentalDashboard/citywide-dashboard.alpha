@@ -219,8 +219,17 @@
       // gauges[i] is the view gauges object,
       // gauge becomes the DOM element
       let gauge = document.getElementById(`gauge-${i + 1}`);
-      gauge.setAttribute('href', gauges[i].url);
-    }
+      fetch(gauges[i].url)
+        .then(function(response) {
+            if(response.ok)
+              gauge.setAttribute('href', gauges[i].url);
+            else throw new Error("Unsuccessful response");
+        })
+        .catch(function(error) {
+          console.log(`Failed to load ${gauges[i].name} gauge`);
+          gauge.setAttribute('href', "./images/errorgauge.jpg");
+        });
+      }
     return;
   }
 
@@ -270,14 +279,14 @@
        * This makes it so that the factory cannot work to add data to gauges.
        * Instead, we need to add the data while handling the view object.
        */
+      let resStatus = 0;
       if (obj.view && obj.view.gauges) {
         obj.view.gauges.forEach((g, index) => {
-          if (g.data_url) {
+           if (g.data_url) {
             fetch(g.data_url)
             .then(r => r.json())
             .then(j => {
               g.data = j;
-
               // Then make call to store the new data into the database.
               fetch(`${API_URL}/glyphs/${obj._id}/gauges/${index + 1}/cache`, {
                 method: 'post',
@@ -291,7 +300,7 @@
               })
               .then(response => response.json())
               .then(j => console.log(j));
-            });
+            })
           }
         });
       }
@@ -410,10 +419,14 @@
     console.log(`Rendering view: ${view.name}`);
     const duration = VIEW_DURATION * 1000;
 
-
     //Switches to show Wally if on 'lake' view
     const currentMascot = document.getElementById('mascot'); // Will require DB glyph ID to change to Mascot
     currentMascot.setAttribute('href', view.mascot.url);    // Will also require for the DB to add a mascot field with url for each view
+
+
+    // Set our CSS on the pipes from num_droplets in database. If num_droplets doesn't exist the default will be 1 droplet.
+    if (view.num_droplets)
+      $('.flowable path:last-of-type, .flowable line:last-of-type').css('stroke-dasharray', `${'0 15 '.repeat(view.num_droplets-1)}0 120`);
 
     // Removes highlight from previous gauge if any
     const previous = document.getElementById(`gauge-${gaugeIndex + 1}`);
