@@ -193,7 +193,6 @@
 
       // Gets a random message from the list of messages.
       let message = probMessages[Math.floor(Math.random() * probMessages.length)];
-      console.log(probMessages);
 
       if (!message && view) {
         return updateCharacterText(view);
@@ -419,10 +418,12 @@
     console.log(`Rendering view: ${view.name}`);
     const duration = VIEW_DURATION * 1000;
 
-    //Switches to show Wally if on 'lake' view
-    const currentMascot = document.getElementById('mascot'); // Will require DB glyph ID to change to Mascot
-    currentMascot.setAttribute('href', view.mascot.url);    // Will also require for the DB to add a mascot field with url for each view
-
+    // Switches to show Wally if on 'lake' view
+    // currently hard-coded, but hope to make more generalized in the future
+    const currentMascot = document.getElementById('flash'); // long-term should be 'mascot'
+    currentMascot.setAttribute('href', view.name === "lake" ? './images/wally/neutral.gif' : './images/flash/neutral.gif');
+    // long-term should not hard-code the view name, but rather have the view specify which mascot
+    // folder to look in (`./images/${mascot}/neutral.gif`)
 
     // Set our CSS on the pipes from num_droplets in database. If num_droplets doesn't exist the default will be 1 droplet.
     if (view.num_droplets)
