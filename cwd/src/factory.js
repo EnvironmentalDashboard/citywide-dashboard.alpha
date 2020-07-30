@@ -131,16 +131,14 @@
             );
             break;
           case 'pathMover':
-            let animationDur = animator.duration;
-            if (animator.ratio && glyph.data) {
-             let target = glyph.data;
-             if (animator.min_duration && animator.min_duration < animator.duration) {
-               //Scale linearly between the two
-               animatorDur = ((100 - target) / 100) * animation.duration + animator.min_duration;
-             } else
-             animationDur = ((100 - target) / 100) * animator.duration;
-            }
+            // We will force users to have a minimum duration of half of a second, as
+            // slower than that starts getting a bit weird.
+            const MIN_DURATION = 500;
+            const animationDur = animator.maxDuration ? (
+              glyph.data ? ((100 - glyph.data) / 100) * animator.maxDuration + MIN_DURATION : animator.maxDuration
+            ) : animator.duration;
             const path = producePath(animator.path);
+
             fxArray.push(
               cwd
                 .pathMover(state)
