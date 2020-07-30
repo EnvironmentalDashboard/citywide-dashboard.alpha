@@ -418,6 +418,13 @@
     console.log(`Rendering view: ${view.name}`);
     const duration = VIEW_DURATION * 1000;
 
+    // Switches to show Wally if on 'lake' view
+    // currently hard-coded, but hope to make more generalized in the future
+    const currentMascot = document.getElementById('flash'); // long-term should be 'mascot'
+    currentMascot.setAttribute('href', view.name === "lake" ? './images/wally/neutral.gif' : './images/flash/neutral.gif');
+    // long-term should not hard-code the view name, but rather have the view specify which mascot
+    // folder to look in (`./images/${mascot}/neutral.gif`)
+
     // Set our CSS on the pipes from num_droplets in database. If num_droplets doesn't exist the default will be 1 droplet.
     if (view.num_droplets)
       $('.flowable path:last-of-type, .flowable line:last-of-type').css('stroke-dasharray', `${'0 15 '.repeat(view.num_droplets-1)}0 120`);
