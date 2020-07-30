@@ -131,11 +131,18 @@
             );
             break;
           case 'pathMover':
+            // We will force users to have a minimum duration of half of a second, as
+            // slower than that starts getting a bit weird.
+            const MIN_DURATION = 500;
+            const animationDur = animator.maxDuration ? (
+              glyph.data ? ((100 - glyph.data) / 100) * animator.maxDuration + MIN_DURATION : animator.maxDuration
+            ) : animator.duration;
             const path = producePath(animator.path);
+
             fxArray.push(
               cwd
                 .pathMover(state)
-                .duration(animator.duration)
+                .duration(animationDur)
                 .path(path)
                 .toSVGGroup(animator.group ? animator.group : null)
             );
