@@ -313,7 +313,7 @@
        * the database, rather than a hardcoded name (this hardcoding is done
        * due to the October 7 deadline currently).
        */
-      if (obj.name === 'flash') {
+      if (obj.name === 'mascot') {
         let characterText = document.getElementById('characterText');
         let characterTriangle = document.getElementById('characterTriangle');
 
@@ -420,8 +420,9 @@
 
     // Switches to show Wally if on 'lake' view
     // currently hard-coded, but hope to make more generalized in the future
-    const currentMascot = document.getElementById('flash'); // long-term should be 'mascot'
-    currentMascot.setAttribute('href', view.name === "lake" ? './images/wally/neutral.gif' : './images/flash/neutral.gif');
+    const currentMascot = document.getElementById('mascot'); // long-term should be 'mascot'
+    currentMascot.setAttribute('href', `./images/${view.mascot}/neutral.gif`)  //Sets mascot based on view.
+    
     // long-term should not hard-code the view name, but rather have the view specify which mascot
     // folder to look in (`./images/${mascot}/neutral.gif`)
 
