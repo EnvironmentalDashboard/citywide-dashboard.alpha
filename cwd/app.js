@@ -1,9 +1,13 @@
 (function(cwd, activeGlyphs) {
   let svg = document.getElementById('svg-wrap');
 
-  const allGlyphs = activeGlyphs.arr;
-  views = allGlyphs.filter(obj => obj.view).map(obj => ({ view: obj.view, hash: obj.view.name}));
+  const regex = new RegExp('^60');
+  const allGlyphs = activeGlyphs.arr.filter(({_id}) => regex.test(_id));
+  //const allGlyphs = activeGlyphs.arr;
 
+  console.log(allGlyphs);
+
+  views = allGlyphs.filter(obj => obj.view).map(obj => ({ view: obj.view, hash: obj.view.name}));
   gaugeIndex = 0;
   index = 0;
   displayRotator = null;
